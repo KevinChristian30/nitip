@@ -1,0 +1,6 @@
+Green: #0daa6f
+Light Green: #deebe7
+Black: #141414
+Grey: #656967
+Light Grey: #8c8c8c
+White: #fefefe
