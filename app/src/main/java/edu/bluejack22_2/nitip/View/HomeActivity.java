@@ -1,8 +1,10 @@
-package edu.bluejack22_2.nitip;
+package edu.bluejack22_2.nitip.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import edu.bluejack22_2.nitip.R;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -11,4 +13,5 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
     }
+
 }

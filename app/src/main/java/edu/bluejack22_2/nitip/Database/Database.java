@@ -19,7 +19,5 @@ public class Database {
         return db;
     }
 
-    private Database() {
-
-    }
+    private Database() {}
 }
