@@ -8,8 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -42,31 +44,31 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        initialize();
-        setListener();
+//        initialize();
+//        setListener();
     }
 
-    private void initialize() {
-        // initialize android component
-        emailET = findViewById(R.id.email_text);
-        passwordET = findViewById(R.id.password_text);
-        loginButton = findViewById(R.id.login_button);
-        loginWithGoogleButton = findViewById(R.id.login_google_button);
-
-        // initialize login google component
-        launcher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    // Handle the successful sign-in here
-                } else {
-                    // Handle the failed sign-in here
-                }
-        });
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
-                requestEmail().build();
-        gsc = GoogleSignIn.getClient(this, gso);
-    }
+//    private void initialize() {
+//        // initialize android component
+//        emailET = findViewById(R.id.email_text);
+//        passwordET = findViewById(R.id.password_text);
+//        loginButton = findViewById(R.id.login_button);
+//        loginWithGoogleButton = findViewById(R.id.login_google_button);
+//
+//        // initialize login google component
+//        launcher = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(),
+//            result -> {
+//                if (result.getResultCode() == Activity.RESULT_OK) {
+//                    // Handle the successful sign-in here
+//                } else {
+//                    // Handle the failed sign-in here
+//                }
+//        });
+//        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+//                requestEmail().build();
+//        gsc = GoogleSignIn.getClient(this, gso);
+//    }
 
     private void setListener() {
         loginButton.setOnClickListener(e -> {
@@ -100,4 +102,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
 }
