@@ -39,7 +39,7 @@ public class UserRepository {
         Map<String, Object> data = new HashMap<>();
         data.put("email", user.getEmail());
         data.put("password", user.getUsername());
-        dbFs.collection("users").add(user);
+        dbFs.collection("users").add(data);
 
         fAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).
                 addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {

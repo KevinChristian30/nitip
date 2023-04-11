@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import edu.bluejack22_2.nitip.Facade.ActivityChanger;
+import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.ViewModel.ForgotPasswordViewModel;
 
@@ -34,6 +37,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private void setListener() {
         btnSendOtp.setOnClickListener(e -> {
             String emailText = etEmail.getText().toString();
+
+            Response response = forgotPasswordViewModel.SendOTP(emailText);
+            if (response.getError() != null) {
+                Toast.makeText(this, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+            else {
+//                ActivityChanger.changeActivity(this, );
+            }
         });
     }
 }
