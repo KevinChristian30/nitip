@@ -19,6 +19,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     AuthRepository authRepository;
     ForgotPasswordViewModel forgotPasswordViewModel;
     private Button btnSendOtp;
+    private Button btnBack;
     private EditText etEmail;
 
     @Override
@@ -32,6 +33,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private void initialize() {
         btnSendOtp = findViewById(R.id.btnSendOtp);
+        btnBack = findViewById(R.id.btnBack);
         etEmail = findViewById(R.id.etEmail);
 
         authRepository = new AuthRepository();
@@ -53,6 +55,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     }
                 }
             });
+        });
+
+        btnBack.setOnClickListener(e -> {
+
+            finish();
+
         });
     }
 }

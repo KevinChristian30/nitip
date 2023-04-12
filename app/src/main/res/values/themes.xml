@@ -1,24 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Theme.Nitip" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">#fefefe</item>
-        <item name="colorPrimaryVariant">#deebe7</item>
-        <item name="colorOnPrimary">#fefefe</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#656967</item>
-        <item name="colorSecondaryVariant">#8c8c8c</item>
-        <item name="colorOnSecondary">#141414</item>
-        <!-- Status bar color. -->
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+
         <item name="android:statusBarColor">#fefefe</item>
         <item name="android:windowLightStatusBar">true</item>
-        <!-- Customize your theme here. -->
+
     </style>
 
-    <color name="colorPrimary">#0daa6f</color>
-    <color name="colorPrimaryVariant">#deebe7</color>
-    <color name="colorOnPrimary">#fefefe</color>
-    <color name="colorSecondary">#656967</color>
-    <color name="colorSecondaryVariant">#8c8c8c</color>
-    <color name="colorOnSecondary">#141414</color>
+
 </resources>

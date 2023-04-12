@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/ivIllustration"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="300dp"
         android:src="@drawable/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,16 +20,18 @@
         android:id="@+id/tvLogIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/ivIllustration"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="sans-serif"
         android:paddingHorizontal="35sp"
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:text="Login"
+        android:textColor="@color/colorOnSecondary"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:textColor="@color/colorOnSecondary" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivIllustration"
+        android:layout_marginTop="-25dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
@@ -45,13 +47,16 @@
         app:boxStrokeColor="@color/colorPrimary"
         app:startIconDrawable="@drawable/baseline_alternate_email_24"
         android:hint="Email"
-        app:hintTextColor="@color/colorSecondaryVariant">
+        android:textColorHint="@color/colorSecondaryVariant"
+        app:startIconTint="@color/colorPrimary"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorOnSecondary"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilEmail"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="35dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxBackgroundColor="@color/colorOnPrimary"
@@ -71,31 +76,44 @@
         android:hint="Password"
         app:hintTextColor="@color/colorSecondaryVariant"
         app:endIconMode="password_toggle"
+        android:textColorHint="@color/colorSecondaryVariant"
+        app:startIconTint="@color/colorPrimary"
+        app:endIconTint="@color/colorPrimary"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/colorOnSecondary"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btnForgotPassword"
+    <LinearLayout
+        android:id="@+id/llForgotPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         app:layout_constraintTop_toBottomOf="@+id/tilPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingHorizontal="35sp"
-        android:text="Forgot Password?"
-        android:textSize="15sp"
-        android:textAlignment="textEnd"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:textAllCaps="false"/>
+        android:gravity="right"
+        >
+
+        <Button
+            android:id="@+id/btnForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:text="Forgot Password?"
+            android:textSize="15sp"
+            android:textAlignment="textEnd"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
@@ -103,7 +121,7 @@
         android:layout_height="55dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnForgotPassword"
+        app:layout_constraintTop_toBottomOf="@id/llForgotPassword"
         android:text="Login"
         android:backgroundTint="@color/colorPrimary"
         android:layout_marginHorizontal="35dp"
@@ -155,7 +173,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New to Nitip?"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:textColor="@color/colorSecondaryVariant"
+            />
 
         <Button
             android:id="@+id/btnRegister"
