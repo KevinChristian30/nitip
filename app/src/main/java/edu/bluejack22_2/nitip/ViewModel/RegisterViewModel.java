@@ -47,9 +47,9 @@ public class RegisterViewModel extends ViewModel {
 
         if (response.getError() != null) return response;
 
+        userRepository.registerUser(activity, user);
         try {
 
-            userRepository.registerUser(activity, user);
 
         } catch (Exception e) {
 

@@ -4,3 +4,5 @@ Black: #141414
 Grey: #656967
 Light Grey: #8c8c8c
 White: #fefefe
+
+Logo Link: https://www.flaticon.com/free-icon/deal_9091861
