@@ -20,16 +20,17 @@
         android:id="@+id/tvLogIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/ivIllustration"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="sans-serif"
         android:paddingHorizontal="35sp"
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:text="Login"
+        android:textColor="@color/colorOnSecondary"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:textColor="@color/colorOnSecondary" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivIllustration" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
@@ -45,7 +46,9 @@
         app:boxStrokeColor="@color/colorPrimary"
         app:startIconDrawable="@drawable/baseline_alternate_email_24"
         android:hint="Email"
-        app:hintTextColor="@color/colorSecondaryVariant">
+        android:textColorHint="@color/colorSecondaryVariant"
+        app:startIconTint="@color/colorPrimary"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEmail"
@@ -71,6 +74,9 @@
         android:hint="Password"
         app:hintTextColor="@color/colorSecondaryVariant"
         app:endIconMode="password_toggle"
+        android:textColorHint="@color/colorSecondaryVariant"
+        app:startIconTint="@color/colorPrimary"
+        app:endIconTint="@color/colorPrimary"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -155,7 +161,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New to Nitip?"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:textColor="@color/colorSecondaryVariant"
+            />
 
         <Button
             android:id="@+id/btnRegister"
