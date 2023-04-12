@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "757286652576",
+    "firebase_url": "https://nitip-6f389-default-rtdb.firebaseio.com",
+    "project_id": "nitip-6f389",
+    "storage_bucket": "nitip-6f389.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757286652576:android:61a0d20ee7294d0bf897c5",
+        "android_client_info": {
+          "package_name": "edu.bluejack22_2.nitip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757286652576-cdc6uol3p4d1p9kbhc99ch5eb4ln6k6k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.bluejack22_2.nitip",
+            "certificate_hash": "359e9d6511966022ce38ce4af429cf8714c337cb"
+          }
+        },
+        {
+          "client_id": "757286652576-bp16unqvoj1ob7pp936cbslf4sftve2s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwntk8jX5XXSyJ8mZ4ATpyn77SK994s8Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757286652576-bp16unqvoj1ob7pp936cbslf4sftve2s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
