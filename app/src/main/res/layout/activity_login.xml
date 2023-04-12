@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/ivIllustration"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="300dp"
         android:src="@drawable/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivIllustration" />
+        app:layout_constraintTop_toBottomOf="@+id/ivIllustration"
+        android:layout_marginTop="-25dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
@@ -54,7 +55,8 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorOnSecondary"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilEmail"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="35dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxBackgroundColor="@color/colorOnPrimary"
@@ -83,25 +85,35 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/colorOnSecondary"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btnForgotPassword"
+    <LinearLayout
+        android:id="@+id/llForgotPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         app:layout_constraintTop_toBottomOf="@+id/tilPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingHorizontal="35sp"
-        android:text="Forgot Password?"
-        android:textSize="15sp"
-        android:textAlignment="textEnd"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:textAllCaps="false"/>
+        android:gravity="right"
+        >
+
+        <Button
+            android:id="@+id/btnForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:text="Forgot Password?"
+            android:textSize="15sp"
+            android:textAlignment="textEnd"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
@@ -109,7 +121,7 @@
         android:layout_height="55dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnForgotPassword"
+        app:layout_constraintTop_toBottomOf="@id/llForgotPassword"
         android:text="Login"
         android:backgroundTint="@color/colorPrimary"
         android:layout_marginHorizontal="35dp"
