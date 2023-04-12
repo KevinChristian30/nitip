@@ -2,6 +2,10 @@ package edu.bluejack22_2.nitip.ViewModel;
 
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,42 +27,35 @@ public class ForgotPasswordViewModel {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    public Response SendOTP(String email) {
+    public interface SendResetPasswordRequestCallBack {
+        void onSendOtpResponse(Response response);
+    }
+
+    public void SendResetPasswordRequest(String email, SendResetPasswordRequestCallBack callBack) {
         Response response = new Response(null);
 
         if (!RegisterService.isValidEmail(email)) {
             response.setError(new Error("Invalid email"));
+            callBack.onSendOtpResponse(response);
         }
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference usersRef = db.collection("users");
-
-        String emailToCheck = "example@example.com";
-
-        Query query = usersRef.whereEqualTo("email", emailToCheck);
-
-        query.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                QuerySnapshot querySnapshot = task.getResult();
-                if (!querySnapshot.isEmpty()) {
-
+        EmailService.isEmailExists(email, new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                        authRepository.SendResetPasswordRequest(email);
+                    } else {
+                        response.setError(new Error("Email does not exist"));
+                    }
                 } else {
-                    response.setError(new Error("This email is doesn't exists"));
+                    response.setError(new Error("Something went wrong"));
                 }
-            } else {
-                response.setError(new Error("Something went wrong"));
+                callBack.onSendOtpResponse(response);
             }
         });
 
-        if (response.getError() != null) return response;
-
-        String randomOTP = RandomService.RandomizeOTP();
-
-        new EmailService("nitipkcrg@gmail.com", "jfoxyzupqastmoyk",
-                email, "Forgot Password OTP", "Your OTP code is " + randomOTP).execute();
-        authRepository.SaveOTP(email, randomOTP);
-
-        return response;
     }
 
 

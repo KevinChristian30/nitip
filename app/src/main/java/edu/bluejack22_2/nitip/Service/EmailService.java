@@ -2,6 +2,13 @@ package edu.bluejack22_2.nitip.Service;
 
 
 import android.os.AsyncTask;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -12,6 +19,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class EmailService extends AsyncTask<Void, Void, Void> {
+    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String mFromEmail;
     private String mPassword;
     private String mToEmail;
@@ -56,6 +64,12 @@ public class EmailService extends AsyncTask<Void, Void, Void> {
         }
 
         return null;
+    }
+
+    public static void isEmailExists(String email, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        CollectionReference usersCollection = db.collection("users"); // Replace "users" with the name of your collection
+        Query query = usersCollection.whereEqualTo("email", email); // Replace "email" with the field name you use for storing emails
+        query.get().addOnCompleteListener(onCompleteListener);
     }
 
 }
