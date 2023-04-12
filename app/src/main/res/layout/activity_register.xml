@@ -188,7 +188,8 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            android:minWidth="10dp"/>
 
     </LinearLayout>>
 
