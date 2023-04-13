@@ -109,25 +109,6 @@ public class UserRepository {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser users = fAuth.getCurrentUser();
-
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(user.getUsername())
-                                    .build();
-                            if (users != null) {
-                                users.updateProfile(profileUpdates)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    // Display name is updated successfully.
-                                                } else {
-                                                    // An error occurred while updating the display name.
-                                                }
-                                            }
-                                        });
-
-                            }
 
                         } else {
                             Exception exception = task.getException();

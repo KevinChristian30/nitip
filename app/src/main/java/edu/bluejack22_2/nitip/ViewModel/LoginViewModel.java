@@ -1,5 +1,7 @@
 package edu.bluejack22_2.nitip.ViewModel;
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
@@ -12,14 +14,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Repository.UserRepository;
+import edu.bluejack22_2.nitip.View.HomeActivity;
+import edu.bluejack22_2.nitip.View.LoginActivity;
 
 public class LoginViewModel {
-    MutableLiveData<FirebaseUser> userLiveData;
 
-    private MutableLiveData<FirebaseUser> currentUserLiveData;
+    private MutableLiveData<FirebaseUser> currentUserLiveData = new MutableLiveData<>();
     private FirebaseUser currentUserData;
     private FirebaseAuth firebaseAuth;
 
@@ -50,13 +54,33 @@ public class LoginViewModel {
         firebaseAuth.signOut();
     }
 
-    public Response loginWithEmailandPassword(String email, String password) {
+    public interface LoginWithEmailAndPasswordCallback {
+        void onLoginResponse(Response response);
+    }
+
+    public void loginWithEmailandPassword(String email, String password, LoginWithEmailAndPasswordCallback callback) {
         Response response = new Response(null);
 
         if (email.trim().isEmpty() || password.trim().isEmpty()) {
             response.setError(new Error("All field must be filled"));
+            callback.onLoginResponse(response);
+            return;
         }
 
-        return response;
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        currentUserData = firebaseAuth.getCurrentUser();
+                        currentUserLiveData.setValue(currentUserData);
+                        // Do something with the user object, such as redirect to a new activity
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        response.setError(new Error("Invalid Credential"));
+                    }
+                    callback.onLoginResponse(response);
+                });
+
+
     }
 }

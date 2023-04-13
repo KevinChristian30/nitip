@@ -49,14 +49,19 @@ public class RegisterActivity extends AppCompatActivity {
             String emailText = emailET.getText().toString();
             String passwordText = passwordET.getText().toString();
             String confPasswordText = confPasswordET.getText().toString();
-            Response response = viewModel.RegisterUser(this, new User(usernameText, emailText, passwordText), confPasswordText);
-            if (response.getError() != null) {
-                Toast.makeText(this, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(this, "Register Success!", Toast.LENGTH_SHORT).show();
-                ActivityChanger.changeActivity(this, LoginActivity.class);
-            }
+            viewModel.RegisterUser(this, new User(usernameText, emailText, passwordText), confPasswordText, new RegisterViewModel.RegisterUserCallBack() {
+                @Override
+                public void onRegister(Response response) {
+                    if (response.getError() != null) {
+                        Toast.makeText(RegisterActivity.this, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(RegisterActivity.this, "Register Success!", Toast.LENGTH_SHORT).show();
+                        ActivityChanger.changeActivity(RegisterActivity.this, LoginActivity.class);
+                    }
+                }
+            });
+
         });
 
         loginBtn.setOnClickListener(e -> {

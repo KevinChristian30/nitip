@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import edu.bluejack22_2.nitip.Database.Database;
 import edu.bluejack22_2.nitip.Facade.ActivityChanger;
+import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.Service.GoogleService;
 import edu.bluejack22_2.nitip.View.HomeActivity;
@@ -36,6 +37,7 @@ import edu.bluejack22_2.nitip.ViewModel.LoginViewModel;
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginVM;
+    private boolean flag = true;
 
     private EditText etEmail;
     private EditText etPassword;
@@ -93,38 +95,44 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setListener() {
-        btnLogin.setOnClickListener(e -> {
-            String email = etEmail.getText().toString();
-            String password = etPassword.getText().toString();
-
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = task.getResult().getUser();
-                            Toast.makeText(this, "Welcome, " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-                            ActivityChanger.changeActivity(this, HomeActivity.class);
-                            // Do something with the user object, such as redirect to a new activity
+            btnLogin.setOnClickListener(e -> {
+                String email = etEmail.getText().toString();
+                String password = etPassword.getText().toString();
+                loginVM.loginWithEmailandPassword(email, password, new LoginViewModel.LoginWithEmailAndPasswordCallback() {
+                    @Override
+                    public void onLoginResponse(Response response) {
+                        if (response.getError() != null) {
+                            Toast.makeText(LoginActivity.this, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(this, "Invalid Credential", Toast.LENGTH_SHORT).show();
+                            if (flag) {
+                                ActivityChanger.changeActivity(LoginActivity.this, HomeActivity.class);
+                                flag = false;
+                            }
                         }
-                    });
+                    }
+                });
 
 //            loginVM.loginWithEmailandPassword(email, password);
-        });
+            });
 
-        btnLoginWithGoogle.setOnClickListener(e -> {
-            SignInWithGoogle();
-        });
+            btnLoginWithGoogle.setOnClickListener(e -> {
+                SignInWithGoogle();
+            });
 
-        btnRegister.setOnClickListener(e -> {
-            ActivityChanger.changeActivity(this, RegisterActivity.class);
-        });
+            btnRegister.setOnClickListener(e -> {
+                if (flag) {
+                    ActivityChanger.changeActivity(this, RegisterActivity.class);
+                    flag = false;
+                }
+            });
 
-        btnForgotPassword.setOnClickListener(e -> {
-            ActivityChanger.changeActivity(this, ForgotPasswordActivity.class);
-        });
+            btnForgotPassword.setOnClickListener(e -> {
+                if (flag){
+                    ActivityChanger.changeActivity(this, ForgotPasswordActivity.class);
+                    flag = false;
+                }
+            });
+
     }
 
     private void SignInWithGoogle() {
