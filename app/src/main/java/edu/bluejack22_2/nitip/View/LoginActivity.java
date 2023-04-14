@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         Toast.makeText(this, "Welcome, " + task.getResult().getDisplayName(), Toast.LENGTH_SHORT).show();
                         GoogleSignInAccount acc = task.getResult(ApiException.class);
-                        loginVM.firebaseAuthWithGoogle(acc);
+                        loginVM.firebaseAuthWithGoogle(this, acc);
                         ActivityChanger.changeActivity(this, HomeActivity.class);
                     } catch (ApiException e) {
                         Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();

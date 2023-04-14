@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -34,6 +35,8 @@ import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.R;
+import edu.bluejack22_2.nitip.Service.EmailService;
+import edu.bluejack22_2.nitip.View.LoginActivity;
 
 public class UserRepository {
     private DatabaseReference db;
@@ -120,6 +123,25 @@ public class UserRepository {
                         }
                     }
                 });
+    }
+
+    public void registerGoogleUser(Activity activity, User user) {
+        EmailService.isEmailExists(user.getEmail(), new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                        AddDataToFirestore(activity, user);
+                    } else {
+
+                    }
+                } else {
+
+                }
+
+            }
+        });
     }
 
     public void loginUser(String email, String password) {
