@@ -24,11 +24,9 @@ import edu.bluejack22_2.nitip.ViewModel.LoginViewModel;
 
 public class HomeActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
-    private Button logoutBtn;
     private ViewPager2 viewPager;
     private BottomNavigationAdapter bottomNavigationAdapter;
-    private GoogleSignInOptions gso;
-    private GoogleSignInClient gsc;
+
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.getMenu().getItem(2).setEnabled(false);
 
         viewPager.setAdapter(bottomNavigationAdapter);
+        viewPager.setUserInputEnabled(false);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -60,20 +59,6 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         });
 
-//        gso = GoogleService.getGso(this);
-//
-//        gsc = GoogleService.getGsc(this);
-
-//        logoutBtn.setOnClickListener(e -> {
-//            gsc.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Void> task) {
-//                    loginViewModel.googleLogout();
-//                    Toast.makeText(HomeActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//            ActivityChanger.changeActivity(this, LoginActivity.class);
-//        });
     }
 
     private void initialize() {

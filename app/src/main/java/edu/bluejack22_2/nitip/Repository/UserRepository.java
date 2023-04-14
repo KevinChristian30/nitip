@@ -126,18 +126,20 @@ public class UserRepository {
     }
 
     public void registerGoogleUser(Activity activity, User user) {
+
         EmailService.isEmailExists(user.getEmail(), new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     QuerySnapshot querySnapshot = task.getResult();
-                    if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                    if (querySnapshot != null && querySnapshot.isEmpty()) {
+                        System.out.println(user.getUsername());
                         AddDataToFirestore(activity, user);
                     } else {
 
                     }
                 } else {
-
+                    System.out.println("fail");
                 }
 
             }
