@@ -12,27 +12,35 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.Facade.DownloadImageTask;
+import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.Service.GoogleService;
 import edu.bluejack22_2.nitip.View.HomeActivity;
 import edu.bluejack22_2.nitip.View.LoginActivity;
 import edu.bluejack22_2.nitip.ViewModel.LoginViewModel;
+import edu.bluejack22_2.nitip.ViewModel.UserViewModel;
 
 public class ProfileFragment extends Fragment {
-
+    private User user;
     private Button btnLogout;
     private ImageView ivProfile;
     private View view;
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
     private LoginViewModel loginViewModel;
+    private UserViewModel userViewModel;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +53,19 @@ public class ProfileFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         initialize(view);
+        setUser();
         setListener(view);
-        setProfilePicture(view);
 
         return view;
+    }
+
+    private void setUser() {
+        userViewModel.getUser(firebaseUser.getEmail()).observe(getViewLifecycleOwner(), user -> {
+            if (user != null) {
+                this.user = new User(user.getUsername(), user.getEmail(), "", user.getProfile());
+                setProfilePicture(view);
+            }
+        });
     }
 
     private void initialize(View view) {
@@ -57,6 +74,9 @@ public class ProfileFragment extends Fragment {
         gso = GoogleService.getGso(view.getContext());
         gsc = GoogleService.getGsc(view.getContext());
         loginViewModel = new LoginViewModel();
+        userViewModel = new UserViewModel();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
     }
     private void setListener(View view) {
 
@@ -74,7 +94,11 @@ public class ProfileFragment extends Fragment {
 
     private void setProfilePicture(View view) {
         ImageView imageView = view.findViewById(R.id.ivProfile);
-        String imageUrl = "https://firebasestorage.googleapis.com/v0/b/nitip-6f389.appspot.com/o/profile_pictures%2Fsuperxyber123%40gmail.com?alt=media&token=522db4c1-2ac6-45a2-8c0d-7b1b71a0950f";
+//        Glide.with(view.getContext())
+//                .load(user.getProfile())
+//                .into(imageView);
+//        String imageUrl = "https://firebasestorage.googleapis.com/v0/b/nitip-6f389.appspot.com/o/profile_pictures%2Fsuperxyber123%40gmail.com?alt=media&token=522db4c1-2ac6-45a2-8c0d-7b1b71a0950f";
+        String imageUrl = this.user.getProfile();
         new DownloadImageTask(imageView).execute(imageUrl);
     }
 }

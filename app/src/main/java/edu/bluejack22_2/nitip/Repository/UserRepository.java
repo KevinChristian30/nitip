@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -44,12 +45,14 @@ public class UserRepository {
     private FirebaseFirestore dbFs;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private MutableLiveData<User> userMutableLiveData;
     public UserRepository() {
         db = Database.getInstance();
         fAuth = FirebaseAuth.getInstance();
         dbFs = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+        userMutableLiveData = new MutableLiveData<>();
     }
 
     private ByteArrayOutputStream bitmapToByteArrayOutputStream(Bitmap bitmap) {
@@ -144,6 +147,27 @@ public class UserRepository {
 
             }
         });
+    }
+
+    public Response getUser(String userEmail) {
+        Response response = new Response(null);
+        dbFs.collection("users").whereEqualTo("email", userEmail).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                if (!querySnapshot.isEmpty()) {
+                    DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                    String username = document.getString("username");
+                    String email = document.getString("email");
+                    String profile = document.getString("profile_picture");
+                    User user = new User(username, email, "", profile);
+                    userMutableLiveData.setValue(user);
+                }
+            } else {
+                response.setError(new Error("User data not found!"));
+            }
+        });
+        response.setResponse(userMutableLiveData);
+        return response;
     }
 
     public void loginUser(String email, String password) {
