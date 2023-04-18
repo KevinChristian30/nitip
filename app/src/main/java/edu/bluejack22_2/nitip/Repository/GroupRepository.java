@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.bluejack22_2.nitip.Facade.Error;
+import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.ViewModel.UserViewModel;
 
@@ -38,5 +40,19 @@ public class GroupRepository {
             dbFs.collection("groups").add(data);
         });
 
+    }
+
+    public interface GroupCodeCheckCallback {
+        void onGroupCodeChecked(boolean isUnique);
+    }
+
+    public void CheckCodeUnique(String groupCode, GroupCodeCheckCallback callback) {
+        dbFs.collection("groups").whereEqualTo("group_code", groupCode).get().addOnCompleteListener(e -> {
+            if (e.isSuccessful()) {
+                callback.onGroupCodeChecked(false);
+            }
+        });
+
+        callback.onGroupCodeChecked(true);
     }
 }

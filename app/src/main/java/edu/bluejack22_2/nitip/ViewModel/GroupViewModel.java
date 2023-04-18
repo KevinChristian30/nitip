@@ -12,7 +12,11 @@ public class GroupViewModel {
         groupRepository = new GroupRepository(lifecycleOwner);
     }
 
-    public Response CreateGroup(String groupName, String groupCode) {
+    public interface CreateGroupCallback {
+        void onCreateGroup(Response response);
+    }
+
+    public void CreateGroup(String groupName, String groupCode, CreateGroupCallback callback) {
         Response response = new Response(null);
 
         if (groupName.trim().isEmpty() || groupCode.trim().isEmpty()) {
@@ -26,11 +30,21 @@ public class GroupViewModel {
         }
 
         if (response.getError() != null) {
-            return response;
+            callback.onCreateGroup(response);
+            return;
         }
+
+        groupRepository.CheckCodeUnique(groupCode, new GroupRepository.GroupCodeCheckCallback() {
+            @Override
+            public void onGroupCodeChecked(boolean isUnique) {
+                response.setError(new Error("Group code is exists"));
+                callback.onCreateGroup(response);
+                return;
+            }
+        });
 
         groupRepository.CreateGroup(groupName, groupCode);
 
-        return response;
+        callback.onCreateGroup(response);
     }
 }

@@ -15,10 +15,11 @@
         android:theme="@style/Theme.Nitip"
         tools:targetApi="31">
         <activity
+            android:name=".CreateNewTitipActivity"
+            android:exported="false" />
+        <activity
             android:name=".View.CreateNewGroupActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".View.ForgotPasswordConfirmationActivity"
             android:exported="false" />
@@ -39,10 +40,10 @@
             android:exported="false" />
         <activity
             android:name=".View.HomeActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".View.LoginActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

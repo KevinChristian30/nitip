@@ -42,14 +42,19 @@ public class CreateNewGroupActivity extends AppCompatActivity {
             String groupName = etGroupName.getText().toString();
             String groupCode = etGroupCode.getText().toString();
 
-            Response response = groupViewModel.CreateGroup(groupName, groupCode);
+            groupViewModel.CreateGroup(groupName, groupCode, new GroupViewModel.CreateGroupCallback() {
+                @Override
+                public void onCreateGroup(Response response) {
+                    if (response.getError() != null) {
+                        Toast.makeText(CreateNewGroupActivity.this, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        ActivityChanger.changeActivity(CreateNewGroupActivity.this, HomeActivity.class);
+                    }
+                }
+            });
 
-            if (response.getError() != null) {
-                Toast.makeText(this, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
-            }
-            else {
-                ActivityChanger.changeActivity(this, HomeActivity.class);
-            }
+
         });
 
         btnRandomizeCode.setOnClickListener(e -> {
