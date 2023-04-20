@@ -4,27 +4,112 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.ProfileFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".Fragment.ProfileFragment"
+    android:background="@color/colorOnPrimary">
 
     <ImageView
-        android:id="@+id/ivProfile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogout"
+        android:id="@+id/ivGradient"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/gradient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"/>
 
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvProfilePictureContainer"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:cardCornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ivGradient"
+        android:layout_marginTop="-75dp"
+        >
+
+        <ImageView
+            android:id="@+id/ivProfilePicture"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/placeholder_profile_picture"
+            android:scaleType="centerCrop"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvUsernameTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvProfilePictureContainer"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="50dp"
+        android:text="Username"
+        android:textSize="12sp"
+        android:textColor="@color/colorSecondaryVariant"
+        />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvUsernameTitle"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:text="KevinC"
+        android:textSize="15sp"
+        android:textColor="@color/colorOnSecondary"
+        />
+
+    <TextView
+        android:id="@+id/tvEmailTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvUsername"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="25dp"
+        android:text="Email"
+        android:textSize="12sp"
+        android:textColor="@color/colorSecondaryVariant"
+        />
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEmailTitle"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:text="kdotchrist30@gmail.com"
+        android:textSize="15sp"
+        android:textColor="@color/colorOnSecondary"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnChangeProfilePicture"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEmail"
+        android:text="Change Profile Picture"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="100dp"
+        app:cornerRadius="5dp"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

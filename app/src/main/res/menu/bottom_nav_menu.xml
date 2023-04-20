@@ -3,20 +3,23 @@
 
     <item android:id="@+id/miDashboard"
         android:title="Home"
-        android:icon="@drawable/baseline_account_circle_24" />
+        android:icon="@drawable/baseline_account_circle_24"
+        />
 
     <item android:id="@+id/miGroup"
         android:title="Search"
-        android:icon="@drawable/baseline_account_circle_24" />
+        android:icon="@drawable/baseline_account_circle_24"
+        />
 
     <item android:id="@+id/placeholder"
-        android:title="" />
+        android:title=""
+        />
 
     <item android:id="@+id/miHistory"
-        android:title="Profile"
+        android:title="TBD"
         android:icon="@drawable/baseline_account_circle_24" />
 
     <item android:id="@+id/miProfile"
-        android:title="Settings"
+        android:title="Profile"
         android:icon="@drawable/baseline_account_circle_24" />
 </menu>
