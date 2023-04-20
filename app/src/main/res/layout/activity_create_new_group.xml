@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.CreateNewGroupActivity">
+
+    <TextView
+        android:id="@+id/tvCreateNewGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="35sp"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:text="Create New Group"
+        android:textColor="@color/colorOnSecondary"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilGroupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCreateNewGroup"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="35dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxBackgroundColor="@color/colorOnPrimary"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:startIconDrawable="@drawable/baseline_account_circle_24"
+        android:hint="Group Name"
+        app:hintTextColor="@color/colorSecondaryVariant"
+        android:textColorHint="@color/colorSecondaryVariant"
+        app:startIconTint="@color/colorPrimary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etGroupName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorOnSecondary"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilGroupCode"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="35dp"
+        android:hint="Group Code"
+        app:boxBackgroundColor="@color/colorOnPrimary"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:hintTextColor="@color/colorSecondaryVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilGroupName"
+        app:startIconDrawable="@drawable/baseline_alternate_email_24"
+        android:textColorHint="@color/colorSecondaryVariant"
+        app:startIconTint="@color/colorPrimary"
+        android:layout_marginTop="15px">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etGroupCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorOnSecondary"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/llLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilGroupCode">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Randomize Code"
+            android:textColor="@color/colorSecondary"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnRandomizeCode"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="10dp"
+            android:text="Here"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCreateGroup"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginHorizontal="35dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Create"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llLogin" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

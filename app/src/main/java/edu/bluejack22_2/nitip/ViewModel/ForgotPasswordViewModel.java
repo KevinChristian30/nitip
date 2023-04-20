@@ -34,10 +34,15 @@ public class ForgotPasswordViewModel {
     public void SendResetPasswordRequest(String email, SendResetPasswordRequestCallBack callBack) {
         Response response = new Response(null);
 
-        if (!RegisterService.isValidEmail(email)) {
-            response.setError(new Error("Invalid email"));
-            callBack.onSendOtpResponse(response);
+        if (email.trim().isEmpty()) {
+            response.setError(new Error("Email must be filled"));
         }
+        else if (!RegisterService.isValidEmail(email)) {
+            response.setError(new Error("Invalid email"));
+        }
+
+        if (response.getError() != null)
+            callBack.onSendOtpResponse(response);
 
         EmailService.isEmailExists(email, new OnCompleteListener<QuerySnapshot>() {
             @Override
