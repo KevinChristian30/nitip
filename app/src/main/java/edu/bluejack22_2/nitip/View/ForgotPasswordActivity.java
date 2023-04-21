@@ -59,8 +59,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(e -> {
 
-            finish();
-
+//            finish();
+            ActivityChanger.changeActivity(ForgotPasswordActivity.this, LoginActivity.class);
         });
     }
 }

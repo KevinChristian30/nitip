@@ -20,7 +20,9 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -34,6 +36,8 @@ import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.R;
+import edu.bluejack22_2.nitip.Service.EmailService;
+import edu.bluejack22_2.nitip.View.LoginActivity;
 
 public class UserRepository {
     private DatabaseReference db;
@@ -41,12 +45,14 @@ public class UserRepository {
     private FirebaseFirestore dbFs;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private MutableLiveData<User> userMutableLiveData;
     public UserRepository() {
         db = Database.getInstance();
         fAuth = FirebaseAuth.getInstance();
         dbFs = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+        userMutableLiveData = new MutableLiveData<>();
     }
 
     private ByteArrayOutputStream bitmapToByteArrayOutputStream(Bitmap bitmap) {
@@ -109,25 +115,6 @@ public class UserRepository {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser users = fAuth.getCurrentUser();
-
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(user.getUsername())
-                                    .build();
-                            if (users != null) {
-                                users.updateProfile(profileUpdates)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    // Display name is updated successfully.
-                                                } else {
-                                                    // An error occurred while updating the display name.
-                                                }
-                                            }
-                                        });
-
-                            }
 
                         } else {
                             Exception exception = task.getException();
@@ -139,6 +126,48 @@ public class UserRepository {
                         }
                     }
                 });
+    }
+
+    public void registerGoogleUser(Activity activity, User user) {
+
+        EmailService.isEmailExists(user.getEmail(), new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if (querySnapshot != null && querySnapshot.isEmpty()) {
+                        System.out.println(user.getUsername());
+                        AddDataToFirestore(activity, user);
+                    } else {
+
+                    }
+                } else {
+                    System.out.println("fail");
+                }
+
+            }
+        });
+    }
+
+    public Response getUser(String userEmail) {
+        Response response = new Response(null);
+        dbFs.collection("users").whereEqualTo("email", userEmail).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                if (!querySnapshot.isEmpty()) {
+                    DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                    String username = document.getString("username");
+                    String email = document.getString("email");
+                    String profile = document.getString("profile_picture");
+                    User user = new User(username, email, "", profile);
+                    userMutableLiveData.setValue(user);
+                }
+            } else {
+                response.setError(new Error("User data not found!"));
+            }
+        });
+        response.setResponse(userMutableLiveData);
+        return response;
     }
 
     public void loginUser(String email, String password) {

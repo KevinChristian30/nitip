@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nitip"
         tools:targetApi="31">
+        <activity
+            android:name=".View.JoinGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.CreateNewTitipActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.CreateNewGroupActivity"
+            android:exported="true" />
         <activity
             android:name=".View.ForgotPasswordConfirmationActivity"
             android:exported="false" />
@@ -28,18 +38,16 @@
         </activity>
         <activity
             android:name=".View.ForgotPasswordActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".View.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".View.HomeActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".View.LoginActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"
