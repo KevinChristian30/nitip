@@ -55,7 +55,10 @@ public class RegisterViewModel extends ViewModel {
         }
 
 
-        if (response.getError() != null) callBack.onRegister(response);
+        if (response.getError() != null) {
+            callBack.onRegister(response);
+            return;
+        }
 
         EmailService.isEmailExists(user.getEmail(), new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -63,15 +66,14 @@ public class RegisterViewModel extends ViewModel {
                 if (task.isSuccessful()) {
                     QuerySnapshot querySnapshot = task.getResult();
                     if (querySnapshot != null && !querySnapshot.isEmpty()) {
-                        response.setError(new Error("Email does not exist"));
+                        response.setError(new Error("Email is exist"));
+
                     } else {
                         try {
                             userRepository.registerUser(activity, user);
 
                         } catch (Exception e) {
-
                             response.setError(new Error("Something Went Wrong"));
-
                         }
                     }
                 } else {

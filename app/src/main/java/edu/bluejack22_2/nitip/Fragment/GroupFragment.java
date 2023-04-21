@@ -12,6 +12,7 @@ import android.widget.Button;
 import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.View.CreateNewGroupActivity;
+import edu.bluejack22_2.nitip.View.JoinGroupActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +20,8 @@ import edu.bluejack22_2.nitip.View.CreateNewGroupActivity;
  * create an instance of this fragment.
  */
 public class GroupFragment extends Fragment {
-    Button btn;
+    Button btnCreateGroup;
+    Button btnJoinGroup;
     View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,12 +40,17 @@ public class GroupFragment extends Fragment {
     }
 
     private void initialize(View view) {
-        btn = view.findViewById(R.id.test);
+        btnCreateGroup = view.findViewById(R.id.btnCreateGroup);
+        btnJoinGroup = view.findViewById(R.id.btnJoinGroup);
     }
 
     private void setListener(View view) {
-        btn.setOnClickListener(e -> {
+        btnCreateGroup.setOnClickListener(e -> {
             ActivityChanger.changeActivity(view.getContext(), CreateNewGroupActivity.class);
+        });
+
+        btnJoinGroup.setOnClickListener(e -> {
+            ActivityChanger.changeActivity(view.getContext(), JoinGroupActivity.class);
         });
     }
 }

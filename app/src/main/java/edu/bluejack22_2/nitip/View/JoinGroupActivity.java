@@ -10,55 +10,45 @@ import android.widget.Toast;
 import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.R;
-import edu.bluejack22_2.nitip.Service.RandomService;
 import edu.bluejack22_2.nitip.ViewModel.GroupViewModel;
 
-public class CreateNewGroupActivity extends AppCompatActivity {
-    private EditText etGroupName;
+public class JoinGroupActivity extends AppCompatActivity {
+
     private EditText etGroupCode;
-    private Button btnCreateGroup;
-    private Button btnRandomizeCode;
+    private Button btnJoinGroup;
     private GroupViewModel groupViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_new_group);
+        setContentView(R.layout.activity_join_group);
 
         initialize();
         setListener();
     }
 
     private void initialize() {
-        etGroupName = findViewById(R.id.etGroupName);
         etGroupCode = findViewById(R.id.etGroupCode);
-        btnCreateGroup = findViewById(R.id.btnCreateGroup);
-        btnRandomizeCode = findViewById(R.id.btnRandomizeCode);
+        btnJoinGroup = findViewById(R.id.btnJoinGroup);
         groupViewModel = new GroupViewModel(this);
     }
 
     private void setListener() {
-        btnCreateGroup.setOnClickListener(e -> {
-            String groupName = etGroupName.getText().toString();
+        btnJoinGroup.setOnClickListener(e -> {
             String groupCode = etGroupCode.getText().toString();
-
-            groupViewModel.CreateGroup(groupName, groupCode, new GroupViewModel.GroupCallback() {
+            groupViewModel.JoinGroup(groupCode, new GroupViewModel.GroupCallback() {
                 @Override
                 public void onHandleGroup(Response response) {
                     if (response.getError() != null) {
-                        Toast.makeText(CreateNewGroupActivity.this, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(JoinGroupActivity.this, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        ActivityChanger.changeActivity(CreateNewGroupActivity.this, HomeActivity.class);
+                        Toast.makeText(JoinGroupActivity.this, "You joined " + response.getResponse().toString(), Toast.LENGTH_SHORT).show();
+                        ActivityChanger.changeActivity(JoinGroupActivity.this, HomeActivity.class);
                     }
                 }
             });
 
-
-        });
-
-        btnRandomizeCode.setOnClickListener(e -> {
-            etGroupCode.setText(RandomService.RandomizeGroupCode());
         });
     }
 }
