@@ -20,7 +20,7 @@ import edu.bluejack22_2.nitip.View.JoinGroupActivity;
  * create an instance of this fragment.
  */
 public class GroupFragment extends Fragment {
-    Button btnCreateGroup;
+//    Button btnCreateGroup;
     Button btnJoinGroup;
     View view;
     @Override
@@ -40,14 +40,14 @@ public class GroupFragment extends Fragment {
     }
 
     private void initialize(View view) {
-        btnCreateGroup = view.findViewById(R.id.btnCreateGroup);
+//        btnCreateGroup = view.findViewById(R.id.btnCreateGroup);
         btnJoinGroup = view.findViewById(R.id.btnJoinGroup);
     }
 
     private void setListener(View view) {
-        btnCreateGroup.setOnClickListener(e -> {
-            ActivityChanger.changeActivity(view.getContext(), CreateNewGroupActivity.class);
-        });
+//        btnCreateGroup.setOnClickListener(e -> {
+//            ActivityChanger.changeActivity(view.getContext(), CreateNewGroupActivity.class);
+//        });
 
         btnJoinGroup.setOnClickListener(e -> {
             ActivityChanger.changeActivity(view.getContext(), JoinGroupActivity.class);
