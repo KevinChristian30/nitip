@@ -16,6 +16,7 @@ public class JoinGroupActivity extends AppCompatActivity {
 
     private EditText etGroupCode;
     private Button btnJoinGroup;
+    private Button btnBack;
     private GroupViewModel groupViewModel;
 
     @Override
@@ -30,6 +31,7 @@ public class JoinGroupActivity extends AppCompatActivity {
     private void initialize() {
         etGroupCode = findViewById(R.id.etGroupCode);
         btnJoinGroup = findViewById(R.id.btnJoinGroup);
+        btnBack = findViewById(R.id.btnBack);
         groupViewModel = new GroupViewModel(this);
     }
 
@@ -48,6 +50,13 @@ public class JoinGroupActivity extends AppCompatActivity {
                     }
                 }
             });
+
+        });
+
+        btnBack.setOnClickListener(e -> {
+
+            finish();
+            ActivityChanger.changeActivity(JoinGroupActivity.this, HomeActivity.class);
 
         });
     }

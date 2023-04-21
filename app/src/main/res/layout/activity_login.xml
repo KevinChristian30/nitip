@@ -188,6 +188,6 @@
             android:textColor="@color/colorPrimary"
             android:textAllCaps="false"/>
 
-    </LinearLayout>>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
