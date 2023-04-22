@@ -40,6 +40,7 @@ import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.Service.GoogleService;
 import edu.bluejack22_2.nitip.View.HomeActivity;
 import edu.bluejack22_2.nitip.View.LoginActivity;
+import edu.bluejack22_2.nitip.View.OTPForChangePasswordActivity;
 import edu.bluejack22_2.nitip.ViewModel.LoginViewModel;
 import edu.bluejack22_2.nitip.ViewModel.UserViewModel;
 
@@ -47,6 +48,7 @@ public class ProfileFragment extends Fragment {
     private User user;
     private Button btnLogout;
     private Button btnChangeProfilePicture;
+    private Button btnChangePassword;
     private ImageView ivProfile;
     private TextView tvUsername;
     private TextView tvEmail;
@@ -107,6 +109,7 @@ public class ProfileFragment extends Fragment {
         tvEmail = view.findViewById(R.id.tvEmail);
         btnLogout = view.findViewById(R.id.btnLogout);
         btnChangeProfilePicture = view.findViewById(R.id.btnChangeProfilePicture);
+        btnChangePassword = view.findViewById(R.id.btnChangePassword);
         gso = GoogleService.getGso(view.getContext());
         gsc = GoogleService.getGsc(view.getContext());
         loginViewModel = new LoginViewModel();
@@ -136,6 +139,10 @@ public class ProfileFragment extends Fragment {
             } else {
                 requestStoragePermission();
             }
+        });
+
+        btnChangePassword.setOnClickListener(e -> {
+            ActivityChanger.changeActivity(view.getContext(), OTPForChangePasswordActivity.class);
         });
     }
 

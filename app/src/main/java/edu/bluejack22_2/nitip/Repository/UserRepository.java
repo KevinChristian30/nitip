@@ -30,6 +30,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -178,7 +180,7 @@ public class UserRepository {
         void onFailure(Exception e);
     }
 
-    public void changeProfilePicture(Uri imageURI, OnProfilePictureUpdatedListener listener) {
+    public void ChangeProfilePicture(Uri imageURI, OnProfilePictureUpdatedListener listener) {
         String imageName = fAuth.getCurrentUser().getEmail();
         StorageReference path = storageReference.child("profile_pictures/" + imageName);
 
@@ -211,7 +213,52 @@ public class UserRepository {
         });
     }
 
-    public void loginUser(String email, String password) {
-
+    public interface CheckValidOTPCallback {
+        public void ValidOTP(Response response);
     }
+
+    public void CheckOTP(String otp, CheckValidOTPCallback callback) {
+        Response response = new Response(null);
+        dbFs.collection("otps")
+                .whereEqualTo("otp", otp)
+                .whereEqualTo("email", fAuth.getCurrentUser().getEmail())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                            DocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
+                            String expiryTimeString = documentSnapshot.getString("valid_time");
+
+                            if (expiryTimeString != null) {
+                                DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+                                LocalDateTime expiryTime = LocalDateTime.parse(expiryTimeString, formatter);
+                                LocalDateTime currentTime = LocalDateTime.now();
+
+                                if (expiryTime.isAfter(currentTime)) {
+
+                                } else {
+                                    response.setError(new Error("The OTP is expired"));
+                                }
+                            }
+                        }
+                        else {
+                            response.setError(new Error("Invalid OTP"));
+                        }
+                    }
+                    else {
+                        response.setError(new Error("Something went wrong"));
+                    }
+                    callback.ValidOTP(response);
+                });
+    }
+
+    public void ChangePassword(String password) {
+        FirebaseUser currUser = fAuth.getCurrentUser();
+
+        if (currUser != null) {
+            currUser.updatePassword(password);
+        }
+    }
+
 }

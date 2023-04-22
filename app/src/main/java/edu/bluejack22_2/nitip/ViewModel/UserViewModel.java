@@ -35,7 +35,7 @@ public class UserViewModel {
     }
 
     public void changeProfilePicture(Uri imageURI) {
-        userRepository.changeProfilePicture(imageURI, new UserRepository.OnProfilePictureUpdatedListener() {
+        userRepository.ChangeProfilePicture(imageURI, new UserRepository.OnProfilePictureUpdatedListener() {
             @Override
             public void onSuccess(User user) {
                 setUser(user);
