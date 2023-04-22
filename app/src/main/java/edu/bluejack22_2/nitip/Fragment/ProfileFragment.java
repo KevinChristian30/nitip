@@ -1,8 +1,12 @@
 package edu.bluejack22_2.nitip.Fragment;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -12,6 +16,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,14 +57,27 @@ public class ProfileFragment extends Fragment {
     private UserViewModel userViewModel;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-    private ActivityResultLauncher<String> requestPermissionLauncher;
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private static final int STORAGE_PERMISSION_REQUEST = 100;
+    private final ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    // There are no request codes
+                    Intent data = result.getData();
+                    if (data != null) {
+                        Uri imageUri = data.getData();
+                        userViewModel.changeProfilePicture(imageUri);
+
+                    }
+                }
+            });
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,18 +114,6 @@ public class ProfileFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-            if (isGranted) {
-                // Permission is granted. Continue the action or workflow in your
-                // app.
-            } else {
-                // Explain to the user that the feature is unavailable because the
-                // feature requires a permission that the user has denied. At the
-                // same time, respect the user's decision. Don't link to system
-                // settings in an effort to convince the user to change their
-                // decision.
-            }
-        });
     }
     private void setListener(View view) {
 
@@ -123,19 +129,57 @@ public class ProfileFragment extends Fragment {
         });
 
         btnChangeProfilePicture.setOnClickListener(e -> {
-            if (ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                // Request permission
-                System.out.println("clicked");
-//                requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
-                requestPermissions(
-                        new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
-                        100);
+            if (ContextCompat.checkSelfPermission(view.getContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                openImagePicker();
             } else {
-                // Permission is already granted
+                requestStoragePermission();
             }
-
         });
     }
+
+
+
+    private void requestStoragePermission() {
+
+        new AlertDialog.Builder(view.getContext())
+                .setTitle("Permission needed")
+                .setMessage("You need to grant external storage permission to change profile picture")
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                    }
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create().show();
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1)  {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(view.getContext(), "Permission GRANTED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(view.getContext(), "Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        someActivityResultLauncher.launch(intent);
+    }
+
+
 
     private void setProfilePicture(View view) {
         Glide.with(view.getContext())
@@ -150,11 +194,5 @@ public class ProfileFragment extends Fragment {
         tvEmail.setText(user.getEmail());
     }
 
-    private void openFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }
 
 }

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -168,6 +170,45 @@ public class UserRepository {
         });
         response.setResponse(userMutableLiveData);
         return response;
+    }
+
+
+    public interface OnProfilePictureUpdatedListener {
+        void onSuccess(User updatedUser);
+        void onFailure(Exception e);
+    }
+
+    public void changeProfilePicture(Uri imageURI, OnProfilePictureUpdatedListener listener) {
+        String imageName = fAuth.getCurrentUser().getEmail();
+        StorageReference path = storageReference.child("profile_pictures/" + imageName);
+
+        UploadTask uploadTask = path.putFile(imageURI);
+
+        uploadTask.addOnSuccessListener(taskSnapshot -> {
+           path.getDownloadUrl().addOnCompleteListener(url -> {
+               dbFs.collection("users").
+                       whereEqualTo("email", fAuth.getCurrentUser().getEmail()).
+                       get().addOnCompleteListener(e -> {
+                           if (e.isSuccessful()) {
+                                DocumentSnapshot currUser = e.getResult().getDocuments().get(0);
+                                currUser.getReference().update("profile_picture", url.getResult())
+                                        .addOnSuccessListener(suc -> {
+                                            User updatedUser = new User(currUser.getString("username"),
+                                                    currUser.getString("email"),
+                                                    currUser.getString("password"),
+                                                    url.getResult().toString());
+                                            listener.onSuccess(updatedUser);
+                                        })
+                                        .addOnFailureListener(fail -> {
+                                            listener.onFailure(new Exception("Something went wrong"));
+                                        });
+
+
+                           }
+                       });
+
+           });
+        });
     }
 
     public void loginUser(String email, String password) {
