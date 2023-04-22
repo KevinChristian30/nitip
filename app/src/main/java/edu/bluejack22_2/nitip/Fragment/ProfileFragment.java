@@ -123,6 +123,7 @@ public class ProfileFragment extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     loginViewModel.googleLogout();
                     Toast.makeText(view.getContext(), "Signed Out", Toast.LENGTH_SHORT).show();
+                    requireActivity().finish();
                 }
             });
             ActivityChanger.changeActivity(view.getContext(), LoginActivity.class);
