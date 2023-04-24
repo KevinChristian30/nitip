@@ -45,7 +45,7 @@ public class RegisterViewModel extends ViewModel {
             response.setError(new Error("Invalid Email"));
         }
         else if (user.getPassword().trim().length() < 7) {
-            response.setError(new Error("Password must be more than 6 charaacters"));
+            response.setError(new Error("Password must be more than 6 characters"));
         }
         else if (!RegisterService.isAlphanumeric(user.getPassword())) {
             response.setError(new Error("Password must be alphanumeric"));
