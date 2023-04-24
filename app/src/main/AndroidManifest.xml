@@ -17,6 +17,14 @@
         tools:targetApi="31"
         >
         <activity
+            android:name=".View.ChangePasswordActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".View.OTPForChangePasswordActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".View.JoinGroupActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
