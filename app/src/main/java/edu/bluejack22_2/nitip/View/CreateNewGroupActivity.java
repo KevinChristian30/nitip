@@ -35,7 +35,7 @@ public class CreateNewGroupActivity extends AppCompatActivity {
         etGroupCode = findViewById(R.id.etGroupCode);
         btnCreateGroup = findViewById(R.id.btnCreateGroup);
         btnBack = findViewById(R.id.btnBack);
-//        btnRandomizeCode = findViewById(R.idco.btnRandomizeCode);
+        btnRandomizeCode = findViewById(R.id.btnRandomizeCode);
         groupViewModel = new GroupViewModel(this);
     }
 
@@ -66,8 +66,8 @@ public class CreateNewGroupActivity extends AppCompatActivity {
 
         });
 
-//        btnRandomizeCode.setOnClickListener(e -> {
-//            etGroupCode.setText(RandomService.RandomizeGroupCode());
-//        });
+        btnRandomizeCode.setOnClickListener(e -> {
+            etGroupCode.setText(RandomService.RandomizeGroupCode());
+        });
     }
 }
