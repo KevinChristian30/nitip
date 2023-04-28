@@ -18,6 +18,7 @@ public class CreateNewGroupActivity extends AppCompatActivity {
     private EditText etGroupCode;
     private Button btnCreateGroup;
     private Button btnRandomizeCode;
+    private Button btnBack;
     private GroupViewModel groupViewModel;
 
     @Override
@@ -33,7 +34,8 @@ public class CreateNewGroupActivity extends AppCompatActivity {
         etGroupName = findViewById(R.id.etGroupName);
         etGroupCode = findViewById(R.id.etGroupCode);
         btnCreateGroup = findViewById(R.id.btnCreateGroup);
-        btnRandomizeCode = findViewById(R.id.btnRandomizeCode);
+        btnBack = findViewById(R.id.btnBack);
+//        btnRandomizeCode = findViewById(R.idco.btnRandomizeCode);
         groupViewModel = new GroupViewModel(this);
     }
 
@@ -57,8 +59,15 @@ public class CreateNewGroupActivity extends AppCompatActivity {
 
         });
 
-        btnRandomizeCode.setOnClickListener(e -> {
-            etGroupCode.setText(RandomService.RandomizeGroupCode());
+        btnBack.setOnClickListener(e -> {
+
+            finish();
+            ActivityChanger.changeActivity(CreateNewGroupActivity.this, JoinGroupActivity.class);
+
         });
+
+//        btnRandomizeCode.setOnClickListener(e -> {
+//            etGroupCode.setText(RandomService.RandomizeGroupCode());
+//        });
     }
 }
