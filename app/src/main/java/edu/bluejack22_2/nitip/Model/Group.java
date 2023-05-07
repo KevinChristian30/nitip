@@ -3,37 +3,41 @@ package edu.bluejack22_2.nitip.Model;
 import java.util.ArrayList;
 
 public class Group {
-    private String groupName;
-    private String groupCode;
-    private ArrayList<User> groupMember;
+    private String group_name;
+    private String group_code;
+    private ArrayList<User> group_member;
 
-    public Group(String groupName, String groupCode, ArrayList<User> groupMember) {
-        this.groupName = groupName;
-        this.groupCode = groupCode;
-        this.groupMember = groupMember;
+    public Group(String group_name, String group_code, ArrayList<User> group_member) {
+        this.group_name = group_name;
+        this.group_code = group_code;
+        this.group_member = group_member;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public Group() {
+
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public String getGroup_name() {
+        return group_name;
     }
 
-    public String getGroupCode() {
-        return groupCode;
+    public void setGroup_name(String group_name) {
+        this.group_name = group_name;
     }
 
-    public void setGroupCode(String groupCode) {
-        this.groupCode = groupCode;
+    public String getGroup_code() {
+        return group_code;
     }
 
-    public ArrayList<User> getGroupMember() {
-        return groupMember;
+    public void setGroup_code(String group_code) {
+        this.group_code = group_code;
     }
 
-    public void setGroupMember(ArrayList<User> groupMember) {
-        this.groupMember = groupMember;
+    public ArrayList<User> getGroup_member() {
+        return group_member;
+    }
+
+    public void setGroup_member(ArrayList<User> group_member) {
+        this.group_member = group_member;
     }
 }

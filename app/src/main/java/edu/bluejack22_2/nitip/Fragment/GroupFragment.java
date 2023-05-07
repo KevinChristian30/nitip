@@ -21,6 +21,7 @@ import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.View.CreateNewGroupActivity;
 import edu.bluejack22_2.nitip.View.JoinGroupActivity;
+import edu.bluejack22_2.nitip.ViewModel.GroupViewModel;
 
 
 public class GroupFragment extends Fragment {
@@ -30,6 +31,7 @@ public class GroupFragment extends Fragment {
     List<GroupRow> data;
     Button btnJoinGroup;
     View view;
+    GroupViewModel groupViewModel;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,7 @@ public class GroupFragment extends Fragment {
 
         initialize(view);
         setList(view);
-        setRecyclerView(view);
+
         setListener(view);
 
         return view;
@@ -58,10 +60,15 @@ public class GroupFragment extends Fragment {
 
             }
         };
+        groupViewModel = new GroupViewModel(this);
     }
 
     private void setList(View view) {
-        data.add(new GroupRow("asd" , "ads", "ads", "asd"));
+        groupViewModel.getGroupLiveData().observe(getViewLifecycleOwner(), groupRows -> {
+            data = groupRows;
+            setRecyclerView(view);
+        });
+
     }
 
     private void setRecyclerView(View view) {
