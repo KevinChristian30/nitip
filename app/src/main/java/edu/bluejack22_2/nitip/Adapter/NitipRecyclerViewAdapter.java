@@ -22,10 +22,8 @@ public class NitipRecyclerViewAdapter extends RecyclerView.Adapter<NitipRecycler
     Context context;
 
     public NitipRecyclerViewAdapter(ArrayList<Titip> data, Context context){
-
         this.data = data;
         this.context = context;
-
     }
 
     @NonNull
