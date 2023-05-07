@@ -8,7 +8,7 @@
     android:background="@color/colorOnPrimary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/llHeader"
+        android:id="@+id/clHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,5 +49,14 @@
             android:layout_marginRight="15dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTitip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

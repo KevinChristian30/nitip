@@ -68,7 +68,6 @@ public class GroupFragment extends Fragment {
             data = groupRows;
             setRecyclerView(view);
         });
-
     }
 
     private void setRecyclerView(View view) {

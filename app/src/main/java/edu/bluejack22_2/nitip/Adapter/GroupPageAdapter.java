@@ -63,8 +63,7 @@ public class GroupPageAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     }
 
     @Override
-    public void onAttachedToRecyclerView(
-            RecyclerView recyclerView)
+    public void onAttachedToRecyclerView(RecyclerView recyclerView)
     {
         super.onAttachedToRecyclerView(recyclerView);
     }
