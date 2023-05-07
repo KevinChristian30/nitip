@@ -6,4 +6,7 @@
     <color name="colorSecondary">#656967</color>
     <color name="colorSecondaryVariant">#8c8c8c</color>
     <color name="colorOnSecondary">#141414</color>
+
+    <color name="colorMelon">#ffa69e</color>
+    <color name="colorAero">#5bc0eb</color>
 </resources>

@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import edu.bluejack22_2.nitip.Adapter.BottomNavigationAdapter;
 import edu.bluejack22_2.nitip.Facade.ActivityChanger;
@@ -23,7 +24,7 @@ import edu.bluejack22_2.nitip.Service.GoogleService;
 import edu.bluejack22_2.nitip.ViewModel.LoginViewModel;
 
 public class HomeActivity extends AppCompatActivity {
-    private LoginViewModel loginViewModel;
+    private FloatingActionButton btnNitip;
     private ViewPager2 viewPager;
     private BottomNavigationAdapter bottomNavigationAdapter;
 
@@ -34,7 +35,19 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         initialize();
+        setNavigation();
+        setListener();
+    }
 
+    private void initialize() {
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        btnNitip = findViewById(R.id.btnNitip);
+        viewPager = findViewById(R.id.viewPager);
+        bottomNavigationAdapter = new BottomNavigationAdapter(this);
+    }
+
+    private void setNavigation() {
         bottomNavigationView.setBackground(null);
         bottomNavigationView.getMenu().getItem(2).setEnabled(false);
 
@@ -58,15 +71,12 @@ public class HomeActivity extends AppCompatActivity {
             }
             return true;
         });
-
     }
 
-    private void initialize() {
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        //        logoutBtn = findViewById(R.id.logoutBtn);
-        loginViewModel = new LoginViewModel();
-        viewPager = findViewById(R.id.viewPager);
-        bottomNavigationAdapter = new BottomNavigationAdapter(this);
+    private void setListener() {
+        btnNitip.setOnClickListener(e -> {
+            ActivityChanger.changeActivity(this, CreateNewTitipActivity.class);
+        });
     }
 
 }

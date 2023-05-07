@@ -36,7 +36,7 @@
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/btnNitip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/common_full_open_on_phone"
