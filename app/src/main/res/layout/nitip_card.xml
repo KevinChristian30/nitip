@@ -12,6 +12,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Titip Name"
+        android:textColor="@color/colorOnSecondary"
         />
 
     <TextView
@@ -22,6 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Entruster Email"
+        android:textColor="@color/colorOnSecondary"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
