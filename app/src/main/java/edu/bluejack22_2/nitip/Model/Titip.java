@@ -5,6 +5,9 @@ import java.util.ArrayList;
 public class Titip {
     private String titipName;
     private String closeTime;
+
+    private String entrusterEmail;
+
     private ArrayList<TitipDetail> titipDetails;
 
     public Titip(String titipName, String closeTime, ArrayList<TitipDetail> titipDetails) {
@@ -35,5 +38,13 @@ public class Titip {
 
     public void setTitipDetails(ArrayList<TitipDetail> titipDetails) {
         this.titipDetails = titipDetails;
+    }
+
+    public String getEntrusterEmail() {
+        return this.entrusterEmail;
+    }
+
+    public void setEntrusterEmail(String email) {
+        this.entrusterEmail = email;
     }
 }

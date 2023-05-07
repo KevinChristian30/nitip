@@ -72,7 +72,6 @@ public class CreateNewTitipActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(e -> {
             finish();
-            ActivityChanger.changeActivity(this, HomeActivity.class);
         });
 
         btnCreateTitip.setOnClickListener(e -> {

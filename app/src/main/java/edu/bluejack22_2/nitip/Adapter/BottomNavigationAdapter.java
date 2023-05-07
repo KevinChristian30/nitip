@@ -19,8 +19,6 @@ public class BottomNavigationAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
-            case 0:
-                return new DashboardFragment();
             case 1:
                 return new GroupFragment();
             case 2:

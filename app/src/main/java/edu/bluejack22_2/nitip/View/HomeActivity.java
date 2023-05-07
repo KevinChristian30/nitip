@@ -27,7 +27,6 @@ public class HomeActivity extends AppCompatActivity {
     private FloatingActionButton btnNitip;
     private ViewPager2 viewPager;
     private BottomNavigationAdapter bottomNavigationAdapter;
-
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +74,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setListener() {
         btnNitip.setOnClickListener(e -> {
-            ActivityChanger.changeActivity(this, CreateNewTitipActivity.class);
+            ActivityChanger.changeActivity(this, NitipActivity.class);
         });
     }
 
