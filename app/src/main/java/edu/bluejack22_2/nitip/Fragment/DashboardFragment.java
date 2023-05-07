@@ -9,38 +9,20 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import org.checkerframework.checker.units.qual.A;
+import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
-
-import edu.bluejack22_2.nitip.Model.Transaction;
 import edu.bluejack22_2.nitip.R;
+import edu.bluejack22_2.nitip.ViewModel.UserViewModel;
 
-public class DashboardFragment extends Fragment implements AdapterView.OnItemSelectedListener{
-
-    Spinner spinner;
-
-    public DashboardFragment() {
-
-    }
-
-    public static DashboardFragment newInstance(String param1, String param2) {
-        DashboardFragment fragment = new DashboardFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+public class DashboardFragment extends Fragment {
+    FirebaseAuth firebaseAuth;
+    UserViewModel userViewModel;
+    TextView tvTitle;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -48,24 +30,22 @@ public class DashboardFragment extends Fragment implements AdapterView.OnItemSel
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        spinner = view.findViewById(R.id.spinTransactionType);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(),
-                R.array.transaction_type_spinner_items, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(this);
+        init(view);
+        setTitle(view);
 
         return view;
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//        Toast.makeText(adapterView.getContext(), adapterView.getItemAtPosition(i).toString()).show();
+    private void init(View view) {
+        tvTitle = view.findViewById(R.id.tvTitle);
+        userViewModel = new UserViewModel();
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+    private void setTitle(View view) {
 
+        userViewModel.getUser(firebaseAuth.getCurrentUser().getEmail()).observe(getViewLifecycleOwner(), user -> {
+            tvTitle.setText("Hello, " + user.getUsername());
+        });
     }
 }
