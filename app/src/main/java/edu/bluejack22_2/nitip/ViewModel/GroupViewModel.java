@@ -2,19 +2,26 @@ package edu.bluejack22_2.nitip.ViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
+import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.Repository.GroupRepository;
 
 public class GroupViewModel {
+    MutableLiveData<List<GroupRow>> groupLiveData;
     private GroupRepository groupRepository;
     public GroupViewModel(LifecycleOwner lifecycleOwner) {
         groupRepository = new GroupRepository(lifecycleOwner);
+        groupLiveData = new MutableLiveData<>();
     }
 
     public interface GroupCallback {
@@ -39,20 +46,17 @@ public class GroupViewModel {
         groupRepository.CheckCodeExists(groupCode, new GroupRepository.GroupCodeCheckCallback() {
             @Override
             public void onGroupCodeChecked(boolean isUnique) {
-                response.setError(new Error("Group code is exists"));
+                if (!isUnique) {
+                    response.setError(new Error("Group code is exists"));
+                }
+                else {
+                    groupRepository.CreateGroup(groupName, groupCode);
+                }
                 callback.onHandleGroup(response);
                 return;
             }
         });
 
-        if (response.getError() != null) {
-            callback.onHandleGroup(response);
-            return;
-        }
-
-        groupRepository.CreateGroup(groupName, groupCode);
-
-        callback.onHandleGroup(response);
     }
 
 
@@ -84,5 +88,14 @@ public class GroupViewModel {
             }
         });
 
+    }
+
+    public MutableLiveData<List<GroupRow>> getGroupLiveData() {
+        getGroupData();
+        return groupLiveData;
+    }
+
+    public void getGroupData() {
+        groupRepository.getGroupData(groupLiveData);
     }
 }

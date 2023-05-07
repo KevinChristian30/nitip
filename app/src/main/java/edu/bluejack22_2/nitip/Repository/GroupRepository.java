@@ -1,23 +1,34 @@
 package edu.bluejack22_2.nitip.Repository;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
+import edu.bluejack22_2.nitip.Model.Group;
+import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.ViewModel.UserViewModel;
 
@@ -55,11 +66,19 @@ public class GroupRepository {
     public void CheckCodeExists(String groupCode, GroupCodeCheckCallback callback) {
         dbFs.collection("groups").whereEqualTo("group_code", groupCode).get().addOnCompleteListener(e -> {
             if (e.isSuccessful()) {
-                callback.onGroupCodeChecked(false);
+                System.out.println(e.getResult().getDocuments());
+                if (e.getResult().getDocuments().size() == 0) {
+                    callback.onGroupCodeChecked(true);
+                }
+                else {
+                    callback.onGroupCodeChecked(false);
+                }
+            }
+            else {
             }
         });
 
-        callback.onGroupCodeChecked(true);
+
     }
 
     public void CheckCodeAndGroupMember(String groupCode, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
@@ -111,6 +130,30 @@ public class GroupRepository {
             }
         });
         taskCompletionSource.getTask().addOnCompleteListener(onCompleteListener);
+    }
+
+    public void getGroupData(MutableLiveData<List<GroupRow>> data) {
+        System.out.println(fAuth.getCurrentUser().getEmail());
+        Query groupsRef = dbFs.collection("groups");
+        groupsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<GroupRow> groupList = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        // Convert each document to a Group object
+                        Group group = document.toObject(Group.class);
+                        for (User user : group.getGroup_member()) {
+                            if (user.getEmail().equals(fAuth.getCurrentUser().getEmail())) {
+                                groupList.add(new GroupRow(group.getGroup_name(), "test", "test", "test"));
+                            }
+                        }
+
+                    }
+                    data.setValue(groupList);
+                }
+            }
+        });
     }
 
 }
