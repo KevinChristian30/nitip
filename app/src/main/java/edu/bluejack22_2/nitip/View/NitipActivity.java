@@ -47,9 +47,9 @@ public class NitipActivity extends AppCompatActivity {
     private void setList() {
         ArrayList<Titip> data = new ArrayList<>();
 
-        data.add(new Titip("Test 1", "Test Waktu 1", new ArrayList<>()));
-        data.add(new Titip("Test 2", "Test Waktu 2", new ArrayList<>()));
-        data.add(new Titip("Test 3", "Test Waktu 3", new ArrayList<>()));
+        data.add(new Titip("Test 1", "Test Waktu 1", new ArrayList<>(), "asd"));
+        data.add(new Titip("Test 2", "Test Waktu 2", new ArrayList<>(), "asd"));
+        data.add(new Titip("Test 3", "Test Waktu 3", new ArrayList<>(), "asd"));
 
         NitipRecyclerViewAdapter adapter = new NitipRecyclerViewAdapter(data, this);
 

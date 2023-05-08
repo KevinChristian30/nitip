@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
+
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
+import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.Repository.TitipRepository;
 import edu.bluejack22_2.nitip.Service.TimeService;
@@ -14,9 +17,10 @@ import edu.bluejack22_2.nitip.Service.TimeService;
 public class TitipViewModel {
 
     private TitipRepository titipRepository;
-
+    private MutableLiveData<List<Titip>> titipLiveData;
     public TitipViewModel() {
         titipRepository = new TitipRepository();
+        titipLiveData = new MutableLiveData<>();
     }
 
     public Response CreateTitip(Titip titip) {
@@ -32,14 +36,17 @@ public class TitipViewModel {
 
         if (response.getError() != null) return response;
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = auth.getCurrentUser();
-        String entrusterEmail = currentUser.getEmail();
-
-        titip.setEntrusterEmail(entrusterEmail);
-
         titipRepository.CreateTitip(titip);
 
         return response;
+    }
+
+    public MutableLiveData<List<Titip>> getTitipLiveData() {
+        getTitipData();
+        return titipLiveData;
+    }
+
+    public void getTitipData() {
+        titipRepository.GetTitip(titipLiveData);
     }
 }
