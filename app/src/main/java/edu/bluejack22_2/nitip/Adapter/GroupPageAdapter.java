@@ -44,7 +44,6 @@ public class GroupPageAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
         final int index = holder.getAdapterPosition();
         holder.tvGroupName.setText(list.get(position).getGroupName());
-        holder.tvUsername.setText(list.get(position).getUsername());
         holder.tvLastMessage.setText(list.get(position).getLastMessage());
         holder.tvLastTime.setText(list.get(position).getLastTime());
 

@@ -19,27 +19,21 @@ public class Titip {
     public String getTitipName() {
         return titipName;
     }
-
     public void setTitipName(String titipName) {
         this.titipName = titipName;
     }
-
     public String getCloseTime() {
         return closeTime;
     }
-
     public void setCloseTime(String closeTime) {
         this.closeTime = closeTime;
     }
-
     public ArrayList<TitipDetail> getTitipDetails() {
         return titipDetails;
     }
-
     public void setTitipDetails(ArrayList<TitipDetail> titipDetails) {
         this.titipDetails = titipDetails;
     }
-
     public String getEntrusterEmail() {
         return this.entrusterEmail;
     }
