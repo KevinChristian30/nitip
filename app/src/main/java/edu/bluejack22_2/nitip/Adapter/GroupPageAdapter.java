@@ -18,7 +18,6 @@ import edu.bluejack22_2.nitip.R;
 
 public class GroupPageAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     List<GroupRow> list = Collections.emptyList();
-
     Context context;
     GroupClickListener listener;
 
@@ -63,8 +62,7 @@ public class GroupPageAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     }
 
     @Override
-    public void onAttachedToRecyclerView(
-            RecyclerView recyclerView)
+    public void onAttachedToRecyclerView(RecyclerView recyclerView)
     {
         super.onAttachedToRecyclerView(recyclerView);
     }

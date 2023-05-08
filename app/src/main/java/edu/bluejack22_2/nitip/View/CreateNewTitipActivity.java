@@ -27,6 +27,7 @@ public class CreateNewTitipActivity extends AppCompatActivity {
     private EditText etTitipName;
     private EditText etTitipCloseTime;
     private Button btnCreateTitip;
+    private Button btnBack;
     private TitipViewModel titipViewModel;
 
     @Override
@@ -42,6 +43,7 @@ public class CreateNewTitipActivity extends AppCompatActivity {
         etTitipName = findViewById(R.id.etTitipName);
         etTitipCloseTime = findViewById(R.id.etTitipCloseTime);
         btnCreateTitip = findViewById(R.id.btnCreateTitip);
+        btnBack = findViewById(R.id.btnBack);
         titipViewModel = new TitipViewModel();
 
         etTitipCloseTime.setFocusable(false);
@@ -66,6 +68,10 @@ public class CreateNewTitipActivity extends AppCompatActivity {
                     etTitipCloseTime.setText(format.format(chosenDate.getTime()));
                 }, hour, minute, true).show();
             }, year, month, day).show();
+        });
+
+        btnBack.setOnClickListener(e -> {
+            finish();
         });
 
         btnCreateTitip.setOnClickListener(e -> {

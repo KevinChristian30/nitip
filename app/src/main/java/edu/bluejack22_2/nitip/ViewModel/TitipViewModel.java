@@ -2,6 +2,9 @@ package edu.bluejack22_2.nitip.ViewModel;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Model.Titip;
@@ -28,6 +31,12 @@ public class TitipViewModel {
         }
 
         if (response.getError() != null) return response;
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        String entrusterEmail = currentUser.getEmail();
+
+        titip.setEntrusterEmail(entrusterEmail);
 
         titipRepository.CreateTitip(titip);
 

@@ -21,6 +21,6 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
         tvUsername = (TextView) itemView.findViewById(R.id.tvUsername);
         tvLastMessage = (TextView) itemView.findViewById(R.id.tvLastMessage);
         tvLastTime = (TextView) itemView.findViewById(R.id.tvLastTime);
-        view =itemView;
+        view = itemView;
     }
 }

@@ -57,7 +57,7 @@ public class GroupFragment extends Fragment {
         listener = new GroupClickListener() {
             @Override
             public void click(int index) {
-
+                
             }
         };
         groupViewModel = new GroupViewModel(this);
@@ -68,7 +68,6 @@ public class GroupFragment extends Fragment {
             data = groupRows;
             setRecyclerView(view);
         });
-
     }
 
     private void setRecyclerView(View view) {

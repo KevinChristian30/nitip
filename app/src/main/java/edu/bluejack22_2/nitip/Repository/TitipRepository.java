@@ -20,6 +20,7 @@ public class TitipRepository {
         titipData.put("titip_name", titip.getTitipName());
         titipData.put("close_time", titip.getCloseTime());
         titipData.put("titip_detail", titip.getTitipDetails());
+        titipData.put("entruster_email", titip.getEntrusterEmail());
 
         firebaseFirestore.collection("titip").add(titipData);
     }
