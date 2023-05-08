@@ -3,15 +3,11 @@ package edu.bluejack22_2.nitip.ViewModel;
 import android.app.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.List;
 
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
@@ -19,7 +15,6 @@ import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.Repository.UserRepository;
 import edu.bluejack22_2.nitip.Service.EmailService;
 import edu.bluejack22_2.nitip.Service.RegisterService;
-import edu.bluejack22_2.nitip.View.RegisterActivity;
 
 public class RegisterViewModel extends ViewModel {
     private UserRepository userRepository;

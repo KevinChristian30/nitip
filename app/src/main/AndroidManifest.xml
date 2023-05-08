@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Nitip"
         tools:targetApi="31">
         <activity
+            android:name=".View.GroupDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".View.NitipActivity"
             android:exported="false" />
         <activity
