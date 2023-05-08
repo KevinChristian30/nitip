@@ -7,8 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.checkerframework.checker.units.qual.A;
-
 import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.R;
@@ -59,8 +57,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(e -> {
 
-            finish();
-
+//            finish();
+            ActivityChanger.changeActivity(ForgotPasswordActivity.this, LoginActivity.class);
         });
     }
 }

@@ -9,6 +9,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +26,12 @@ public class AuthRepository {
         Map<String, Object> data = new HashMap<>();
         data.put("email", email);
         data.put("otp", OTP);
-        data.put("valid_time", LocalDateTime.now().plusMinutes(15));
+
+        LocalDateTime expiryTime = LocalDateTime.now().plusMinutes(15); // 10 minutes from now
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        String expiryTimeString = expiryTime.format(formatter);
+
+        data.put("valid_time", expiryTimeString);
         db.collection("otps").add(data);
     }
 

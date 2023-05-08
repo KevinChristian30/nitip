@@ -1,22 +1,16 @@
 package edu.bluejack22_2.nitip.ViewModel;
 
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Repository.AuthRepository;
 import edu.bluejack22_2.nitip.Service.EmailService;
-import edu.bluejack22_2.nitip.Service.RandomService;
 import edu.bluejack22_2.nitip.Service.RegisterService;
 
 public class ForgotPasswordViewModel {
@@ -34,10 +28,15 @@ public class ForgotPasswordViewModel {
     public void SendResetPasswordRequest(String email, SendResetPasswordRequestCallBack callBack) {
         Response response = new Response(null);
 
-        if (!RegisterService.isValidEmail(email)) {
-            response.setError(new Error("Invalid email"));
-            callBack.onSendOtpResponse(response);
+        if (email.trim().isEmpty()) {
+            response.setError(new Error("Email must be filled"));
         }
+        else if (!RegisterService.isValidEmail(email)) {
+            response.setError(new Error("Invalid email"));
+        }
+
+        if (response.getError() != null)
+            callBack.onSendOtpResponse(response);
 
         EmailService.isEmailExists(email, new OnCompleteListener<QuerySnapshot>() {
             @Override
