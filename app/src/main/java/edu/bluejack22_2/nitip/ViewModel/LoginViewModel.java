@@ -1,6 +1,9 @@
 package edu.bluejack22_2.nitip.ViewModel;
 
 import android.app.Activity;
+import android.content.Context;
+import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -31,7 +34,7 @@ public class LoginViewModel {
         userRepository = new UserRepository();
     }
 
-    public void firebaseAuthWithGoogle(Activity activity, GoogleSignInAccount acct) {
+    public void firebaseAuthWithGoogle(Activity activity, GoogleSignInAccount acct, Context context) {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         currentUserLiveData = new MutableLiveData<>();
@@ -44,6 +47,8 @@ public class LoginViewModel {
                             currentUserData = firebaseAuth.getCurrentUser();
                             currentUserLiveData.setValue(currentUserData);
                             userRepository.registerGoogleUser(activity, new User(currentUserData.getDisplayName(), currentUserData.getEmail(), ""));
+
+                            ActivityChanger.changeActivity(context, HomeActivity.class);
                         } else {
 
                         }

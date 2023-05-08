@@ -5,15 +5,15 @@ import java.util.ArrayList;
 public class Titip {
     private String titipName;
     private String closeTime;
-
     private String entrusterEmail;
-
+    private String groupCode;
     private ArrayList<TitipDetail> titipDetails;
 
-    public Titip(String titipName, String closeTime, ArrayList<TitipDetail> titipDetails) {
+    public Titip(String titipName, String closeTime, ArrayList<TitipDetail> titipDetails, String entrusterEmail) {
         this.titipName = titipName;
         this.closeTime = closeTime;
         this.titipDetails = titipDetails;
+        this.entrusterEmail = entrusterEmail;
     }
 
     public String getTitipName() {

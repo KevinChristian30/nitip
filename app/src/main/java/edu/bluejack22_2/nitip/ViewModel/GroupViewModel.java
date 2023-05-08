@@ -40,7 +40,10 @@ public class GroupViewModel {
             response.setError(new Error("Group code length must be more than 5 characters"));
         }
 
-
+        if (response.getError() != null) {
+            callback.onHandleGroup(response);
+            return;
+        }
 
         groupRepository.CheckCodeExists(groupCode, new GroupRepository.GroupCodeCheckCallback() {
             @Override

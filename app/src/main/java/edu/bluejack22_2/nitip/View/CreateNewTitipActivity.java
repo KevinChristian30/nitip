@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +29,7 @@ public class CreateNewTitipActivity extends AppCompatActivity {
     private Button btnCreateTitip;
     private Button btnBack;
     private TitipViewModel titipViewModel;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class CreateNewTitipActivity extends AppCompatActivity {
         btnCreateTitip = findViewById(R.id.btnCreateTitip);
         btnBack = findViewById(R.id.btnBack);
         titipViewModel = new TitipViewModel();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         etTitipCloseTime.setFocusable(false);
         etTitipCloseTime.setFocusableInTouchMode(false);
@@ -76,7 +80,7 @@ public class CreateNewTitipActivity extends AppCompatActivity {
             String titipName = etTitipName.getText().toString();
             String closeTime = etTitipCloseTime.getText().toString();
 
-            Titip titip = new Titip(titipName, closeTime, new ArrayList<TitipDetail>());
+            Titip titip = new Titip(titipName, closeTime, new ArrayList<TitipDetail>(), firebaseAuth.getCurrentUser().getEmail());
             Response response = titipViewModel.CreateTitip(titip);
             
             if (response.getError() != null) {

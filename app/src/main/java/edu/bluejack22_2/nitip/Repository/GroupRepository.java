@@ -127,7 +127,6 @@ public class GroupRepository {
     }
 
     public void getGroupData(MutableLiveData<List<GroupRow>> data) {
-        System.out.println(fAuth.getCurrentUser().getEmail());
         Query groupsRef = dbFs.collection("groups");
         groupsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
