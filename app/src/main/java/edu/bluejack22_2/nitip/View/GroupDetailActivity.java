@@ -40,7 +40,11 @@ public class GroupDetailActivity extends AppCompatActivity {
         });
 
         btnGoToNitipPage.setOnClickListener(e -> {
-            ActivityChanger.changeActivity(this, NitipActivity.class);
+            Intent intent = new Intent(this, CreateNewTitipActivity.class);
+
+            Bundle extras = getIntent().getExtras();
+            intent.putExtra("GroupCode", extras.getString("GroupCode"));
+            startActivity(intent);
         });
     }
 

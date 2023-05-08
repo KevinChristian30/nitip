@@ -83,7 +83,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@color/colorOnPrimary"
-            android:text="Titip Now"
+            android:text="Start Titip"
             android:textSize="10sp"
             android:textStyle="bold"
             android:minWidth="0dp"
