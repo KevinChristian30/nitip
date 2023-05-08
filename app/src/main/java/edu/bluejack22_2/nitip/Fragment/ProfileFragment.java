@@ -38,7 +38,6 @@ import edu.bluejack22_2.nitip.Facade.DownloadImageTask;
 import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.Service.GoogleService;
-import edu.bluejack22_2.nitip.View.HomeActivity;
 import edu.bluejack22_2.nitip.View.LoginActivity;
 import edu.bluejack22_2.nitip.View.OTPForChangePasswordActivity;
 import edu.bluejack22_2.nitip.ViewModel.LoginViewModel;

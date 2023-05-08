@@ -1,7 +1,6 @@
 package edu.bluejack22_2.nitip.ViewModel;
 
 import android.app.Activity;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -15,13 +14,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.Repository.UserRepository;
-import edu.bluejack22_2.nitip.View.HomeActivity;
-import edu.bluejack22_2.nitip.View.LoginActivity;
 
 public class LoginViewModel {
 

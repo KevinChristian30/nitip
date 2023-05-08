@@ -2,14 +2,11 @@ package edu.bluejack22_2.nitip.View;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,19 +16,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 
-import edu.bluejack22_2.nitip.Database.Database;
 import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.Service.GoogleService;
-import edu.bluejack22_2.nitip.View.HomeActivity;
-import edu.bluejack22_2.nitip.View.RegisterActivity;
 import edu.bluejack22_2.nitip.ViewModel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {

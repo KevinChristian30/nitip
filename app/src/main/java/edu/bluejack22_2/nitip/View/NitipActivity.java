@@ -5,26 +5,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.ArrayList;
-import java.util.List;
 
-import edu.bluejack22_2.nitip.Adapter.GroupPageAdapter;
 import edu.bluejack22_2.nitip.Adapter.NitipRecyclerViewAdapter;
-import edu.bluejack22_2.nitip.ClickListener.GroupClickListener;
-import edu.bluejack22_2.nitip.Facade.ActivityChanger;
-import edu.bluejack22_2.nitip.Model.Group;
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.R;
 
 public class NitipActivity extends AppCompatActivity {
 
     private Button btnBack;
-    private Button btnCreateNewTitip;
     private RecyclerView rvTitip;
 
     @Override
@@ -39,7 +30,6 @@ public class NitipActivity extends AppCompatActivity {
 
     private void initialize() {
         btnBack = findViewById(R.id.btnBack);
-        btnCreateNewTitip = findViewById(R.id.btnCreateNewTitip);
 
         rvTitip = findViewById(R.id.rvTitip);
     }
@@ -60,10 +50,6 @@ public class NitipActivity extends AppCompatActivity {
     private void setListener() {
         btnBack.setOnClickListener(e -> {
             finish();
-        });
-
-        btnCreateNewTitip.setOnClickListener(e -> {
-            ActivityChanger.changeActivity(this, CreateNewTitipActivity.class);
         });
     }
 }
