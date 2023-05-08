@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.R;
 
 public class GroupDetailActivity extends AppCompatActivity {
 
     private Button btnBack;
+
+    private Button btnGoToNitipPage;
 
     private TextView tvGroupName;
 
@@ -28,11 +31,16 @@ public class GroupDetailActivity extends AppCompatActivity {
     private void initialize() {
         btnBack = findViewById(R.id.btnBack);
         tvGroupName = findViewById(R.id.tvGroupName);
+        btnGoToNitipPage = findViewById(R.id.btnGoToTitipPage);
     }
 
     private void setListener() {
         btnBack.setOnClickListener(e -> {
             finish();
+        });
+
+        btnGoToNitipPage.setOnClickListener(e -> {
+            ActivityChanger.changeActivity(this, NitipActivity.class);
         });
     }
 
