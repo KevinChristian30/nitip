@@ -38,9 +38,9 @@ public class NitipRecyclerViewAdapter extends RecyclerView.Adapter<NitipRecycler
         Titip currentTitip = data.get(position);
 
 //        holder.getTvGroupName().setText(currentTitip);
-        holder.getTvTitipName().setText(currentTitip.getTitipName());
-        holder.getTvCreatorName().setText(currentTitip.getEntrusterEmail());
-        holder.getTvCloseTime().setText(currentTitip.getCloseTime());
+        holder.getTvTitipName().setText(currentTitip.getTitip_name());
+        holder.getTvCreatorName().setText(currentTitip.getEntruster_email());
+        holder.getTvCloseTime().setText(currentTitip.getClose_time());
 
     }
 

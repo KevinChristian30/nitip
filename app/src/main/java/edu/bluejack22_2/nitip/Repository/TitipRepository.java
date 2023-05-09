@@ -1,5 +1,7 @@
 package edu.bluejack22_2.nitip.Repository;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
@@ -34,9 +36,9 @@ public class TitipRepository {
     public void CreateTitip(Titip titip) {
         HashMap<String, Object> titipData = new HashMap<>();
 
-        titipData.put("titip_name", titip.getTitipName());
-        titipData.put("close_time", titip.getCloseTime());
-        titipData.put("titip_detail", titip.getTitipDetails());
+        titipData.put("titip_name", titip.getTitip_name());
+        titipData.put("close_time", titip.getClose_time());
+        titipData.put("titip_detail", titip.getTitip_detail());
         titipData.put("entruster_email", titip.getEntruster_email());
         titipData.put("group_code", titip.getGroup_code());
 
@@ -56,6 +58,7 @@ public class TitipRepository {
                         Titip titip = document.toObject(Titip.class);
 
                         // Check if the person is in the same group as the titip group
+                        Log.e("debug", titip.getTitip_name());
 
                         groupList.add(titip);
 
