@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -14,14 +16,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import edu.bluejack22_2.nitip.Model.Group;
+import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.Model.Titip;
+import edu.bluejack22_2.nitip.Model.User;
 
 public class TitipRepository {
 
     FirebaseFirestore firebaseFirestore;
+    FirebaseAuth fAuth;
 
     public TitipRepository() {
         firebaseFirestore = FirebaseFirestore.getInstance();
+        fAuth = FirebaseAuth.getInstance();
     }
 
     public void CreateTitip(Titip titip) {
@@ -57,6 +64,7 @@ public class TitipRepository {
                 }
             }
         });
+
     }
 
 }

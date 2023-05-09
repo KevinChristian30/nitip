@@ -43,6 +43,7 @@ public class NitipActivity extends AppCompatActivity {
     }
 
     private void setList() {
+
         titipViewModel.getTitipLiveData().observe(this, titip -> {
             data = (ArrayList<Titip>) titip;
             setRecyclerView();

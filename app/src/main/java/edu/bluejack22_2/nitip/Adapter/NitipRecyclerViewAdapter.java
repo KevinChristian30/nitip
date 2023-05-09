@@ -37,8 +37,11 @@ public class NitipRecyclerViewAdapter extends RecyclerView.Adapter<NitipRecycler
     public void onBindViewHolder(@NonNull NitipRecyclerViewAdapter.ViewHolder holder, int position) {
         Titip currentTitip = data.get(position);
 
-        holder.getTitipNameTV().setText(currentTitip.getTitipName());
-        holder.getEntrusterEmailTV().setText(currentTitip.getEntruster_email());
+//        holder.getTvGroupName().setText(currentTitip);
+        holder.getTvTitipName().setText(currentTitip.getTitipName());
+        holder.getTvCreatorName().setText(currentTitip.getEntrusterEmail());
+        holder.getTvCloseTime().setText(currentTitip.getCloseTime());
+
     }
 
     @Override
@@ -48,23 +51,40 @@ public class NitipRecyclerViewAdapter extends RecyclerView.Adapter<NitipRecycler
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        private final TextView tvGroupName;
         private final TextView tvTitipName;
-        private final TextView tvEntrusterEmail;
+        private final TextView tvCreatorName;
+        private final TextView tvFee;
+        private final TextView tvCloseTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvGroupName = itemView.findViewById(R.id.tvGroupName);
             tvTitipName = itemView.findViewById(R.id.tvTitipName);
-            tvEntrusterEmail = itemView.findViewById(R.id.tvEntrusterEmail);
+            tvCreatorName = itemView.findViewById(R.id.tvCreatorName);
+            tvFee = itemView.findViewById(R.id.tvFee);
+            tvCloseTime = itemView.findViewById(R.id.tvCloseTime);
         }
 
-        public TextView getTitipNameTV() {
-            return this.tvTitipName;
+        public TextView getTvGroupName() {
+            return tvGroupName;
         }
 
-        public TextView getEntrusterEmailTV() {
-            return this.tvEntrusterEmail;
+        public TextView getTvTitipName() {
+            return tvTitipName;
         }
 
+        public TextView getTvCreatorName() {
+            return tvCreatorName;
+        }
+
+        public TextView getTvFee() {
+            return tvFee;
+        }
+
+        public TextView getTvCloseTime() {
+            return tvCloseTime;
+        }
     }
 
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
+import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.Repository.TitipRepository;
 import edu.bluejack22_2.nitip.Service.TimeService;
@@ -17,7 +18,7 @@ public class TitipViewModel {
 
     MutableLiveData<List<Titip>> titipLiveData;
     private TitipRepository titipRepository;
-
+    private MutableLiveData<List<Titip>> titipLiveData;
     public TitipViewModel() {
 
         titipRepository = new TitipRepository();
@@ -56,5 +57,4 @@ public class TitipViewModel {
     public void getTitipData() {
         titipRepository.getTitips(titipLiveData);
     }
-
 }

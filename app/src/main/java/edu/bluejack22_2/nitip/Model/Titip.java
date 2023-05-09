@@ -3,6 +3,7 @@ package edu.bluejack22_2.nitip.Model;
 import java.util.ArrayList;
 
 public class Titip {
+  
     private String titip_name;
     private String close_time;
     private String entruster_email;
