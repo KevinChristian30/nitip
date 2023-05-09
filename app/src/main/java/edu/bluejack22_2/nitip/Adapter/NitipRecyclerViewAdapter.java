@@ -1,7 +1,6 @@
 package edu.bluejack22_2.nitip.Adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ public class NitipRecyclerViewAdapter extends RecyclerView.Adapter<NitipRecycler
         Titip currentTitip = data.get(position);
 
         holder.getTitipNameTV().setText(currentTitip.getTitipName());
-        holder.getEntrusterEmailTV().setText(currentTitip.getEntrusterEmail());
+        holder.getEntrusterEmailTV().setText(currentTitip.getEntruster_email());
     }
 
     @Override

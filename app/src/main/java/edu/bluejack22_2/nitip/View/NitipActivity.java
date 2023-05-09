@@ -1,6 +1,7 @@
 package edu.bluejack22_2.nitip.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,15 +9,20 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.bluejack22_2.nitip.Adapter.NitipRecyclerViewAdapter;
+import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.R;
+import edu.bluejack22_2.nitip.ViewModel.TitipViewModel;
 
 public class NitipActivity extends AppCompatActivity {
 
+    private TitipViewModel titipViewModel;
     private Button btnBack;
     private RecyclerView rvTitip;
+    ArrayList<Titip> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +36,20 @@ public class NitipActivity extends AppCompatActivity {
 
     private void initialize() {
         btnBack = findViewById(R.id.btnBack);
-
         rvTitip = findViewById(R.id.rvTitip);
+
+        data = new ArrayList<>();
+        titipViewModel = new TitipViewModel();
     }
 
     private void setList() {
-        ArrayList<Titip> data = new ArrayList<>();
+        titipViewModel.getTitipLiveData().observe(this, titip -> {
+            data = (ArrayList<Titip>) titip;
+            setRecyclerView();
+        });
+    }
 
-        data.add(new Titip("Test 1", "Test Waktu 1", new ArrayList<>()));
-        data.add(new Titip("Test 2", "Test Waktu 2", new ArrayList<>()));
-        data.add(new Titip("Test 3", "Test Waktu 3", new ArrayList<>()));
-
+    private void setRecyclerView() {
         NitipRecyclerViewAdapter adapter = new NitipRecyclerViewAdapter(data, this);
 
         rvTitip.setAdapter(adapter);
