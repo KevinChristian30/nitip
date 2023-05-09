@@ -2,13 +2,13 @@ package edu.bluejack22_2.nitip.Model;
 
 public class GroupRow {
     private String groupName;
-    private String username;
+    private String groupCode;
     private String lastMessage;
     private String lastTime;
 
-    public GroupRow(String groupName, String username, String lastMessage, String lastTime) {
+    public GroupRow(String groupName, String groupCode, String lastMessage, String lastTime) {
         this.groupName = groupName;
-        this.username = username;
+        this.groupCode = groupCode;
         this.lastMessage = lastMessage;
         this.lastTime = lastTime;
     }
@@ -21,12 +21,12 @@ public class GroupRow {
         this.groupName = groupName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getGroupCode() {
+        return groupCode;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setGroupCode(String groupCode) {
+        this.groupCode = groupCode;
     }
 
     public String getLastMessage() {

@@ -1,5 +1,6 @@
 package edu.bluejack22_2.nitip.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,7 +20,7 @@ import edu.bluejack22_2.nitip.ClickListener.GroupClickListener;
 import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.R;
-import edu.bluejack22_2.nitip.View.CreateNewGroupActivity;
+import edu.bluejack22_2.nitip.View.GroupDetailActivity;
 import edu.bluejack22_2.nitip.View.JoinGroupActivity;
 import edu.bluejack22_2.nitip.ViewModel.GroupViewModel;
 
@@ -57,7 +58,13 @@ public class GroupFragment extends Fragment {
         listener = new GroupClickListener() {
             @Override
             public void click(int index) {
-                
+
+                GroupRow clickedGroupRow = data.get(index);
+                Intent next = new Intent(view.getContext(), GroupDetailActivity.class);
+                next.putExtra("GroupCode", clickedGroupRow.getGroupCode());
+                next.putExtra("GroupName", clickedGroupRow.getGroupName());
+                startActivity(next);
+
             }
         };
         groupViewModel = new GroupViewModel(this);

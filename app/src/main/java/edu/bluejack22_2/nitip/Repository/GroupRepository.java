@@ -10,23 +10,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.bluejack22_2.nitip.Facade.Error;
-import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Model.Group;
 import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.Model.User;
@@ -144,7 +138,7 @@ public class GroupRepository {
                         Group group = document.toObject(Group.class);
                         for (User user : group.getGroup_member()) {
                             if (user.getEmail().equals(fAuth.getCurrentUser().getEmail())) {
-                                groupList.add(new GroupRow(group.getGroup_name(), "test", "test", "test"));
+                                groupList.add(new GroupRow(group.getGroup_name(), group.getGroup_code(), "test", "test"));
                             }
                         }
 

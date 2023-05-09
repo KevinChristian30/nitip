@@ -7,14 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.bluejack22_2.nitip.R;
-
 public class GroupViewHolder extends RecyclerView.ViewHolder {
     public TextView tvGroupName;
     public TextView tvUsername;
     public TextView tvLastMessage;
     public TextView tvLastTime;
     public View view;
-
     public GroupViewHolder(@NonNull View itemView) {
         super(itemView);
         tvGroupName = (TextView) itemView.findViewById(R.id.tvGroupName);

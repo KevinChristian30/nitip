@@ -22,7 +22,6 @@ import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.Repository.UserRepository;
 import edu.bluejack22_2.nitip.View.HomeActivity;
-import edu.bluejack22_2.nitip.View.LoginActivity;
 
 public class LoginViewModel {
 

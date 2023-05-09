@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.GroupDetailActivity"
+    android:background="@color/colorOnPrimary"
+    android:windowSoftInputMode="adjustResize">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
+
+        <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:backgroundTint="@color/colorPrimary"
+            app:iconTint="@color/colorOnPrimary"
+            android:text=""
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:icon="@drawable/baseline_arrow_back_24"
+            android:minWidth="0dp"
+            android:background="@null"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/tvGroupName"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Blue Jackets 22-2"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorOnPrimary"
+            android:layout_marginRight="35dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorAero"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/clHeader">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:text="There is no titip"
+            android:textAlignment="center"
+            android:textColor="@color/colorOnSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnGoToTitipPage"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minWidth="0dp"
+            android:text="Start Titip"
+            android:textColor="@color/colorOnPrimary"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        app:stackFromEnd="true"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/clHeader" />
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="20dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNewMessage"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="8"
+                android:textColorHint="@color/colorSecondaryVariant"
+                app:boxBackgroundColor="@color/colorOnPrimary"
+                app:boxStrokeColor="@color/colorOnPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:startIconTint="@color/colorPrimary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNewMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/colorOnSecondary"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnSendMessage"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:backgroundTint="@color/colorPrimary"
+                android:minWidth="0dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:icon="@drawable/baseline_send_24"
+                app:iconTint="@color/colorOnPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
