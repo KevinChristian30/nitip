@@ -20,32 +20,43 @@ public class Titip {
 
     public Titip() {}
 
-    public String getTitipName() {
+    public String getTitip_name() {
         return titip_name;
     }
-    public void setTitipName(String titipName) {
-        this.titip_name = titipName;
+
+    public void setTitip_name(String titip_name) {
+        this.titip_name = titip_name;
     }
-    public String getCloseTime() {
+
+    public String getClose_time() {
         return close_time;
     }
-    public void setCloseTime(String closeTime) {
-        this.close_time = closeTime;
+
+    public void setClose_time(String close_time) {
+        this.close_time = close_time;
     }
-    public ArrayList<TitipDetail> getTitipDetails() {
-        return titip_detail;
-    }
-    public void setTitipDetails(ArrayList<TitipDetail> titipDetails) {
-        this.titip_detail = titipDetails;
-    }
+
     public String getEntruster_email() {
-        return this.entruster_email;
+        return entruster_email;
     }
-    public void setEntruster_email(String email) {
-        this.entruster_email = email;
+
+    public void setEntruster_email(String entruster_email) {
+        this.entruster_email = entruster_email;
     }
-    public String getGroup_code() { return this.group_code;}
+
+    public String getGroup_code() {
+        return group_code;
+    }
+
     public void setGroup_code(String group_code) {
         this.group_code = group_code;
+    }
+
+    public ArrayList<TitipDetail> getTitip_detail() {
+        return titip_detail;
+    }
+
+    public void setTitip_detail(ArrayList<TitipDetail> titip_detail) {
+        this.titip_detail = titip_detail;
     }
 }

@@ -18,7 +18,6 @@ public class TitipViewModel {
 
     MutableLiveData<List<Titip>> titipLiveData;
     private TitipRepository titipRepository;
-    private MutableLiveData<List<Titip>> titipLiveData;
     public TitipViewModel() {
 
         titipRepository = new TitipRepository();
@@ -29,10 +28,10 @@ public class TitipViewModel {
 
         Response response = new Response(null);
 
-        if (titip.getTitipName().trim().isEmpty() || titip.getCloseTime().trim().isEmpty()) {
+        if (titip.getTitip_name().trim().isEmpty() || titip.getClose_time().trim().isEmpty()) {
             response.setError(new Error("All field must be filled"));
         }
-        else if (!TimeService.isValidDate(titip.getCloseTime())) {
+        else if (!TimeService.isValidDate(titip.getClose_time())) {
             response.setError(new Error("Date must in the future"));
         }
 
