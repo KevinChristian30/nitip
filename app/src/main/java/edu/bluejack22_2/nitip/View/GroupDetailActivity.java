@@ -44,6 +44,7 @@ public class GroupDetailActivity extends AppCompatActivity {
 
             Bundle extras = getIntent().getExtras();
             intent.putExtra("GroupCode", extras.getString("GroupCode"));
+            intent.putExtra("GroupName", extras.getString("GroupName"));
             startActivity(intent);
         });
     }
