@@ -61,8 +61,6 @@ public class GroupViewModel {
 
     }
 
-
-
     public void JoinGroup(String groupCode, GroupCallback callback) {
 
         Response response = new Response(null);
