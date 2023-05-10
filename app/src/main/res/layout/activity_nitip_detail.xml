@@ -60,7 +60,8 @@
         android:backgroundTint="@color/colorPrimary"
         android:layout_marginTop="25dp"
         android:layout_marginHorizontal="25dp"
-        android:paddingVertical="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
         android:paddingHorizontal="20sp">
 
         <TextView
@@ -113,7 +114,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="25dp"
-        android:text="Titip"
+        android:text="Requesters"
         android:textSize="25sp"
         android:textColor="@color/colorOnSecondary"
         android:textStyle="bold"

@@ -66,7 +66,7 @@ public class NitipRecyclerViewAdapter extends RecyclerView.Adapter<NitipRecycler
 
         holder.getClNitipCard().setOnClickListener(e -> {
             Intent next = new Intent(context, NitipDetailActivity.class);
-            next.putExtra("GroupCode", currentTitip.getGroup_code());
+            next.putExtra("TitipID", currentTitip.getId());
 
             context.startActivity(next);
         });

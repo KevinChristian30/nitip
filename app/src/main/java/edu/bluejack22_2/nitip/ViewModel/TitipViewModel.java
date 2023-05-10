@@ -16,11 +16,13 @@ import edu.bluejack22_2.nitip.Service.TimeService;
 
 public class TitipViewModel {
 
-    MutableLiveData<List<Titip>> titipLiveData;
+    MutableLiveData<List<Titip>> titipLiveDatas;
+    MutableLiveData<Titip> titipLiveData;
     private TitipRepository titipRepository;
     public TitipViewModel() {
 
         titipRepository = new TitipRepository();
+        titipLiveDatas = new MutableLiveData<>();
         titipLiveData = new MutableLiveData<>();
     }
 
@@ -50,10 +52,15 @@ public class TitipViewModel {
 
     public MutableLiveData<List<Titip>> getTitipLiveData() {
         getTitipData();
-        return titipLiveData;
+        return titipLiveDatas;
     }
 
     public void getTitipData() {
-        titipRepository.getTitips(titipLiveData);
+        titipRepository.getTitips(titipLiveDatas);
+    }
+
+    public MutableLiveData<Titip> getTitipById(String titipId) {
+        titipLiveData = (MutableLiveData<Titip>) titipRepository.getTitipByID(titipId).getResponse();
+        return titipLiveData;
     }
 }
