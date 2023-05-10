@@ -12,11 +12,14 @@ import java.util.ArrayList;
 import edu.bluejack22_2.nitip.Adapter.NitipRecyclerViewAdapter;
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.R;
+import edu.bluejack22_2.nitip.ViewModel.TitipViewModel;
 
 public class NitipActivity extends AppCompatActivity {
 
+    private TitipViewModel titipViewModel;
     private Button btnBack;
     private RecyclerView rvTitip;
+    ArrayList<Titip> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +33,21 @@ public class NitipActivity extends AppCompatActivity {
 
     private void initialize() {
         btnBack = findViewById(R.id.btnBack);
-
         rvTitip = findViewById(R.id.rvTitip);
+
+        data = new ArrayList<>();
+        titipViewModel = new TitipViewModel();
     }
 
     private void setList() {
-        ArrayList<Titip> data = new ArrayList<>();
 
-        data.add(new Titip("Test 1", "Test Waktu 1", new ArrayList<>(), "asd"));
-        data.add(new Titip("Test 2", "Test Waktu 2", new ArrayList<>(), "asd"));
-        data.add(new Titip("Test 3", "Test Waktu 3", new ArrayList<>(), "asd"));
+        titipViewModel.getTitipLiveData().observe(this, titip -> {
+            data = (ArrayList<Titip>) titip;
+            setRecyclerView();
+        });
+    }
 
+    private void setRecyclerView() {
         NitipRecyclerViewAdapter adapter = new NitipRecyclerViewAdapter(data, this);
 
         rvTitip.setAdapter(adapter);

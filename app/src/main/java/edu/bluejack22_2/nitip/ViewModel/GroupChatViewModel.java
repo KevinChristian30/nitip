@@ -31,6 +31,7 @@ public class GroupChatViewModel {
 
     public MutableLiveData<List<Message>> getMessageLiveData(String groupCode) {
         getMessage(groupCode);
+
         return messageLiveData;
     }
 

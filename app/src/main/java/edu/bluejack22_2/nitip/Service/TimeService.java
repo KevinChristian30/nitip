@@ -18,7 +18,6 @@ public class TimeService {
         }
     }
 
-
     public static String getCurrentTime() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());

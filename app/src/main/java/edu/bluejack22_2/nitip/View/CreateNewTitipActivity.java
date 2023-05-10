@@ -37,6 +37,7 @@ public class CreateNewTitipActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_new_titip);
 
         initialize();
+        setValues();
         setListener();
     }
 
@@ -50,6 +51,10 @@ public class CreateNewTitipActivity extends AppCompatActivity {
 
         etTitipCloseTime.setFocusable(false);
         etTitipCloseTime.setFocusableInTouchMode(false);
+    }
+
+    private void setValues() {
+
     }
 
     private void setListener() {
@@ -79,8 +84,11 @@ public class CreateNewTitipActivity extends AppCompatActivity {
         btnCreateTitip.setOnClickListener(e -> {
             String titipName = etTitipName.getText().toString();
             String closeTime = etTitipCloseTime.getText().toString();
+            String groupCode = getIntent().getExtras().getString("GroupCode");
 
-            Titip titip = new Titip(titipName, closeTime, new ArrayList<TitipDetail>(), firebaseAuth.getCurrentUser().getEmail());
+
+            Titip titip = new Titip(titipName, closeTime, groupCode, new ArrayList<TitipDetail>());
+
             Response response = titipViewModel.CreateTitip(titip);
             
             if (response.getError() != null) {

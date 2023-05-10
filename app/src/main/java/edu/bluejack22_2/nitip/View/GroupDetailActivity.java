@@ -10,12 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.bluejack22_2.nitip.Adapter.GroupChatAdapter;
-import edu.bluejack22_2.nitip.Adapter.GroupPageAdapter;
-import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.Model.Message;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.ViewModel.GroupChatViewModel;
@@ -57,6 +54,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         btnGoToNitipPage = findViewById(R.id.btnGoToTitipPage);
         btnSendMessage = findViewById(R.id.btnSendMessage);
         etNewMessage = findViewById(R.id.etNewMessage);
+
         rvChatRoom = findViewById(R.id.rvChatRoom);
 
     }
@@ -71,6 +69,7 @@ public class GroupDetailActivity extends AppCompatActivity {
 
             Bundle extras = getIntent().getExtras();
             intent.putExtra("GroupCode", extras.getString("GroupCode"));
+            intent.putExtra("GroupName", extras.getString("GroupName"));
             startActivity(intent);
         });
 
@@ -78,6 +77,7 @@ public class GroupDetailActivity extends AppCompatActivity {
             Intent intent = getIntent();
             String newMessage = etNewMessage.getText().toString();
             String groupCode = intent.getStringExtra("GroupCode");
+
             if (groupChatViewModel.SendMessage(newMessage, groupCode)) {
                 etNewMessage.setText("");
             }
