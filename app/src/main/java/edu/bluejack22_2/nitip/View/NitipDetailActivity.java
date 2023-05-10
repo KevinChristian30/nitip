@@ -18,6 +18,7 @@ public class NitipDetailActivity extends AppCompatActivity {
 
         initializeVariable();
         setListener();
+        setValues();
     }
 
     private void initializeVariable() {
@@ -28,6 +29,10 @@ public class NitipDetailActivity extends AppCompatActivity {
         btnBack.setOnClickListener(e -> {
             finish();
         });
+    }
+
+    private void setValues() {
+
     }
 
 }
