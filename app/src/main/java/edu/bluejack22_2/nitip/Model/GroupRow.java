@@ -13,6 +13,8 @@ public class GroupRow {
         this.lastTime = lastTime;
     }
 
+    public GroupRow(){}
+
     public String getGroupName() {
         return groupName;
     }

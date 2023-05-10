@@ -85,9 +85,9 @@ public class CreateNewTitipActivity extends AppCompatActivity {
             String titipName = etTitipName.getText().toString();
             String closeTime = etTitipCloseTime.getText().toString();
             String groupCode = getIntent().getExtras().getString("GroupCode");
+            String groupName = getIntent().getExtras().getString("GroupName");
 
-
-            Titip titip = new Titip(titipName, closeTime, groupCode, new ArrayList<TitipDetail>());
+            Titip titip = new Titip(titipName, closeTime, groupCode, groupName, new ArrayList<TitipDetail>());
 
             Response response = titipViewModel.CreateTitip(titip);
             

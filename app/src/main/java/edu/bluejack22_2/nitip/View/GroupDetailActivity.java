@@ -15,15 +15,10 @@ import edu.bluejack22_2.nitip.ViewModel.GroupChatViewModel;
 public class GroupDetailActivity extends AppCompatActivity {
 
     private GroupChatViewModel groupChatViewModel;
-
     private Button btnBack;
-
     private Button btnGoToNitipPage;
-
     private Button btnSendMessage;
-
     private TextView tvGroupName;
-
     private EditText etNewMessage;
 
     @Override

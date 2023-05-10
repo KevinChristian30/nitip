@@ -41,6 +41,7 @@ public class TitipRepository {
         titipData.put("titip_detail", titip.getTitip_detail());
         titipData.put("entruster_email", titip.getEntruster_email());
         titipData.put("group_code", titip.getGroup_code());
+        titipData.put("group_name", titip.getGroup_name());
 
         firebaseFirestore.collection("titip").add(titipData);
     }
