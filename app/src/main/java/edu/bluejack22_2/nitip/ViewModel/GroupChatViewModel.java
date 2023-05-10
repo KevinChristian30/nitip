@@ -25,12 +25,12 @@ public class GroupChatViewModel {
         return true;
     }
 
-    public void getMessage() {
-        repository.getMessage(messageLiveData);
+    public void getMessage(String groupCode) {
+        repository.getMessage(messageLiveData, groupCode);
     }
 
-    public MutableLiveData<List<Message>> getMessageLiveData() {
-        getMessage();
+    public MutableLiveData<List<Message>> getMessageLiveData(String groupCode) {
+        getMessage(groupCode);
         return messageLiveData;
     }
 
