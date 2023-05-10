@@ -8,6 +8,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.bluejack22_2.nitip.Facade.Error;
@@ -17,10 +19,13 @@ import edu.bluejack22_2.nitip.Repository.GroupRepository;
 
 public class GroupViewModel {
     MutableLiveData<List<GroupRow>> groupLiveData;
+
+    ArrayList<GroupRow> groups;
     private GroupRepository groupRepository;
     public GroupViewModel(LifecycleOwner lifecycleOwner) {
         groupRepository = new GroupRepository(lifecycleOwner);
         groupLiveData = new MutableLiveData<>();
+        groups = new ArrayList<>();
     }
 
     public interface GroupCallback {
@@ -61,8 +66,6 @@ public class GroupViewModel {
 
     }
 
-
-
     public void JoinGroup(String groupCode, GroupCallback callback) {
 
         Response response = new Response(null);
@@ -100,4 +103,5 @@ public class GroupViewModel {
     public void getGroupData() {
         groupRepository.getGroupData(groupLiveData);
     }
+
 }

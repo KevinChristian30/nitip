@@ -8,22 +8,39 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import edu.bluejack22_2.nitip.Model.Group;
+import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.R;
+import edu.bluejack22_2.nitip.ViewModel.GroupViewModel;
 
 public class NitipRecyclerViewAdapter extends RecyclerView.Adapter<NitipRecyclerViewAdapter.ViewHolder>{
 
     public ArrayList<Titip> data;
+    private GroupViewModel  groupViewModel;
+
+    private FirebaseFirestore db;
 
     Context context;
 
     public NitipRecyclerViewAdapter(ArrayList<Titip> data, Context context){
         this.data = data;
+        this.groupViewModel = new GroupViewModel((LifecycleOwner) context);
         this.context = context;
+        this.db = FirebaseFirestore.getInstance();
     }
 
     @NonNull
@@ -38,10 +55,12 @@ public class NitipRecyclerViewAdapter extends RecyclerView.Adapter<NitipRecycler
     public void onBindViewHolder(@NonNull NitipRecyclerViewAdapter.ViewHolder holder, int position) {
         Titip currentTitip = data.get(position);
 
-//        holder.getTvGroupName().setText(currentTitip);
-        holder.getTvTitipName().setText(currentTitip.getTitipName());
-        holder.getTvCreatorName().setText(currentTitip.getEntrusterEmail());
-        holder.getTvCloseTime().setText(currentTitip.getCloseTime());
+        holder.getTvGroupName().setText(currentTitip.getGroup_name());
+        holder.getTvTitipName().setText(currentTitip.getTitip_name());
+        holder.getTvCreatorName().setText(currentTitip.getEntruster_email());
+
+        String validUntil = "Open Until " + currentTitip.getClose_time().substring(currentTitip.getClose_time().length() - 5);
+        holder.getTvCloseTime().setText(validUntil);
     }
 
     @Override

@@ -168,7 +168,6 @@ public class UserRepository {
         return response;
     }
 
-
     public interface OnProfilePictureUpdatedListener {
         void onSuccess(User updatedUser);
         void onFailure(Exception e);

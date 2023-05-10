@@ -1,5 +1,7 @@
 package edu.bluejack22_2.nitip.ViewModel;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -14,9 +16,10 @@ import edu.bluejack22_2.nitip.Service.TimeService;
 
 public class TitipViewModel {
 
+    MutableLiveData<List<Titip>> titipLiveData;
     private TitipRepository titipRepository;
-    private MutableLiveData<List<Titip>> titipLiveData;
     public TitipViewModel() {
+
         titipRepository = new TitipRepository();
         titipLiveData = new MutableLiveData<>();
     }
@@ -25,14 +28,20 @@ public class TitipViewModel {
 
         Response response = new Response(null);
 
-        if (titip.getTitipName().trim().isEmpty() || titip.getCloseTime().trim().isEmpty()) {
+        if (titip.getTitip_name().trim().isEmpty() || titip.getClose_time().trim().isEmpty()) {
             response.setError(new Error("All field must be filled"));
         }
-        else if (!TimeService.isValidDate(titip.getCloseTime())) {
+        else if (!TimeService.isValidDate(titip.getClose_time())) {
             response.setError(new Error("Date must in the future"));
         }
 
         if (response.getError() != null) return response;
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        String entrusterEmail = currentUser.getEmail();
+
+        titip.setEntruster_email(entrusterEmail);
 
         titipRepository.CreateTitip(titip);
 
@@ -45,6 +54,6 @@ public class TitipViewModel {
     }
 
     public void getTitipData() {
-        titipRepository.GetTitip(titipLiveData);
+        titipRepository.getTitips(titipLiveData);
     }
 }

@@ -7,7 +7,7 @@
     android:paddingVertical="10dp"
     android:layout_marginTop="10dp"
     android:background="@drawable/rounded_corner"
-    android:backgroundTint="@color/colorAero"
+    android:backgroundTint="@color/colorPrimary"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:text="SLC222"
-        android:textColor="@color/colorOnSecondary"
+        android:textColor="@color/colorPrimaryVariant"
         />
 
     <TextView
@@ -25,10 +25,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/tvGroupName"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         android:text="Come n Eat"
-        android:textSize="35dp"
-        android:textColor="@color/colorOnSecondary"
+        android:textSize="30dp"
+        android:textColor="@color/colorOnPrimary"
+        android:textStyle="bold"
         />
 
     <TextView
@@ -38,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTitipName"
         app:layout_constraintStart_toStartOf="parent"
         android:text="Jaysie"
-        android:textColor="@color/colorOnSecondary"
+        android:textColor="@color/colorPrimaryVariant"
         />
 
     <TextView
@@ -47,17 +49,18 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/tvCreatorName"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Rp 1000"
-        android:textSize="25dp"
-        android:textColor="@color/colorOnSecondary"
+        android:layout_marginTop="15dp"
+        android:text="Rp. 1000"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimaryVariant"
         />
 
     <TextView
         android:id="@+id/tvCloseTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="12 Maret 20233 10:00"
-        android:textColor="@color/colorOnSecondary"
+        android:text="Valid Until 10:00"
+        android:textColor="@color/colorPrimaryVariant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
