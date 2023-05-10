@@ -92,6 +92,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvChatRoom"
         android:layout_width="match_parent"
         android:layout_height="600dp"
         app:stackFromEnd="true"
