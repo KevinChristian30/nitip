@@ -9,12 +9,15 @@ public class Titip {
     private String entruster_email;
     private String group_code;
 
+    private String group_name;
+
     private ArrayList<TitipDetail> titip_detail;
 
-    public Titip(String titipName, String closeTime, String groupCode, ArrayList<TitipDetail> titipDetails) {
+    public Titip(String titipName, String closeTime, String groupCode, String groupName, ArrayList<TitipDetail> titipDetails) {
         this.titip_name = titipName;
         this.close_time = closeTime;
         this.group_code = groupCode;
+        this.group_name = groupName;
         this.titip_detail = titipDetails;
     }
 
@@ -50,6 +53,14 @@ public class Titip {
 
     public void setGroup_code(String group_code) {
         this.group_code = group_code;
+    }
+
+    public String getGroup_name() {
+        return group_name;
+    }
+
+    public void setGroup_name(String group_name) {
+        this.group_name = group_name;
     }
 
     public ArrayList<TitipDetail> getTitip_detail() {
