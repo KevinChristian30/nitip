@@ -9,8 +9,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -19,12 +21,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Model.Group;
 import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.Model.Titip;
+import edu.bluejack22_2.nitip.Model.TitipDetail;
 import edu.bluejack22_2.nitip.Model.User;
 
 public class TitipRepository {
@@ -93,6 +97,8 @@ public class TitipRepository {
                     String groupName = document.getString("group_name");
                     String titipName = document.getString("titip_name");
 
+//                    Get Titip Details Here
+
                     Titip titip = new Titip(titipName, closeTime, groupCode, groupName, new ArrayList<>());
                     titip.setEntruster_email(entrusterEmail);
                     
@@ -108,4 +114,26 @@ public class TitipRepository {
         return response;
     }
 
+    public void addNewTitipDetail(String titipID, TitipDetail titipDetail) {
+        DocumentReference documentRef = firebaseFirestore.collection("titip").document(titipID);
+
+        documentRef.get().addOnSuccessListener(documentSnapshot -> {
+            List<Map<String, Object>> array = (List<Map<String, Object>>) documentSnapshot.get("titip_detail");
+
+            if (array != null) {
+                Map<String, Object> newTitipDetailUser = new HashMap<>();
+                newTitipDetailUser.put("username", titipDetail.getUser().getUsername());
+                newTitipDetailUser.put("email", titipDetail.getUser().getEmail());
+                newTitipDetailUser.put("profile", titipDetail.getUser().getProfile());
+
+                Map<String, Object> newTitipDetail = new HashMap<>();
+                newTitipDetail.put("user", newTitipDetailUser);
+                newTitipDetail.put("detail", titipDetail.getDetail());
+
+                array.add(newTitipDetail);
+
+                documentRef.update("titip_detail", array);
+            }
+        });
+    }
 }

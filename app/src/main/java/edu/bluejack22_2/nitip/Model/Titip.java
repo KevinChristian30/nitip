@@ -10,7 +10,6 @@ public class Titip {
     private String entruster_email;
     private String group_code;
     private String group_name;
-
     private ArrayList<TitipDetail> titip_detail;
 
     public Titip(String titipName, String closeTime, String groupCode, String groupName, ArrayList<TitipDetail> titipDetails) {
