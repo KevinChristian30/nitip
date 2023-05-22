@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
@@ -69,5 +70,9 @@ public class TitipViewModel {
 
     public void addNewTitipDetail(String titipId, TitipDetail titipDetail) {
         titipRepository.addNewTitipDetail(titipId, titipDetail);
+    }
+
+    public CompletableFuture<Response> getLastTitip(String groupCode) {
+        return titipRepository.getLastTitip(groupCode);
     }
 }
