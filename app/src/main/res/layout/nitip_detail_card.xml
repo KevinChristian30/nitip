@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_corner"
+    android:backgroundTint="@color/colorAero"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="kdotchrist30@gmail.com"
+        android:textColor="@color/colorOnSecondary"
+        android:padding="5dp"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        />
+
+    <TextView
+        android:id="@+id/tvTitipDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lemonade"
+        android:textSize="10sp"
+        android:padding="5dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorOnPrimary"
+        />
+
+</LinearLayout>

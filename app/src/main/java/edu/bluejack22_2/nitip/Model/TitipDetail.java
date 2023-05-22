@@ -9,6 +9,8 @@ public class TitipDetail {
         this.detail = detail;
     }
 
+    public TitipDetail() {}
+
     public User getUser() {
         return user;
     }
