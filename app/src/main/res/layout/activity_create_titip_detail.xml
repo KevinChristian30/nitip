@@ -40,7 +40,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="Blue Cactus"
+            android:text="Nitip"
             android:textSize="20sp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"

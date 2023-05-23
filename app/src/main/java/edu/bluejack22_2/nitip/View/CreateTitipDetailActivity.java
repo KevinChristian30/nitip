@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import edu.bluejack22_2.nitip.Adapter.NitipDetailAdapter;
 import edu.bluejack22_2.nitip.Model.TitipDetail;
 import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.R;
@@ -65,7 +66,9 @@ public class CreateTitipDetailActivity extends AppCompatActivity {
             titipViewModel.addNewTitipDetail(titipID,
                 new TitipDetail(new User(name, email, "", ""),
                     detail));
+
             Toast.makeText(this, "Titip Detail Added", Toast.LENGTH_SHORT).show();
+            finish();
         });
     }
 }
