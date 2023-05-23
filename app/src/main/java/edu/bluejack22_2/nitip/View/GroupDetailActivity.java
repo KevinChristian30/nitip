@@ -16,10 +16,13 @@ import edu.bluejack22_2.nitip.Adapter.GroupChatAdapter;
 import edu.bluejack22_2.nitip.Model.Message;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.ViewModel.GroupChatViewModel;
+import edu.bluejack22_2.nitip.ViewModel.TitipViewModel;
 
 public class GroupDetailActivity extends AppCompatActivity {
 
     private GroupChatViewModel groupChatViewModel;
+
+    private TitipViewModel titipViewModel;
 
     private Button btnBack;
 
@@ -34,6 +37,7 @@ public class GroupDetailActivity extends AppCompatActivity {
     private GroupChatAdapter adapter;
 
     private RecyclerView rvChatRoom;
+    private TextView tvLastTitip;
 
 
     @Override
@@ -42,6 +46,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group_detail);
 
         initialize();
+        setLastNitip();
         setListener();
         setValues();
         getMessage();
@@ -49,6 +54,7 @@ public class GroupDetailActivity extends AppCompatActivity {
 
     private void initialize() {
         groupChatViewModel = new GroupChatViewModel();
+        titipViewModel = new TitipViewModel();
         btnBack = findViewById(R.id.btnBack);
         tvGroupName = findViewById(R.id.tvGroupName);
         btnGoToNitipPage = findViewById(R.id.btnGoToTitipPage);
@@ -56,6 +62,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         etNewMessage = findViewById(R.id.etNewMessage);
 
         rvChatRoom = findViewById(R.id.rvChatRoom);
+        tvLastTitip = findViewById(R.id.tvLastTitip);
 
     }
 
@@ -105,5 +112,18 @@ public class GroupDetailActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         rvChatRoom.setLayoutManager(linearLayoutManager);
 
+    }
+
+    private void setLastNitip() {
+        Bundle extras = getIntent().getExtras();
+        String groupName = extras.getString("GroupCode");
+        titipViewModel.getLastTitip(groupName).thenAccept(response -> {
+            if (response.getResponse() != null) {
+//                System.out.println(response.getResponse().toString());
+                tvLastTitip.setText("Nitip On Going: " + response.getResponse().toString());
+            }
+        }).exceptionally(e -> {
+            return null;
+        });
     }
 }

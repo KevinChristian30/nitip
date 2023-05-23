@@ -40,6 +40,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
             String password = etPassword.getText().toString();
             String confPassword = etConfirmPassword.getText().toString();
 
+            if (password.trim().length() == 0 || confPassword.trim().length() == 0) {
+                Toast.makeText(this, "Password and Confirm Password Must be Filled!", Toast.LENGTH_SHORT).show();
+            }
+
             Response response = changePasswordViewModel.ChangePassword(password, confPassword);
 
             if (response.getError() != null) {
