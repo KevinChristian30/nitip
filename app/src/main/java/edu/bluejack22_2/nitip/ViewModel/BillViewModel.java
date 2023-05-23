@@ -12,7 +12,9 @@ public class BillViewModel {
     }
 
     public void createBill(Bill bill) {
-        billRepository.createBill(bill);
+        if (bill.getAmount() != 0) {
+            billRepository.createBill(bill);
+        }
     }
 
 }
