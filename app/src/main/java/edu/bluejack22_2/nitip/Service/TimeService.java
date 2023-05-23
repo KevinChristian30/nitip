@@ -2,6 +2,7 @@ package edu.bluejack22_2.nitip.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -22,5 +23,10 @@ public class TimeService {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         return timeFormat.format(calendar.getTime());
+    }
+
+    public static LocalDateTime getCurrentTimeWithFormat() {
+        LocalDateTime currentTime = LocalDateTime.now();
+        return currentTime;
     }
 }

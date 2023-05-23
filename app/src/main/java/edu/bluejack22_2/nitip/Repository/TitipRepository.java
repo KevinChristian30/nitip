@@ -18,10 +18,13 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
@@ -30,6 +33,7 @@ import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.Model.TitipDetail;
 import edu.bluejack22_2.nitip.Model.User;
+import edu.bluejack22_2.nitip.Service.TimeService;
 
 public class TitipRepository {
 
@@ -145,5 +149,40 @@ public class TitipRepository {
                 documentRef.update("titip_detail", array);
             }
         });
+    }
+
+    public CompletableFuture<Response> getLastTitip(String groupCode) {
+        CompletableFuture<Response> futureResponse = new CompletableFuture<>();
+        Response response = new Response(null);
+
+        Query titipsRef = firebaseFirestore.collection("titip").whereEqualTo("group_code", groupCode);
+        titipsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    Titip lastTitip = new Titip("", "2500-05-20 15:25", "", "", new ArrayList<>());
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+                        Titip titip = document.toObject(Titip.class);
+                        titip.setId(document.getId());
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime closeTime = LocalDateTime.parse(titip.getClose_time(), formatter);
+
+                        if (closeTime.isAfter(TimeService.getCurrentTimeWithFormat()) && (lastTitip == null || closeTime.isBefore(LocalDateTime.parse(lastTitip.getClose_time(), formatter)))) {
+                            lastTitip = titip;
+                        }
+
+                    }
+                    response.setResponse(lastTitip.getTitip_name());
+
+                    futureResponse.complete(response);
+
+                }
+                else {
+                    futureResponse.completeExceptionally(task.getException());
+                }
+            }
+        });
+        return futureResponse;
     }
 }
