@@ -2,6 +2,7 @@ package edu.bluejack22_2.nitip.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.Model.TitipDetail;
 import edu.bluejack22_2.nitip.R;
+import edu.bluejack22_2.nitip.View.CreateTitipDetailActivity;
 import edu.bluejack22_2.nitip.View.EditTitipDetailActivity;
+import edu.bluejack22_2.nitip.View.NitipDetailActivity;
 
 public class NitipDetailAdapter extends RecyclerView.Adapter<NitipDetailAdapter.ViewHolder>{
 
@@ -41,15 +49,17 @@ public class NitipDetailAdapter extends RecyclerView.Adapter<NitipDetailAdapter.
     private String titipID;
     private Context context;
     public static ArrayList<TitipDetail> data;
+    private String closeTime;
 
-    public void notifyChanges() {
-        this.notifyDataSetChanged();
+    public void setData(ArrayList<TitipDetail> data) {
+        this.data = data;
     }
 
-    public NitipDetailAdapter(Context context, ArrayList<TitipDetail> data, String titipID) {
+    public NitipDetailAdapter(Context context, ArrayList<TitipDetail> data, String titipID, String closeTime) {
         this.context = context;
         this.data = data;
         this.titipID = titipID;
+        this.closeTime = closeTime;
     }
 
     @NonNull
@@ -68,16 +78,31 @@ public class NitipDetailAdapter extends RecyclerView.Adapter<NitipDetailAdapter.
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
         holder.llNitipDetailCard.setOnClickListener(e -> {
-            if (data.get(position).getUser().getEmail().equals(firebaseAuth.getCurrentUser().getEmail())) {
-                Intent next = new Intent(holder.itemView.getContext(), EditTitipDetailActivity.class);
+            Date currentTime = Calendar.getInstance().getTime();
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-                next.putExtra("detail", data.get(position).getDetail());
-                next.putExtra("email", data.get(position).getUser().getEmail());
-                next.putExtra("titipID", titipID);
+            try {
+                Date closeTime = df.parse(this.closeTime);
 
-                context.startActivity(next);
-            } else {
-                Toast.makeText(holder.itemView.getContext(), "This is not your Titip", Toast.LENGTH_SHORT).show();
+                if (!closeTime.after(currentTime)) {
+                    Toast.makeText(holder.itemView.getContext(), "Nitip Closed", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    if (data.get(position).getUser().getEmail().equals(firebaseAuth.getCurrentUser().getEmail())) {
+                        Intent next = new Intent(holder.itemView.getContext(), EditTitipDetailActivity.class);
+
+                        next.putExtra("detail", data.get(position).getDetail());
+                        next.putExtra("email", data.get(position).getUser().getEmail());
+                        next.putExtra("titipID", titipID);
+
+                        context.startActivity(next);
+                    } else {
+                        Toast.makeText(holder.itemView.getContext(), "This is not your Titip", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            } catch (ParseException p) {
+                throw new RuntimeException(p);
             }
         });
     }

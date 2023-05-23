@@ -1,12 +1,15 @@
 package edu.bluejack22_2.nitip.ViewModel;
 
+import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -17,6 +20,7 @@ import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.Model.TitipDetail;
 import edu.bluejack22_2.nitip.Repository.TitipRepository;
 import edu.bluejack22_2.nitip.Service.TimeService;
+import edu.bluejack22_2.nitip.View.NitipDetailActivity;
 
 public class TitipViewModel {
 
@@ -73,5 +77,33 @@ public class TitipViewModel {
 
     public CompletableFuture<Response> getLastTitip(String groupCode) {
         return titipRepository.getLastTitip(groupCode);
+    }
+
+    public void updateTitipDetail(String titipID, String email, String newDetail, LifecycleOwner context) {
+        titipRepository.updateTitipDetail(titipID, email, newDetail, new TitipRepository.Listener() {
+            @Override
+            public void onSuccess(ArrayList<TitipDetail> titipDetails) {
+//                getTitipById(titipID).observe(context, data -> {
+//                    NitipDetailActivity.adapter.setData(data.getTitip_detail());
+//                });
+
+                titipLiveDatas.observe(context, data -> {
+                    List<Titip> temp = new ArrayList<>();
+                    temp.addAll(data);
+                    for (int i = 0; i < temp.size(); i++) {
+                        if (temp.get(i).getId().equals(titipID)) {
+                            temp.get(i).setTitip_detail(titipDetails);
+                            titipLiveDatas.setValue(temp);
+                            break;
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 }

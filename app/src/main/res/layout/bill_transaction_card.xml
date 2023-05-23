@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/colorOnPrimary"
+    android:layout_margin="10dp"
+    android:padding="10dp"
+    android:id="@+id/llTransaction"
+    android:backgroundTint="@color/colorAero">
+
+    <TextView
+        android:id="@+id/tvDebtorEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorOnSecondary"
+        android:text="kdotchrist30@gmail.com"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Amount"
+        android:textColorHint="@color/colorSecondaryVariant">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@color/colorOnSecondary" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

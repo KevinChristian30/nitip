@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.EditTitipDetailActivity">
+    tools:context=".View.EditTitipDetailActivity"
+    android:background="@color/colorOnPrimary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clHeader"
@@ -48,6 +49,89 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ImageView
+        android:id="@+id/ivIllustration"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/there_is_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clHeader" />
 
+    <TextView
+        android:id="@+id/tvCreateNewTitipDetailContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="35sp"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:text="Changed your mind? Edit while there's still time"
+        android:textColor="@color/colorSecondaryVariant"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivIllustration" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilTitipName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="35dp"
+        android:hint="Yummy!"
+        app:boxBackgroundColor="@color/colorOnPrimary"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:hintTextColor="@color/colorSecondaryVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCreateNewTitipDetailContent"
+        app:startIconDrawable="@drawable/baseline_shopping_bag_24"
+        android:textColorHint="@color/colorSecondaryVariant"
+        app:startIconTint="@color/colorPrimary"
+        android:layout_marginTop="25dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitipDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:lines="5"
+            android:textColor="@color/colorOnSecondary"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnUpdateTitip"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnDeleteTitip"
+        android:text="Update Titip"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginVertical="5dp"
+        app:cornerRadius="100dp"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeleteTitip"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Delete Titip"
+        android:backgroundTint="@color/colorMelon"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginVertical="25dp"
+        app:cornerRadius="100dp"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package edu.bluejack22_2.nitip.Repository;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -34,12 +35,12 @@ import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.Model.TitipDetail;
 import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.Service.TimeService;
+import edu.bluejack22_2.nitip.View.NitipDetailActivity;
 
 public class TitipRepository {
 
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth fAuth;
-
     MutableLiveData<Titip> titipMutableLiveData;
 
     public TitipRepository() {
@@ -184,5 +185,65 @@ public class TitipRepository {
             }
         });
         return futureResponse;
+    }
+
+    public interface Listener {
+        void onSuccess(ArrayList<TitipDetail> titipDetails);
+        void onFailure();
+    }
+
+    public void updateTitipDetail(String titipID, String email, String newDetail, Listener listener) {
+        Query titipsRef = firebaseFirestore.collection("titip");
+
+        ArrayList<TitipDetail> titipDetails = new ArrayList<>();
+        titipsRef.whereEqualTo(FieldPath.documentId(), titipID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+
+                if (!querySnapshot.isEmpty()) {
+                    DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+
+                    ArrayList<HashMap<String, Object>> data = (ArrayList<HashMap<String, Object>>) document.get("titip_detail");
+                    for (HashMap<String, Object> map : data) {
+                        HashMap<String, Object> object = (HashMap<String, Object>) map.get("user");
+
+                        if (((String) object.get("email")).equals(email)) {
+                            titipDetails.add(
+                                new TitipDetail(
+                                    new User((String) object.get("username"),
+                                        (String) object.get("email"),
+                                        (String) object.get("profile")),
+                                        newDetail));
+                        } else {
+                            titipDetails.add(
+                                new TitipDetail(
+                                    new User((String) object.get("username"),
+                                        (String) object.get("email"),
+                                        (String) object.get("profile")),
+                                        (String) map.get("detail")));
+                        }
+
+                    }
+                }
+            }
+        });
+
+        titipsRef.whereEqualTo(FieldPath.documentId(), titipID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+
+                if (!querySnapshot.isEmpty()) {
+                    DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                    document.getReference().update("titip_detail", titipDetails);
+                }
+
+                listener.onSuccess(titipDetails);
+            }
+        });
+
+    }
+
+    public void deleteTitipDetail(String titipID, String email) {
+
     }
 }
