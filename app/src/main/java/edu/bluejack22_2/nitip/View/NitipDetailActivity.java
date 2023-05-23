@@ -40,6 +40,7 @@ public class NitipDetailActivity extends AppCompatActivity {
     private RecyclerView rvTitipDetails;
     private Button btnTitip;
     private Titip currentTitip;
+    public static NitipDetailAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class NitipDetailActivity extends AppCompatActivity {
             tvClosesAt.setText("Closes At " + titip.getClose_time().substring(titip.getClose_time().length() - 5));
             currentTitip = new Titip(titip.getTitip_name(), titip.getClose_time(),
                 titip.getGroup_code(), titip.getGroup_name(), titip.getTitip_detail());
+            currentTitip.setId(titipID);
 
             setRecyclerView();
             setListener();
@@ -76,7 +78,7 @@ public class NitipDetailActivity extends AppCompatActivity {
     }
 
     private void setRecyclerView() {
-        NitipDetailAdapter adapter = new NitipDetailAdapter(this, currentTitip.getTitip_detail(), currentTitip.getId());
+        adapter = new NitipDetailAdapter(this, currentTitip.getTitip_detail(), currentTitip.getId(), currentTitip.getClose_time());
         rvTitipDetails.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -119,7 +121,6 @@ public class NitipDetailActivity extends AppCompatActivity {
             } catch (ParseException p) {
                 throw new RuntimeException(p);
             }
-
         });
     }
 }
