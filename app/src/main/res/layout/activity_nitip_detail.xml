@@ -131,6 +131,24 @@
         app:layout_constraintHeight_max="0dp"/>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBillDebtors"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnNitip"
+        android:text="Bill Debtors"
+        android:backgroundTint="@color/colorAero"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="25dp"
+        app:cornerRadius="100dp"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorOnSecondary"/>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNitip"
         android:layout_width="match_parent"
         android:layout_height="55dp"
@@ -140,7 +158,8 @@
         android:text="Nitip"
         android:backgroundTint="@color/colorPrimary"
         android:layout_marginHorizontal="25dp"
-        android:layout_marginVertical="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="25dp"
         app:cornerRadius="100dp"
         android:textAllCaps="false"
         android:textSize="14sp"

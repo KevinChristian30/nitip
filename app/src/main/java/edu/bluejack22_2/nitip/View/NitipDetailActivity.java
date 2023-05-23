@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -39,6 +41,7 @@ public class NitipDetailActivity extends AppCompatActivity {
     private TextView tvClosesAt;
     private RecyclerView rvTitipDetails;
     private Button btnTitip;
+    private Button btnShareBill;
     private Titip currentTitip;
     public static NitipDetailAdapter adapter;
 
@@ -59,6 +62,7 @@ public class NitipDetailActivity extends AppCompatActivity {
         tvClosesAt = findViewById(R.id.tvClosesAt);
         rvTitipDetails = findViewById(R.id.rvTitipDetails);
         btnTitip = findViewById(R.id.btnNitip);
+        btnShareBill = findViewById(R.id.btnBillDebtors);
     }
 
     private void setValues() {
@@ -71,10 +75,35 @@ public class NitipDetailActivity extends AppCompatActivity {
             currentTitip = new Titip(titip.getTitip_name(), titip.getClose_time(),
                 titip.getGroup_code(), titip.getGroup_name(), titip.getTitip_detail());
             currentTitip.setId(titipID);
+            currentTitip.setEntruster_email(titip.getEntruster_email());
 
             setRecyclerView();
             setListener();
+            setInteraction();
         });
+
+        btnShareBill.setVisibility(View.GONE);
+        btnTitip.setVisibility(View.VISIBLE);
+    }
+
+    private void setInteraction() {
+        Date currentTime = Calendar.getInstance().getTime();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        try {
+            Date closeTime = df.parse(currentTitip.getClose_time());
+            if (!closeTime.after(currentTime) &&
+                auth.getCurrentUser().getEmail().equals(currentTitip.getEntruster_email())) {
+
+                btnTitip.setVisibility(View.GONE);
+                btnShareBill.setVisibility(View.VISIBLE);
+
+            }
+        } catch (ParseException p) {
+            throw new RuntimeException(p);
+        }
+
     }
 
     private void setRecyclerView() {
@@ -121,6 +150,12 @@ public class NitipDetailActivity extends AppCompatActivity {
             } catch (ParseException p) {
                 throw new RuntimeException(p);
             }
+        });
+
+        btnShareBill.setOnClickListener(e -> {
+            Intent intent = new Intent(this, BillDebtorsActivity.class);
+            intent.putExtra("TitipID", getIntent().getStringExtra("TitipID"));
+            startActivity(intent);
         });
     }
 }
