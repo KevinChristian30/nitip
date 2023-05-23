@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.NitipDetailActivity"
-    android:background="@color/colorOnPrimary">
+    android:background="@color/colorOnPrimary"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clHeader"
@@ -124,12 +125,9 @@
         android:id="@+id/rvTitipDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvTitip"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_weight="1"
         android:layout_marginHorizontal="25dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"
         app:layout_constraintHeight_max="0dp"/>
 
     <com.google.android.material.button.MaterialButton
@@ -148,4 +146,4 @@
         android:textSize="14sp"
         android:textStyle="bold"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

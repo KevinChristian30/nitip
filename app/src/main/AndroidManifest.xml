@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Nitip"
         tools:targetApi="31">
         <activity
+            android:name=".View.EditTitipDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".View.CreateTitipDetailActivity"
             android:exported="false" />
         <activity

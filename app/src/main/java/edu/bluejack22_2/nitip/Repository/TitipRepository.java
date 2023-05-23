@@ -101,9 +101,19 @@ public class TitipRepository {
                     String groupName = document.getString("group_name");
                     String titipName = document.getString("titip_name");
 
-//                    Get Titip Details Here
+                    ArrayList<HashMap<String, Object>> data = (ArrayList<HashMap<String, Object>>) document.get("titip_detail");
+                    ArrayList<TitipDetail> titipDetails = new ArrayList<>();
+                    for (HashMap<String, Object> map : data) {
+                        HashMap<String, Object> object = (HashMap<String, Object>) map.get("user");
+                        titipDetails.add(
+                            new TitipDetail(
+                                new User((String) object.get("username"),
+                                        (String) object.get("email"),
+                                        (String) object.get("profile")),
+                                        (String) map.get("detail")));
+                    }
 
-                    Titip titip = new Titip(titipName, closeTime, groupCode, groupName, new ArrayList<>());
+                    Titip titip = new Titip(titipName, closeTime, groupCode, groupName, titipDetails);
                     titip.setEntruster_email(entrusterEmail);
                     
                     titipMutableLiveData.setValue(titip);

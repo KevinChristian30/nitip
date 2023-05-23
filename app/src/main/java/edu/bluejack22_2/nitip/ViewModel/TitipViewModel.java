@@ -24,7 +24,6 @@ public class TitipViewModel {
     MutableLiveData<Titip> titipLiveData;
     private TitipRepository titipRepository;
     public TitipViewModel() {
-
         titipRepository = new TitipRepository();
         titipLiveDatas = new MutableLiveData<>();
         titipLiveData = new MutableLiveData<>();

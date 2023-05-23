@@ -1,6 +1,7 @@
 package edu.bluejack22_2.nitip.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -42,13 +45,8 @@ public class NitipDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nitip_detail);
-
         initializeVariable();
         setValues();
-
-//        Log.i("ASD", currentTitip.getTitip_name());
-//        setRecyclerView();
-//        setListener();
     }
 
     private void initializeVariable() {
@@ -78,10 +76,9 @@ public class NitipDetailActivity extends AppCompatActivity {
     }
 
     private void setRecyclerView() {
-//        ArrayList<TitipDetail> data = new ArrayList<>();
-//        data.add(new TitipDetail(new User("", "kdotchrist30@gmail.com", "", ""), "Lemonade"));
-        NitipDetailAdapter adapter = new NitipDetailAdapter(this, currentTitip.getTitip_detail());
+        NitipDetailAdapter adapter = new NitipDetailAdapter(this, currentTitip.getTitip_detail(), currentTitip.getId());
         rvTitipDetails.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         rvTitipDetails.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -92,12 +89,26 @@ public class NitipDetailActivity extends AppCompatActivity {
         });
 
         btnTitip.setOnClickListener(e -> {
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            boolean hasTitipDetail = false;
+
+            for (TitipDetail titipDetail : NitipDetailAdapter.data) {
+                if (titipDetail.getUser().getEmail().equals(firebaseAuth.getCurrentUser().getEmail())) {
+                    hasTitipDetail = true;
+                }
+            }
+
             Date currentTime = Calendar.getInstance().getTime();
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
             try {
                 Date closeTime = df.parse(currentTitip.getClose_time());
                 if (closeTime.after(currentTime)) {
+                    if (hasTitipDetail) {
+                        Toast.makeText(this, "You already have a Titip", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     Intent next = new Intent(this, CreateTitipDetailActivity.class);
                     next.putExtra("GroupName", this.currentTitip.getGroup_name());
                     next.putExtra("TitipID", getIntent().getExtras().getString("TitipID"));
