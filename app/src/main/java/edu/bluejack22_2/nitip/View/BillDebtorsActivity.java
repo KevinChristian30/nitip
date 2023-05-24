@@ -73,8 +73,6 @@ public class BillDebtorsActivity extends AppCompatActivity {
         });
 
         btnBill.setOnClickListener(e -> {
-            ArrayList<Bill> bills = new ArrayList<>();
-
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
             for (int i = 0; i < rvTitip.getChildCount(); i++) {
@@ -89,6 +87,8 @@ public class BillDebtorsActivity extends AppCompatActivity {
 
                 billViewModel.createBill(bill);
             }
+
+            finish();
         });
     }
 

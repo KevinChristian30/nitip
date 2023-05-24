@@ -240,10 +240,43 @@ public class TitipRepository {
                 listener.onSuccess(titipDetails);
             }
         });
-
     }
 
-    public void deleteTitipDetail(String titipID, String email) {
+    public void removeTitipDetail(String titipID, String email) {
+        Query titipsRef = firebaseFirestore.collection("titip");
 
+        ArrayList<TitipDetail> titipDetails = new ArrayList<>();
+        titipsRef.whereEqualTo(FieldPath.documentId(), titipID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+
+                if (!querySnapshot.isEmpty()) {
+                    DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+
+                    ArrayList<HashMap<String, Object>> data = (ArrayList<HashMap<String, Object>>) document.get("titip_detail");
+                    for (HashMap<String, Object> map : data) {
+                        HashMap<String, Object> object = (HashMap<String, Object>) map.get("user");
+                        if (!((String) object.get("email")).equals(email)) {
+                            titipDetails.add(
+                                new TitipDetail(
+                                    new User((String) object.get("username"),
+                                        (String) object.get("email"),
+                                        (String) object.get("profile")),
+                                        (String) map.get("detail")));
+                        }
+                    }
+                }
+            }
+        });
+
+        titipsRef.whereEqualTo(FieldPath.documentId(), titipID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                if (!querySnapshot.isEmpty()) {
+                    DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                    document.getReference().update("titip_detail", titipDetails);
+                }
+            }
+        });
     }
 }
