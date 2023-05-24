@@ -39,6 +39,11 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
         this.data = data;
     }
 
+    public void updateData(ArrayList<Bill> newData) {
+        data = newData;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
