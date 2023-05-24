@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Nitip"
         tools:targetApi="31">
         <activity
+            android:name=".View.BillDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".View.BillDebtorsActivity"
             android:exported="false" />
         <activity

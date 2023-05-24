@@ -1,5 +1,6 @@
 package edu.bluejack22_2.nitip.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
@@ -24,9 +26,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.bluejack22_2.nitip.Adapter.BillAdapter;
+import edu.bluejack22_2.nitip.ClickListener.HolderClickListener;
 import edu.bluejack22_2.nitip.Model.Bill;
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.R;
+import edu.bluejack22_2.nitip.View.BillDetailActivity;
+import edu.bluejack22_2.nitip.View.HomeActivity;
 import edu.bluejack22_2.nitip.Service.BillService;
 import edu.bluejack22_2.nitip.ViewModel.BillViewModel;
 import edu.bluejack22_2.nitip.ViewModel.UserViewModel;
@@ -40,6 +45,7 @@ public class DashboardFragment extends Fragment {
     RecyclerView rvBills;
     ArrayList<Bill> bills;
     BillAdapter adapter;
+    HolderClickListener listener;
 
     TextView tvTransactionCount, tvTotalDebt, tvTotalReceivable;
 
@@ -79,6 +85,20 @@ public class DashboardFragment extends Fragment {
         billViewModel = new BillViewModel();
         firebaseAuth = FirebaseAuth.getInstance();
 
+        listener = new HolderClickListener() {
+            @Override
+            public void click(int index) {
+                Intent intent = new Intent(getActivity(), BillDetailActivity.class);
+                intent.putExtra("Bill", bills.get(index).getDate());
+                intent.putExtra("Bill", bills.get(index).getDebtor_email());
+                intent.putExtra("Bill", bills.get(index).getAmount());
+                intent.putExtra("Bill", bills.get(index).getLender_email());
+                intent.putExtra("Bill", bills.get(index).getId());
+                intent.putExtra("Bill", bills.get(index).getStatus());
+                startActivity(intent);
+            }
+        };
+
         tvTransactionCount = view.findViewById(R.id.tvTransactionCount);
         tvTotalDebt = view.findViewById(R.id.tvTotalDebt);
         tvTotalReceivable = view.findViewById(R.id.tvTotalReceivable);
@@ -99,7 +119,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private void setRecyclerView(View view) {
-        adapter = new BillAdapter(getContext(), bills);
+        adapter = new BillAdapter(getContext(), bills, listener);
         rvBills.setAdapter(adapter);
         adapter.updateData(bills);
         rvBills.setLayoutManager(new LinearLayoutManager(getContext()));
