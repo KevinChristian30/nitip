@@ -28,4 +28,12 @@ public class BillViewModel {
         billRepository.getBillsByEmailAndStatusLiveData(billLiveDatas, email, status);
         return billLiveDatas;
     }
+
+    public void rejectBill(String billID) {
+        billRepository.rejectBill(billID);
+    }
+
+    public void changeBillStatus(String billID) {
+        billRepository.changeBillStatus(billID);
+    }
 }
