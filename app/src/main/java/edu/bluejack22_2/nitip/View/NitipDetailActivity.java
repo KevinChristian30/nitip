@@ -46,6 +46,7 @@ public class NitipDetailActivity extends AppCompatActivity {
         setValues();
     }
 
+
     private void initializeVariable() {
         titipViewModel = new TitipViewModel();
 
