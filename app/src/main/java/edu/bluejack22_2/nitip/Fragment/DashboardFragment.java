@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,11 +37,13 @@ public class DashboardFragment extends Fragment {
     Spinner spinTransactionType;
     RecyclerView rvBills;
     ArrayList<Bill> bills;
+    BillAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +53,7 @@ public class DashboardFragment extends Fragment {
         init(view);
         setSpinner();
         setValues(view);
+
 
         return view;
     }
@@ -71,22 +75,56 @@ public class DashboardFragment extends Fragment {
         billViewModel.getBillsByEmailAndStatus("", "").observe(getViewLifecycleOwner(), data -> {
             bills = (ArrayList<Bill>) data;
             setRecyclerView(view);
+            setSpinnerListener();
         });
     }
 
     private void setRecyclerView(View view) {
-        BillAdapter adapter = new BillAdapter(getContext(), bills);
+        adapter = new BillAdapter(getContext(), bills);
         rvBills.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         rvBills.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void setSpinner() {
-        String[] items = new String[2];
-        items[0] = "Debted";
-        items[1] = "Lended";
+        String[] items = new String[3];
+        items[0] = "All";
+        items[1] = "Debted";
+        items[2] = "Lended";
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinTransactionType.setAdapter(adapter);
+    }
+
+    private void setSpinnerListener() {
+        spinTransactionType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ArrayList<Bill> filteredBill = new ArrayList<>();
+                for (Bill bill : bills) {
+                    if (adapterView.getItemAtPosition(i).toString().equals("All") &&
+                            (bill.getDebtor_email().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()) ||
+                                    bill.getLender_email().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())    )) {
+                        filteredBill.add(bill);
+                    }
+                    if (adapterView.getItemAtPosition(i).toString().equals("Debted") &&
+                    bill.getDebtor_email().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
+                        filteredBill.add(bill);
+                    }
+                    else if (adapterView.getItemAtPosition(i).toString().equals("Lended") &&
+                            bill.getLender_email().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
+                        filteredBill.add(bill);
+                    }
+
+                }
+
+                adapter.updateData(filteredBill);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 }
