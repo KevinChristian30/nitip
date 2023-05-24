@@ -106,4 +106,8 @@ public class TitipViewModel {
             }
         });
     }
+
+    public void removeTitipDetail(String titipID, String email) {
+        titipRepository.removeTitipDetail(titipID, email);
+    }
 }

@@ -4,15 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import edu.bluejack22_2.nitip.Adapter.NitipDetailAdapter;
-import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.ViewModel.TitipViewModel;
-import kotlin.time.TestTimeSource;
 
 public class EditTitipDetailActivity extends AppCompatActivity {
 
@@ -20,7 +17,6 @@ public class EditTitipDetailActivity extends AppCompatActivity {
     private Button btnUpdate;
     private Button btnDelete;
     private EditText etTitipDetail;
-
     private TitipViewModel titipViewModel;
 
     @Override
@@ -65,7 +61,16 @@ public class EditTitipDetailActivity extends AppCompatActivity {
         });
 
         btnDelete.setOnClickListener(e -> {
+            Intent intent = getIntent();
+            String titipID, email;
 
+            titipID = intent.getStringExtra("titipID");
+            email = intent.getStringExtra("email");
+            titipViewModel.removeTitipDetail(titipID, email);
+
+            Toast.makeText(this, "Titip Deleted", Toast.LENGTH_SHORT);
+
+            finish();
         });
     }
 
