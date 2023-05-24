@@ -12,18 +12,27 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.R;
+import edu.bluejack22_2.nitip.ViewModel.BillViewModel;
 
 public class BillDetailActivity extends AppCompatActivity {
 
+    BillViewModel billViewModel;
     private Button btnChooseFile;
     private Button btnChangeStatus;
+    private Button btnReject;
+    private Button btnAccept;
+    private Button btnCancel;
+    private TextView tvImageName;
     private Uri proofImageUri = null;
     private final ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -32,6 +41,13 @@ public class BillDetailActivity extends AppCompatActivity {
                     Intent data = result.getData();
                     if (data != null) {
                         proofImageUri = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DISPLAY_NAME};
+                        Cursor cursor = getContentResolver().query(proofImageUri, filePathColumn, null, null, null);
+                        if (cursor != null && cursor.moveToFirst()) {
+                            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                            tvImageName.setText(cursor.getString(columnIndex));
+                            cursor.close();
+                        }
                     }
                 }
             });
@@ -47,8 +63,13 @@ public class BillDetailActivity extends AppCompatActivity {
     }
 
     private void init() {
+        billViewModel = new BillViewModel();
         btnChooseFile = findViewById(R.id.btnChooseFile);
         btnChangeStatus = findViewById(R.id.btnChangeStatus);
+        btnReject = findViewById(R.id.btnReject);
+        btnAccept = findViewById(R.id.btnAccept);
+        btnReject = findViewById(R.id.btnReject);
+        tvImageName = findViewById(R.id.tvImageName);
     }
 
     private void setListener() {
@@ -66,6 +87,29 @@ public class BillDetailActivity extends AppCompatActivity {
             if (proofImageUri == null) {
                 Toast.makeText(this, "Send your proof!", Toast.LENGTH_SHORT).show();
             }
+            else {
+                billViewModel.changeBillStatus(getIntent().getExtras().get("Id").toString());
+                ActivityChanger.changeActivity(this, HomeActivity.class);
+            }
+        });
+
+        btnReject.setOnClickListener(e -> {
+            billViewModel.rejectBill(getIntent().getExtras().get("Id").toString());
+            ActivityChanger.changeActivity(this, HomeActivity.class);
+        });
+
+        btnAccept.setOnClickListener(e -> {
+            billViewModel.acceptBill(getIntent().getExtras().get("Id").toString());
+            ActivityChanger.changeActivity(this, HomeActivity.class);
+        });
+
+        btnReject.setOnClickListener(e -> {
+            billViewModel.acceptBill(getIntent().getExtras().get("Id").toString());
+            ActivityChanger.changeActivity(this, HomeActivity.class);
+        });
+
+        tvImageName.setOnClickListener(e -> {
+            openImage();
         });
     }
 
@@ -93,5 +137,20 @@ public class BillDetailActivity extends AppCompatActivity {
                 })
                 .create().show();
     }
+
+    private void openImage() {
+        // Create an Intent to open the image
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(proofImageUri, "image/*");
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        PackageManager packageManager = getPackageManager();
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "No app available to open the image", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }

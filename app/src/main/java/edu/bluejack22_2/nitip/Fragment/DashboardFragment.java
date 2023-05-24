@@ -89,11 +89,11 @@ public class DashboardFragment extends Fragment {
             public void click(int index) {
                 Intent intent = new Intent(getActivity(), BillDetailActivity.class);
                 intent.putExtra("Bill", bills.get(index).getDate());
-                intent.putExtra("Bill", bills.get(index).getDebtor_email());
-                intent.putExtra("Bill", bills.get(index).getAmount());
-                intent.putExtra("Bill", bills.get(index).getLender_email());
-                intent.putExtra("Bill", bills.get(index).getId());
-                intent.putExtra("Bill", bills.get(index).getStatus());
+                intent.putExtra("Debtor", bills.get(index).getDebtor_email());
+                intent.putExtra("Amount", bills.get(index).getAmount());
+                intent.putExtra("Lender", bills.get(index).getLender_email());
+                intent.putExtra("Id", bills.get(index).getId());
+                intent.putExtra("Status", bills.get(index).getStatus());
                 startActivity(intent);
             }
         };
