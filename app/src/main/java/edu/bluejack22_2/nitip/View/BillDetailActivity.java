@@ -39,6 +39,7 @@ public class BillDetailActivity extends AppCompatActivity {
     private TextView tvLender;
     private TextView tvDebtor;
     private TextView tvAmount;
+    private TextView tvTrDate;
     private Uri proofImageUri = null;
     private final ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -81,9 +82,11 @@ public class BillDetailActivity extends AppCompatActivity {
         tvLender = findViewById(R.id.tvLender);
         tvDebtor = findViewById(R.id.tvDebtor);
         tvAmount = findViewById(R.id.tvAmount);
+        tvTrDate = findViewById(R.id.tvTrDate);
     }
 
     private void setValue() {
+        tvTrDate.setText("Date : " + getIntent().getExtras().get("Date").toString());
         tvLender.setText("Lender : " + getIntent().getExtras().get("Lender").toString());
         tvDebtor.setText("Debtor : " + getIntent().getExtras().get("Debtor").toString());
         tvAmount.setText("Amount : " + getIntent().getExtras().get("Amount").toString());
