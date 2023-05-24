@@ -42,6 +42,6 @@ public class BillViewModel {
     }
 
     public void cancelBill(String billID) {
-        billRepository.ca
+        billRepository.cancelBill(billID);
     }
 }
