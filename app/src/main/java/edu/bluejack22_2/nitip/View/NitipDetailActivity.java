@@ -1,32 +1,27 @@
 package edu.bluejack22_2.nitip.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import edu.bluejack22_2.nitip.Adapter.NitipDetailAdapter;
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.Model.TitipDetail;
-import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.ViewModel.TitipViewModel;
 
@@ -39,7 +34,9 @@ public class NitipDetailActivity extends AppCompatActivity {
     private TextView tvClosesAt;
     private RecyclerView rvTitipDetails;
     private Button btnTitip;
+    private Button btnShareBill;
     private Titip currentTitip;
+    public static NitipDetailAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +55,7 @@ public class NitipDetailActivity extends AppCompatActivity {
         tvClosesAt = findViewById(R.id.tvClosesAt);
         rvTitipDetails = findViewById(R.id.rvTitipDetails);
         btnTitip = findViewById(R.id.btnNitip);
+        btnShareBill = findViewById(R.id.btnBillDebtors);
     }
 
     private void setValues() {
@@ -69,14 +67,40 @@ public class NitipDetailActivity extends AppCompatActivity {
             tvClosesAt.setText("Closes At " + titip.getClose_time().substring(titip.getClose_time().length() - 5));
             currentTitip = new Titip(titip.getTitip_name(), titip.getClose_time(),
                 titip.getGroup_code(), titip.getGroup_name(), titip.getTitip_detail());
+            currentTitip.setId(titipID);
+            currentTitip.setEntruster_email(titip.getEntruster_email());
 
             setRecyclerView();
             setListener();
+            setInteraction();
         });
+
+        btnShareBill.setVisibility(View.GONE);
+        btnTitip.setVisibility(View.VISIBLE);
+    }
+
+    private void setInteraction() {
+        Date currentTime = Calendar.getInstance().getTime();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        try {
+            Date closeTime = df.parse(currentTitip.getClose_time());
+            if (!closeTime.after(currentTime) &&
+                auth.getCurrentUser().getEmail().equals(currentTitip.getEntruster_email())) {
+
+                btnTitip.setVisibility(View.GONE);
+                btnShareBill.setVisibility(View.VISIBLE);
+
+            }
+        } catch (ParseException p) {
+            throw new RuntimeException(p);
+        }
+
     }
 
     private void setRecyclerView() {
-        NitipDetailAdapter adapter = new NitipDetailAdapter(this, currentTitip.getTitip_detail(), currentTitip.getId());
+        adapter = new NitipDetailAdapter(this, currentTitip.getTitip_detail(), currentTitip.getId(), currentTitip.getClose_time());
         rvTitipDetails.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -119,7 +143,12 @@ public class NitipDetailActivity extends AppCompatActivity {
             } catch (ParseException p) {
                 throw new RuntimeException(p);
             }
+        });
 
+        btnShareBill.setOnClickListener(e -> {
+            Intent intent = new Intent(this, BillDebtorsActivity.class);
+            intent.putExtra("TitipID", getIntent().getStringExtra("TitipID"));
+            startActivity(intent);
         });
     }
 }

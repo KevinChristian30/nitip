@@ -3,16 +3,13 @@ package edu.bluejack22_2.nitip.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import edu.bluejack22_2.nitip.Adapter.NitipDetailAdapter;
 import edu.bluejack22_2.nitip.Model.TitipDetail;
 import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.R;

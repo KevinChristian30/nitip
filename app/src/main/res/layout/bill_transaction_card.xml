@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorOnPrimary"
+    android:layout_margin="10dp"
+    android:padding="10dp"
+    android:id="@+id/llTransaction">
+
+    <TextView
+        android:id="@+id/tvDebtorEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorOnSecondary"
+        android:text="kdotchrist30@gmail.com"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAmount"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Amount"
+        app:boxBackgroundColor="@color/colorOnPrimary"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:hintTextColor="@color/colorSecondaryVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCreateNewTitipContent"
+        app:startIconDrawable="@drawable/baseline_attach_money_24"
+        android:textColorHint="@color/colorSecondaryVariant"
+        app:startIconTint="@color/colorPrimary"
+        android:layout_marginTop="10dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@color/colorOnSecondary"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>
