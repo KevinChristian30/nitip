@@ -94,6 +94,7 @@ public class DashboardFragment extends Fragment {
                 intent.putExtra("Lender", bills.get(index).getLender_email());
                 intent.putExtra("Id", bills.get(index).getId());
                 intent.putExtra("Status", bills.get(index).getStatus());
+                intent.putExtra("Date", bills.get(index).getDate());
                 startActivity(intent);
             }
         };
