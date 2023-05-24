@@ -36,4 +36,12 @@ public class BillViewModel {
     public void changeBillStatus(String billID) {
         billRepository.changeBillStatus(billID);
     }
+
+    public void acceptBill(String billID) {
+        billRepository.acceptBill(billID);
+    }
+
+    public void cancelBill(String billID) {
+        billRepository.ca
+    }
 }

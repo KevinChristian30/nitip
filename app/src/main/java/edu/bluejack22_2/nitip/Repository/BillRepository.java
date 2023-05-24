@@ -114,4 +114,30 @@ public class BillRepository {
             }
         });
     }
+
+    public void acceptBill(String billID) {
+        Query titipsRef = firebaseFirestore.collection("bill");
+        titipsRef.whereEqualTo(FieldPath.documentId(), billID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                if (!querySnapshot.isEmpty()) {
+                    DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                    document.getReference().update("status", "Paid");
+                }
+            }
+        });
+    }
+
+    public void cancelBill(String billID) {
+        Query titipsRef = firebaseFirestore.collection("bill");
+        titipsRef.whereEqualTo(FieldPath.documentId(), billID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                if (!querySnapshot.isEmpty()) {
+                    DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                    document.getReference().update("status", "Canceled");
+                }
+            }
+        });
+    }
 }

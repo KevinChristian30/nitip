@@ -30,6 +30,8 @@ public class BillDetailActivity extends AppCompatActivity {
     private Button btnChooseFile;
     private Button btnChangeStatus;
     private Button btnReject;
+    private Button btnAccept;
+    private Button btnCancel;
     private TextView tvImageName;
     private Uri proofImageUri = null;
     private final ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
@@ -65,6 +67,8 @@ public class BillDetailActivity extends AppCompatActivity {
         btnChooseFile = findViewById(R.id.btnChooseFile);
         btnChangeStatus = findViewById(R.id.btnChangeStatus);
         btnReject = findViewById(R.id.btnReject);
+        btnAccept = findViewById(R.id.btnAccept);
+        btnReject = findViewById(R.id.btnReject);
         tvImageName = findViewById(R.id.tvImageName);
     }
 
@@ -91,6 +95,16 @@ public class BillDetailActivity extends AppCompatActivity {
 
         btnReject.setOnClickListener(e -> {
             billViewModel.rejectBill(getIntent().getExtras().get("Id").toString());
+            ActivityChanger.changeActivity(this, HomeActivity.class);
+        });
+
+        btnAccept.setOnClickListener(e -> {
+            billViewModel.acceptBill(getIntent().getExtras().get("Id").toString());
+            ActivityChanger.changeActivity(this, HomeActivity.class);
+        });
+
+        btnReject.setOnClickListener(e -> {
+            billViewModel.acceptBill(getIntent().getExtras().get("Id").toString());
             ActivityChanger.changeActivity(this, HomeActivity.class);
         });
 
