@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-
+import java.util.ArrayList;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class DashboardFragment extends Fragment {
     UserViewModel userViewModel;
     BillViewModel billViewModel;
     TextView tvTitle;
+    Spinner spinTransactionType;
     RecyclerView rvBills;
     ArrayList<Bill> bills;
 
@@ -45,6 +48,7 @@ public class DashboardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         init(view);
+        setSpinner();
         setValues(view);
 
         return view;
@@ -52,6 +56,7 @@ public class DashboardFragment extends Fragment {
 
     private void init(View view) {
         tvTitle = view.findViewById(R.id.tvTitle);
+        spinTransactionType = view.findViewById(R.id.spinTransactionType);
         rvBills = view.findViewById(R.id.rvBills);
         userViewModel = new UserViewModel();
         billViewModel = new BillViewModel();
@@ -74,5 +79,14 @@ public class DashboardFragment extends Fragment {
         rvBills.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         rvBills.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    private void setSpinner() {
+        String[] items = new String[2];
+        items[0] = "Debted";
+        items[1] = "Lended";
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinTransactionType.setAdapter(adapter);
     }
 }
