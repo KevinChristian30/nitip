@@ -21,11 +21,13 @@ import java.util.ArrayList;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.bluejack22_2.nitip.Adapter.BillAdapter;
 import edu.bluejack22_2.nitip.Model.Bill;
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.R;
+import edu.bluejack22_2.nitip.Service.BillService;
 import edu.bluejack22_2.nitip.ViewModel.BillViewModel;
 import edu.bluejack22_2.nitip.ViewModel.UserViewModel;
 
@@ -39,6 +41,8 @@ public class DashboardFragment extends Fragment {
     ArrayList<Bill> bills;
     BillAdapter adapter;
 
+    TextView tvTransactionCount, tvTotalDebt, tvTotalReceivable;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +51,8 @@ public class DashboardFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        billViewModel.getBillsByEmailAndStatus("", "").observe(getViewLifecycleOwner(), data -> {
+        billViewModel.getBillsByEmailAndStatus(firebaseAuth.getCurrentUser().getEmail(),
+                "Pending Payment").observe(getViewLifecycleOwner(), data -> {
             bills = (ArrayList<Bill>) data;
             setRecyclerView(getView());
         });
@@ -73,6 +78,10 @@ public class DashboardFragment extends Fragment {
         userViewModel = new UserViewModel();
         billViewModel = new BillViewModel();
         firebaseAuth = FirebaseAuth.getInstance();
+
+        tvTransactionCount = view.findViewById(R.id.tvTransactionCount);
+        tvTotalDebt = view.findViewById(R.id.tvTotalDebt);
+        tvTotalReceivable = view.findViewById(R.id.tvTotalReceivable);
     }
 
     private void setValues(View view) {
@@ -85,6 +94,7 @@ public class DashboardFragment extends Fragment {
             bills = (ArrayList<Bill>) data;
             setRecyclerView(view);
             setSpinnerListener();
+            setStatistics();
         });
     }
 
@@ -103,6 +113,14 @@ public class DashboardFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinTransactionType.setAdapter(adapter);
+    }
+
+    private void setStatistics() {
+        HashMap<String, String> statistics = BillService.getUserBillStatistics(bills);
+
+        tvTransactionCount.setText(statistics.get("TransactionCount"));
+        tvTotalDebt.setText(statistics.get("TotalDebt"));
+        tvTotalReceivable.setText(statistics.get("TotalReceivable"));
     }
 
     private void setSpinnerListener() {
