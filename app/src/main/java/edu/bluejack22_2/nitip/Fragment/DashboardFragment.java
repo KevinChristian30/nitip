@@ -80,7 +80,8 @@ public class DashboardFragment extends Fragment {
             tvTitle.setText("Hello, " + user.getUsername());
         });
 
-        billViewModel.getBillsByEmailAndStatus("", "").observe(getViewLifecycleOwner(), data -> {
+        billViewModel.getBillsByEmailAndStatus(firebaseAuth.getCurrentUser().getEmail(),
+        "Pending Payment").observe(getViewLifecycleOwner(), data -> {
             bills = (ArrayList<Bill>) data;
             setRecyclerView(view);
             setSpinnerListener();

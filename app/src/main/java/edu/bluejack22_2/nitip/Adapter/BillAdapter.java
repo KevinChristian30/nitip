@@ -57,8 +57,8 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
         Bill bill = data.get(position);
 
         holder.tvBillID.setText("Bill ID: " + bill.getId());
-        holder.tvLenderEmail.setText("Lender's  ID: " + bill.getLender_email());
-        holder.tvDebtorEmail.setText("Debtor's ID: " + bill.getDebtor_email());
+        holder.tvLenderEmail.setText("Lender: " + bill.getLender_email());
+        holder.tvDebtorEmail.setText("Debtor: " + bill.getDebtor_email());
         holder.tvAmount.setText("Amount: " + String.valueOf(bill.getAmount()));
         holder.tvStatus.setText("Status: " + bill.getStatus());
     }
@@ -67,5 +67,4 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
     public int getItemCount() {
         return data.size();
     }
-
 }
