@@ -16,9 +16,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.R;
@@ -33,6 +36,9 @@ public class BillDetailActivity extends AppCompatActivity {
     private Button btnAccept;
     private Button btnCancel;
     private TextView tvImageName;
+    private TextView tvLender;
+    private TextView tvDebtor;
+    private TextView tvAmount;
     private Uri proofImageUri = null;
     private final ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -59,6 +65,8 @@ public class BillDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bill_detail);
 
         init();
+        setValue();
+        setAuthorization();
         setListener();
     }
 
@@ -70,6 +78,15 @@ public class BillDetailActivity extends AppCompatActivity {
         btnAccept = findViewById(R.id.btnAccept);
         btnCancel = findViewById(R.id.btnCancel);
         tvImageName = findViewById(R.id.tvImageName);
+        tvLender = findViewById(R.id.tvLender);
+        tvDebtor = findViewById(R.id.tvDebtor);
+        tvAmount = findViewById(R.id.tvAmount);
+    }
+
+    private void setValue() {
+        tvLender.setText("Lender : " + getIntent().getExtras().get("Lender").toString());
+        tvDebtor.setText("Debtor : " + getIntent().getExtras().get("Debtor").toString());
+        tvAmount.setText("Amount : " + getIntent().getExtras().get("Amount").toString());
     }
 
     private void setListener() {
@@ -109,7 +126,9 @@ public class BillDetailActivity extends AppCompatActivity {
         });
 
         tvImageName.setOnClickListener(e -> {
-            openImage();
+            if (proofImageUri != null) {
+                openImage();
+            }
         });
     }
 
@@ -152,5 +171,21 @@ public class BillDetailActivity extends AppCompatActivity {
         }
     }
 
+    private void setAuthorization() {
+        if (getIntent().getExtras().get("Lender").equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
+            btnReject.setVisibility(View.GONE);
+            btnChangeStatus.setVisibility(View.GONE);
+            btnChooseFile.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.VISIBLE);
+            btnAccept.setVisibility(View.VISIBLE);
+        }
+        else {
+            btnReject.setVisibility(View.VISIBLE);
+            btnChangeStatus.setVisibility(View.VISIBLE);
+            btnChooseFile.setVisibility(View.VISIBLE);
+            btnCancel.setVisibility(View.GONE);
+            btnAccept.setVisibility(View.GONE);
+        }
+    }
 
 }
