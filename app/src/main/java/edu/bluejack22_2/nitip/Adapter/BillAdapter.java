@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import edu.bluejack22_2.nitip.ClickListener.HolderClickListener;
 import edu.bluejack22_2.nitip.Model.Bill;
 import edu.bluejack22_2.nitip.Model.TitipDetail;
 import edu.bluejack22_2.nitip.R;
@@ -33,10 +34,12 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Bill> data;
+    private HolderClickListener listener;
 
-    public BillAdapter(Context context, ArrayList<Bill> data) {
+    public BillAdapter(Context context, ArrayList<Bill> data, HolderClickListener listener) {
         this.context = context;
         this.data = data;
+        this.listener = listener;
     }
 
     public void updateData(ArrayList<Bill> newData) {
@@ -54,6 +57,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        final int index = holder.getAdapterPosition();
         Bill bill = data.get(position);
 
         holder.tvBillID.setText("Bill ID: " + bill.getId());
@@ -61,6 +65,13 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
         holder.tvDebtorEmail.setText("Debtor: " + bill.getDebtor_email());
         holder.tvAmount.setText("Amount: " + String.valueOf(bill.getAmount()));
         holder.tvStatus.setText("Status: " + bill.getStatus());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.click(index);
+            }
+        });
     }
 
     @Override
