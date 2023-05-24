@@ -46,7 +46,6 @@ public class DashboardFragment extends Fragment {
     ArrayList<Bill> bills;
     BillAdapter adapter;
     HolderClickListener listener;
-
     TextView tvTransactionCount, tvTotalDebt, tvTotalReceivable;
 
     @Override

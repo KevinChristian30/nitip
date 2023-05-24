@@ -87,7 +87,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
 
@@ -126,11 +125,9 @@ public class ProfileFragment extends Fragment {
         userViewModel = new UserViewModel();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-
     }
 
     private void setListener(View view) {
-
         btnLogout.setOnClickListener(e -> {
             gsc.signOut().addOnCompleteListener(requireActivity(), new OnCompleteListener<Void>() {
                 @Override
