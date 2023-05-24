@@ -2,7 +2,6 @@ package edu.bluejack22_2.nitip.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,12 +21,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.Model.TitipDetail;
 import edu.bluejack22_2.nitip.R;
-import edu.bluejack22_2.nitip.View.CreateTitipDetailActivity;
 import edu.bluejack22_2.nitip.View.EditTitipDetailActivity;
-import edu.bluejack22_2.nitip.View.NitipDetailActivity;
 
 public class NitipDetailAdapter extends RecyclerView.Adapter<NitipDetailAdapter.ViewHolder>{
 

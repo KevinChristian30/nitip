@@ -2,7 +2,6 @@ package edu.bluejack22_2.nitip.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,20 +12,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import edu.bluejack22_2.nitip.Model.Group;
-import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.Model.Titip;
-import edu.bluejack22_2.nitip.Model.TitipDetail;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.View.NitipDetailActivity;
 import edu.bluejack22_2.nitip.ViewModel.GroupViewModel;

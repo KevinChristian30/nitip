@@ -1,34 +1,27 @@
 package edu.bluejack22_2.nitip.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import edu.bluejack22_2.nitip.Adapter.NitipDetailAdapter;
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.Model.TitipDetail;
-import edu.bluejack22_2.nitip.Model.User;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.ViewModel.TitipViewModel;
 

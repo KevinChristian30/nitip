@@ -4,16 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import edu.bluejack22_2.nitip.Adapter.NitipDetailAdapter;
-import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.ViewModel.TitipViewModel;
-import kotlin.time.TestTimeSource;
 
 public class EditTitipDetailActivity extends AppCompatActivity {
 

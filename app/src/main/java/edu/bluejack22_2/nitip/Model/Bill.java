@@ -2,6 +2,7 @@ package edu.bluejack22_2.nitip.Model;
 
 public class Bill {
 
+    private String id;
     private String debtorEmail;
     private String lenderEmail;
     private int amount;
@@ -15,6 +16,14 @@ public class Bill {
     }
 
     public Bill() {}
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDebtor_email() {
         return debtorEmail;

@@ -12,14 +12,10 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.checkerframework.checker.units.qual.A;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import edu.bluejack22_2.nitip.Adapter.BillDebtorsAdapter;
 import edu.bluejack22_2.nitip.Model.Bill;
-import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.Model.TitipDetail;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.ViewModel.BillViewModel;

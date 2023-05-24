@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import edu.bluejack22_2.nitip.Model.Bill;
 import edu.bluejack22_2.nitip.Model.TitipDetail;
 import edu.bluejack22_2.nitip.R;
-import edu.bluejack22_2.nitip.View.BillDebtorsActivity;
 
 public class BillDebtorsAdapter extends RecyclerView.Adapter<BillDebtorsAdapter.ViewHolder> {
 
