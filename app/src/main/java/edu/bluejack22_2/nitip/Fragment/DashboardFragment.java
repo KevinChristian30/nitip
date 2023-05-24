@@ -44,6 +44,14 @@ public class DashboardFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    public void onResume() {
+        super.onResume();
+
+        billViewModel.getBillsByEmailAndStatus("", "").observe(getViewLifecycleOwner(), data -> {
+            bills = (ArrayList<Bill>) data;
+            setRecyclerView(getView());
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,7 +90,7 @@ public class DashboardFragment extends Fragment {
     private void setRecyclerView(View view) {
         adapter = new BillAdapter(getContext(), bills);
         rvBills.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        adapter.updateData(bills);
         rvBills.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
