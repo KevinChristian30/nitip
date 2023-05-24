@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.bluejack22_2.nitip.Adapter.GroupPageAdapter;
-import edu.bluejack22_2.nitip.ClickListener.GroupClickListener;
+import edu.bluejack22_2.nitip.ClickListener.HolderClickListener;
 import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.R;
@@ -28,7 +28,7 @@ import edu.bluejack22_2.nitip.ViewModel.GroupViewModel;
 public class GroupFragment extends Fragment {
     GroupPageAdapter adapter;
     RecyclerView recyclerView;
-    GroupClickListener listener;
+    HolderClickListener listener;
     List<GroupRow> data;
     Button btnJoinGroup;
     View view;
@@ -55,7 +55,7 @@ public class GroupFragment extends Fragment {
         btnJoinGroup = view.findViewById(R.id.btnJoinGroup);
         recyclerView = view.findViewById(R.id.rvGroup);
         data = new ArrayList<>();
-        listener = new GroupClickListener() {
+        listener = new HolderClickListener() {
             @Override
             public void click(int index) {
 
