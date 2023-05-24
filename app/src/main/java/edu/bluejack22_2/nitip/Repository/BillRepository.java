@@ -47,25 +47,43 @@ public class BillRepository {
     }
 
     public void getBillsByEmailAndStatusLiveData(MutableLiveData<List<Bill>> billLiveDatas, String email, String status) {
-        Query billsRef = firebaseFirestore.collection("bill");
+        Query lenderQuery = firebaseFirestore.collection("bill")
+                                .whereEqualTo("lender_email", email)
+                                .whereEqualTo("status", status);
 
-        billsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        Query debtorQuery = firebaseFirestore.collection("bill")
+                                .whereEqualTo("debtor_email", email)
+                                .whereEqualTo("status", status);
 
+        List<Bill> billsList = new ArrayList<>();
+
+        lenderQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    List<Bill> groupList = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
-
                         Bill bill = document.toObject(Bill.class);
                         bill.setId(document.getId());
-                        groupList.add(bill);
-
+                        billsList.add(bill);
                     }
-                    billLiveDatas.setValue(groupList);
+
+                    debtorQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Bill bill = document.toObject(Bill.class);
+                                    bill.setId(document.getId());
+                                    billsList.add(bill);
+                                }
+
+                                billLiveDatas.setValue(billsList);
+                            }
+                        }
+                    });
+
                 }
             }
-
         });
     }
 }
