@@ -55,6 +55,7 @@
                 />
 
             <TextView
+                android:id="@+id/tvTransactionCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="15"
@@ -93,6 +94,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tvTotalDebt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rp. 100,000"
@@ -123,6 +125,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tvTotalReceivable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rp. 50,000"
