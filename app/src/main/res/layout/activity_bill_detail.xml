@@ -123,7 +123,7 @@
             />
 
         <TextView
-            android:id="@+id/tvFileName"
+            android:id="@+id/tvImageName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No file chosen"
@@ -152,6 +152,32 @@
         android:layout_marginHorizontal="35dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="Reject"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:cornerRadius="5dp"
+        android:layout_marginTop="10dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAccept"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginHorizontal="35dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Accept"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:cornerRadius="5dp"
+        android:layout_marginTop="10dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancel"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginHorizontal="35dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Cancel"
         android:textAllCaps="false"
         android:textSize="14sp"
         android:textStyle="bold"
