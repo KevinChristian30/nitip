@@ -68,7 +68,7 @@ public class BillDetailActivity extends AppCompatActivity {
         btnChangeStatus = findViewById(R.id.btnChangeStatus);
         btnReject = findViewById(R.id.btnReject);
         btnAccept = findViewById(R.id.btnAccept);
-        btnReject = findViewById(R.id.btnReject);
+        btnCancel = findViewById(R.id.btnCancel);
         tvImageName = findViewById(R.id.tvImageName);
     }
 
@@ -103,8 +103,8 @@ public class BillDetailActivity extends AppCompatActivity {
             ActivityChanger.changeActivity(this, HomeActivity.class);
         });
 
-        btnReject.setOnClickListener(e -> {
-            billViewModel.acceptBill(getIntent().getExtras().get("Id").toString());
+        btnCancel.setOnClickListener(e -> {
+            billViewModel.cancelBill(getIntent().getExtras().get("Id").toString());
             ActivityChanger.changeActivity(this, HomeActivity.class);
         });
 
