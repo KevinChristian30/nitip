@@ -7,12 +7,14 @@ public class Bill {
     private String lenderEmail;
     private int amount;
     private String status;
+    private String date;
 
-    public Bill(String debtorEmail, String lenderEmail, int amount, String status) {
+    public Bill(String debtorEmail, String lenderEmail, int amount, String status, String date) {
         this.debtorEmail = debtorEmail;
         this.lenderEmail = lenderEmail;
         this.amount = amount;
         this.status = status;
+        this.date = date;
     }
 
     public Bill() {}
@@ -55,5 +57,13 @@ public class Bill {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDate() {
+        return this.date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

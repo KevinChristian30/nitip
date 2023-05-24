@@ -13,7 +13,11 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,6 +41,7 @@ public class BillRepository {
         billData.put("debtor_email", bill.getDebtor_email());
         billData.put("amount", bill.getAmount());
         billData.put("status", bill.getStatus());
+        billData.put("date", bill.getDate());
 
         firebaseFirestore.collection("bill").add(billData);
     }

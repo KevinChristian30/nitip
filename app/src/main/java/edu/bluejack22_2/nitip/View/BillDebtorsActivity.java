@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import edu.bluejack22_2.nitip.Adapter.BillDebtorsAdapter;
 import edu.bluejack22_2.nitip.Model.Bill;
@@ -79,7 +81,9 @@ public class BillDebtorsActivity extends AppCompatActivity {
                 Bill bill = new Bill(tvDebtorEmail.getText().toString(),
                     firebaseAuth.getCurrentUser().getEmail(),
                     Integer.parseInt(etAmount.getText().toString()),
-                    "Pending Payment");
+                    "Pending Payment",
+                    Calendar.getInstance().getTime().toString()
+                    );
 
                 billViewModel.createBill(bill);
             }
