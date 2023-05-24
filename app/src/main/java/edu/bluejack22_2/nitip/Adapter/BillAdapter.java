@@ -20,7 +20,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvBillID, tvLenderEmail, tvDebtorEmail, tvAmount, tvStatus;
+        TextView tvBillID, tvLenderEmail, tvDebtorEmail, tvAmount, tvStatus, tvDate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -29,6 +29,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
             tvDebtorEmail = itemView.findViewById(R.id.tvDebtorEmail);
             tvAmount = itemView.findViewById(R.id.tvAmount);
             tvStatus = itemView.findViewById(R.id.tvStatus);
+            tvDate = itemView.findViewById(R.id.tvDate);
         }
     }
 
@@ -65,6 +66,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
         holder.tvDebtorEmail.setText("Debtor: " + bill.getDebtor_email());
         holder.tvAmount.setText("Amount: " + String.valueOf(bill.getAmount()));
         holder.tvStatus.setText("Status: " + bill.getStatus());
+        holder.tvDate.setText("Date: " + bill.getDate());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
