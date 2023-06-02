@@ -42,6 +42,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
             if (password.trim().length() == 0 || confPassword.trim().length() == 0) {
                 Toast.makeText(this, "Password and Confirm Password Must be Filled!", Toast.LENGTH_SHORT).show();
+                return;
             }
 
             Response response = changePasswordViewModel.ChangePassword(password, confPassword);
