@@ -8,13 +8,15 @@ public class Bill {
     private int amount;
     private String status;
     private String date;
+    private String proof;
 
-    public Bill(String debtorEmail, String lenderEmail, int amount, String status, String date) {
+    public Bill(String debtorEmail, String lenderEmail, int amount, String status, String date, String proof) {
         this.debtorEmail = debtorEmail;
         this.lenderEmail = lenderEmail;
         this.amount = amount;
         this.status = status;
         this.date = date;
+        this.proof = proof;
     }
 
     public Bill() {}
@@ -65,5 +67,13 @@ public class Bill {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getProof() {
+        return proof;
+    }
+
+    public void setProof(String proof) {
+        this.proof = proof;
     }
 }

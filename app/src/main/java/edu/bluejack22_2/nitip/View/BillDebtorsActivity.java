@@ -82,7 +82,8 @@ public class BillDebtorsActivity extends AppCompatActivity {
                     firebaseAuth.getCurrentUser().getEmail(),
                     Integer.parseInt(etAmount.getText().toString()),
                     "Pending Payment",
-                    Calendar.getInstance().getTime().toString()
+                    Calendar.getInstance().getTime().toString(),
+                        ""
                     );
 
                 billViewModel.createBill(bill);

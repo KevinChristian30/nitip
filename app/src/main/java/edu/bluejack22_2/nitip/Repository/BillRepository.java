@@ -1,8 +1,10 @@
 package edu.bluejack22_2.nitip.Repository;
 
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -14,6 +16,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,10 +35,14 @@ public class BillRepository {
 
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth fAuth;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
 
     public BillRepository() {
         firebaseFirestore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
     }
 
     public void createBill(Bill bill) {
@@ -44,6 +53,7 @@ public class BillRepository {
         billData.put("amount", bill.getAmount());
         billData.put("status", bill.getStatus());
         billData.put("date", bill.getDate());
+        billData.put("proof", bill.getProof());
 
         firebaseFirestore.collection("bill").add(billData);
     }
@@ -102,14 +112,15 @@ public class BillRepository {
         });
     }
 
-    public void changeBillStatus(String billID) {
+    public void changeBillStatus(String billID, String uri) {
         Query titipsRef = firebaseFirestore.collection("bill");
         titipsRef.whereEqualTo(FieldPath.documentId(), billID).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 QuerySnapshot querySnapshot = task.getResult();
                 if (!querySnapshot.isEmpty()) {
                     DocumentSnapshot document = querySnapshot.getDocuments().get(0);
-                    document.getReference().update("status", "Pending Confirmation");
+//                    document.getReference().update("status", "Pending Confirmation");
+                    document.getReference().update("proof", uri);
                 }
             }
         });
@@ -122,7 +133,7 @@ public class BillRepository {
                 QuerySnapshot querySnapshot = task.getResult();
                 if (!querySnapshot.isEmpty()) {
                     DocumentSnapshot document = querySnapshot.getDocuments().get(0);
-                    document.getReference().update("status", "Paid");
+                    document.getReference().update("status", "Finished");
                 }
             }
         });
@@ -139,5 +150,34 @@ public class BillRepository {
                 }
             }
         });
+    }
+
+    public void getProof(String id, LiveData<String> proof) {
+        Query billRef = firebaseFirestore.collection("bill");
+        billRef.whereEqualTo(FieldPath.documentId(), id).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                if (!querySnapshot.isEmpty()) {
+                    DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+
+                }
+            }
+        });
+    }
+
+    public LiveData<Uri> uploadProof(Uri uri, String name) {
+        MutableLiveData<Uri> uriMutableLiveData = new MutableLiveData<>();
+        StorageReference path = storageReference.child("bill_proof/" + name);
+
+        UploadTask uploadTask = path.putFile(uri);
+
+        uploadTask.addOnSuccessListener(taskSnapshot -> {
+            path.getDownloadUrl().addOnCompleteListener(url -> {
+                Uri firebaseUri = url.getResult();
+                uriMutableLiveData.setValue(firebaseUri);
+            });
+        });
+
+        return uriMutableLiveData;
     }
 }

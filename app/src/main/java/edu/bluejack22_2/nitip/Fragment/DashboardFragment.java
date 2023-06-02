@@ -88,13 +88,13 @@ public class DashboardFragment extends Fragment {
             @Override
             public void click(int index) {
                 Intent intent = new Intent(getActivity(), BillDetailActivity.class);
-                intent.putExtra("Bill", bills.get(index).getDate());
                 intent.putExtra("Debtor", bills.get(index).getDebtor_email());
                 intent.putExtra("Amount", bills.get(index).getAmount());
                 intent.putExtra("Lender", bills.get(index).getLender_email());
                 intent.putExtra("Id", bills.get(index).getId());
                 intent.putExtra("Status", bills.get(index).getStatus());
                 intent.putExtra("Date", bills.get(index).getDate());
+                intent.putExtra("Proof", bills.get(index).getProof());
                 startActivity(intent);
             }
         };
@@ -139,8 +139,8 @@ public class DashboardFragment extends Fragment {
         HashMap<String, String> statistics = BillService.getUserBillStatistics(bills);
 
         tvTransactionCount.setText(statistics.get("TransactionCount"));
-        tvTotalDebt.setText(statistics.get("TotalDebt"));
-        tvTotalReceivable.setText(statistics.get("TotalReceivable"));
+        tvTotalDebt.setText("Rp " + statistics.get("TotalDebt"));
+        tvTotalReceivable.setText("Rp " + statistics.get("TotalReceivable"));
     }
 
     private void setSpinnerListener() {

@@ -1,5 +1,8 @@
 package edu.bluejack22_2.nitip.ViewModel;
 
+import android.net.Uri;
+
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
@@ -11,6 +14,7 @@ import edu.bluejack22_2.nitip.Repository.BillRepository;
 public class BillViewModel {
 
     MutableLiveData<List<Bill>> billLiveDatas;
+    MutableLiveData<String> proof;
     private BillRepository billRepository;
 
     public BillViewModel() {
@@ -29,12 +33,16 @@ public class BillViewModel {
         return billLiveDatas;
     }
 
+    public void getProof(String id, LiveData<String> proof) {
+        billRepository.getProof(id, proof);
+    }
+
     public void rejectBill(String billID) {
         billRepository.rejectBill(billID);
     }
 
-    public void changeBillStatus(String billID) {
-        billRepository.changeBillStatus(billID);
+    public void changeBillStatus(String billID, String uri) {
+        billRepository.changeBillStatus(billID, uri);
     }
 
     public void acceptBill(String billID) {
@@ -43,5 +51,9 @@ public class BillViewModel {
 
     public void cancelBill(String billID) {
         billRepository.cancelBill(billID);
+    }
+
+    public LiveData<Uri> uploadProof(Uri uri, String name) {
+        return billRepository.uploadProof(uri, name);
     }
 }
