@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,7 +76,7 @@ public class TitipViewModel {
         titipRepository.addNewTitipDetail(titipId, titipDetail);
     }
 
-    public CompletableFuture<Response> getLastTitip(String groupCode) {
+    public LiveData<Response> getLastTitip(String groupCode) {
         return titipRepository.getLastTitip(groupCode);
     }
 

@@ -117,13 +117,11 @@ public class GroupDetailActivity extends AppCompatActivity {
     private void setLastNitip() {
         Bundle extras = getIntent().getExtras();
         String groupName = extras.getString("GroupCode");
-        titipViewModel.getLastTitip(groupName).thenAccept(response -> {
+        titipViewModel.getLastTitip(groupName).observe(this, response -> {
             if (response.getResponse() != null) {
 //                System.out.println(response.getResponse().toString());
                 tvLastTitip.setText("Nitip On Going: " + response.getResponse().toString());
             }
-        }).exceptionally(e -> {
-            return null;
         });
     }
 }

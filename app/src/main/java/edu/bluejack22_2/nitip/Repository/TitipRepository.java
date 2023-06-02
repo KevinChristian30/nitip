@@ -4,6 +4,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -12,9 +14,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -42,6 +46,7 @@ public class TitipRepository {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth fAuth;
     MutableLiveData<Titip> titipMutableLiveData;
+    private MutableLiveData<Response> lastTitipLiveData = new MutableLiveData<>();
 
     public TitipRepository() {
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -152,39 +157,37 @@ public class TitipRepository {
         });
     }
 
-    public CompletableFuture<Response> getLastTitip(String groupCode) {
+    public LiveData<Response> getLastTitip(String groupCode) {
         CompletableFuture<Response> futureResponse = new CompletableFuture<>();
         Response response = new Response(null);
 
         Query titipsRef = firebaseFirestore.collection("titip").whereEqualTo("group_code", groupCode);
-        titipsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+        titipsRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    Titip lastTitip = new Titip("", "2500-05-20 15:25", "", "", new ArrayList<>());
-                    for (QueryDocumentSnapshot document : task.getResult()) {
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    futureResponse.completeExceptionally(error);
+                    return;
+                }
 
-                        Titip titip = document.toObject(Titip.class);
-                        titip.setId(document.getId());
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                        LocalDateTime closeTime = LocalDateTime.parse(titip.getClose_time(), formatter);
+                Titip lastTitip = new Titip("", "2500-05-20 15:25", "", "", new ArrayList<>());
+                for (QueryDocumentSnapshot document : value) {
+                    Titip titip = document.toObject(Titip.class);
+                    titip.setId(document.getId());
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    LocalDateTime closeTime = LocalDateTime.parse(titip.getClose_time(), formatter);
 
-                        if (closeTime.isAfter(TimeService.getCurrentTimeWithFormat()) && (lastTitip == null || closeTime.isBefore(LocalDateTime.parse(lastTitip.getClose_time(), formatter)))) {
-                            lastTitip = titip;
-                        }
-
+                    if (closeTime.isAfter(TimeService.getCurrentTimeWithFormat()) && (lastTitip == null || closeTime.isBefore(LocalDateTime.parse(lastTitip.getClose_time(), formatter)))) {
+                        lastTitip = titip;
                     }
-                    response.setResponse(lastTitip.getTitip_name());
-
-                    futureResponse.complete(response);
-
                 }
-                else {
-                    futureResponse.completeExceptionally(task.getException());
-                }
+                response.setResponse(lastTitip.getTitip_name());
+                lastTitipLiveData.setValue(response);
             }
         });
-        return futureResponse;
+
+        return lastTitipLiveData;
     }
 
     public interface Listener {
