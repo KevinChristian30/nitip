@@ -36,6 +36,7 @@
             android:exported="false" />
         <activity
             android:name=".View.GroupDetailActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".View.NitipActivity"
