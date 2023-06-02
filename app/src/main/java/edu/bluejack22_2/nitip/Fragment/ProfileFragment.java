@@ -16,6 +16,7 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -38,6 +39,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -78,7 +81,7 @@ public class ProfileFragment extends Fragment {
                     if (data != null) {
                         Uri imageUri = data.getData();
                         userViewModel.changeProfilePicture(imageUri);
-
+                        triggerNotification();
                     }
                 }
             });
@@ -98,6 +101,7 @@ public class ProfileFragment extends Fragment {
         initialize(view);
         setUser();
         setListener(view);
+        setChangePasswordVisibility();
 
         return view;
     }
@@ -153,6 +157,15 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        ivProfile.setOnClickListener(e -> {
+            if (ContextCompat.checkSelfPermission(view.getContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                openImagePicker();
+            } else {
+                requestStoragePermission();
+            }
+        });
+
         btnChangePassword.setOnClickListener(e -> {
             ActivityChanger.changeActivity(view.getContext(), OTPForChangePasswordActivity.class);
         });
@@ -163,7 +176,6 @@ public class ProfileFragment extends Fragment {
         Context context = getActivity();
 
         if (context != null) {
-            // Create a notification channel
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 CharSequence name = "MyNotificationChannel";
                 String description = "Channel for My App";
@@ -171,36 +183,24 @@ public class ProfileFragment extends Fragment {
                 NotificationChannel channel = new NotificationChannel("notifyId", name, importance);
                 channel.setDescription(description);
 
-                // Register the channel with the system
                 NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
                 if (notificationManager != null) {
                     notificationManager.createNotificationChannel(channel);
                 }
             }
 
-            // Create a notification
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyId")
                     .setSmallIcon(R.drawable.add_titip_detail_activity)  // Set the icon
                     .setContentTitle("Profile Update")  // Set the title
                     .setContentText("Your profile updated!")  // Set the text
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-            // Get the NotificationManager
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
 
-            // Send the notification
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
             notificationManagerCompat.notify(1, builder.build());
-//            notificationManagerCompat.notify(1, builder.build());
         }
 
     }
@@ -250,6 +250,7 @@ public class ProfileFragment extends Fragment {
     private void setProfilePicture(View view) {
         Glide.with(view.getContext())
                 .load(user.getProfile())
+                .placeholder(R.drawable.circular_progress)
                 .into(ivProfile);
         String imageUrl = this.user.getProfile();
         new DownloadImageTask(ivProfile).execute(imageUrl);
@@ -258,6 +259,29 @@ public class ProfileFragment extends Fragment {
     private void setInformation(View view) {
         tvUsername.setText(user.getUsername());
         tvEmail.setText(user.getEmail());
+    }
+
+    private void setChangePasswordVisibility() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                // check if the provider id matches "google.com"
+                if (GoogleAuthProvider.PROVIDER_ID.equals(profile.getProviderId())) {
+                    btnChangePassword.setVisibility(View.GONE);
+
+                    int bottom = 75;
+                    int horizontal = 35;
+                    float density = this.getResources().getDisplayMetrics().density;
+                    int bottomMargin = (int) (bottom * density);
+                    int horMargin = (int) (horizontal * density);
+
+                    ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) btnChangeProfilePicture.getLayoutParams();
+                    layoutParams.setMargins(horMargin, 0, horMargin, bottomMargin); // replace with actual values
+                    btnChangeProfilePicture.setLayoutParams(layoutParams);
+                }
+            }
+        }
+
     }
 
 

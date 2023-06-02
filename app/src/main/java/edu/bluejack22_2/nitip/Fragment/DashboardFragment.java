@@ -72,7 +72,6 @@ public class DashboardFragment extends Fragment {
         setSpinner();
         setValues(view);
 
-
         return view;
     }
 
@@ -115,6 +114,7 @@ public class DashboardFragment extends Fragment {
             setRecyclerView(view);
             setSpinnerListener();
             setStatistics();
+            setHideFilter();
         });
     }
 
@@ -173,5 +173,11 @@ public class DashboardFragment extends Fragment {
 
             }
         });
+    }
+
+    private void setHideFilter() {
+        if (bills.size() == 0) {
+            spinTransactionType.setVisibility(View.GONE);
+        }
     }
 }
