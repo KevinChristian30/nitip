@@ -42,7 +42,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btnSendOtp.setOnClickListener(e -> {
             String emailText = etEmail.getText().toString();
 
-            forgotPasswordViewModel.SendResetPasswordRequest(emailText, new ForgotPasswordViewModel.SendResetPasswordRequestCallBack() {
+            forgotPasswordViewModel.SendResetPasswordRequest(this, emailText, new ForgotPasswordViewModel.SendResetPasswordRequestCallBack() {
                 @Override
                 public void onSendOtpResponse(Response response) {
                     if (response.getError() != null) {

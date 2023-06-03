@@ -93,14 +93,14 @@ public class CreateNewTitipActivity extends AppCompatActivity {
 
             Titip titip = new Titip(titipName, closeTime, groupCode, groupName, new ArrayList<TitipDetail>());
 
-            Response response = titipViewModel.CreateTitip(titip);
+            Response response = titipViewModel.CreateTitip(this, titip);
             
             if (response.getError() != null) {
                 Toast.makeText(this, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
             }
             else {
                 ActivityChanger.changeActivity(this, HomeActivity.class);
-                Toast.makeText(this, "New titip created", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.new_titip_created), Toast.LENGTH_SHORT).show();
             }
         });
     }

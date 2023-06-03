@@ -80,7 +80,7 @@ public class NitipDetailAdapter extends RecyclerView.Adapter<NitipDetailAdapter.
                 Date closeTime = df.parse(this.closeTime);
 
                 if (!closeTime.after(currentTime)) {
-                    Toast.makeText(holder.itemView.getContext(), "Nitip Closed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(holder.itemView.getContext(), context.getResources().getString(R.string.nitip_closed), Toast.LENGTH_SHORT).show();
                 } else {
 
                     if (data.get(position).getUser().getEmail().equals(firebaseAuth.getCurrentUser().getEmail())) {
@@ -92,7 +92,7 @@ public class NitipDetailAdapter extends RecyclerView.Adapter<NitipDetailAdapter.
 
                         context.startActivity(next);
                     } else {
-                        Toast.makeText(holder.itemView.getContext(), "This is not your Titip", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(holder.itemView.getContext(), context.getResources().getString(R.string.this_not_your_titip), Toast.LENGTH_SHORT).show();
                     }
 
                 }

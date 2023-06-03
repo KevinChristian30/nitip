@@ -41,17 +41,17 @@ public class ChangePasswordActivity extends AppCompatActivity {
             String confPassword = etConfirmPassword.getText().toString();
 
             if (password.trim().length() == 0 || confPassword.trim().length() == 0) {
-                Toast.makeText(this, "Password and Confirm Password Must be Filled!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.password_conf_validation), Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            Response response = changePasswordViewModel.ChangePassword(password, confPassword);
+            Response response = changePasswordViewModel.ChangePassword(this, password, confPassword);
 
             if (response.getError() != null) {
                 Toast.makeText(this, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
             }
             else {
-                Toast.makeText(this, "Password updated! Remember your password :D", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.remember_password), Toast.LENGTH_SHORT).show();
                 ActivityChanger.changeActivity(this, HomeActivity.class);
             }
         });

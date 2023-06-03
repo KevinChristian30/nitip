@@ -60,11 +60,16 @@ public class CreateTitipDetailActivity extends AppCompatActivity {
             String email = firebaseAuth.getCurrentUser().getEmail();
             String detail = etTitipDetail.getText().toString();
 
+            if (detail.trim().length() == 0) {
+                Toast.makeText(this, getResources().getString(R.string.fill_detail), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             titipViewModel.addNewTitipDetail(titipID,
                 new TitipDetail(new User(name, email, "", ""),
                     detail));
 
-            Toast.makeText(this, "Titip Detail Added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.titip_detail_added), Toast.LENGTH_SHORT).show();
             finish();
         });
     }

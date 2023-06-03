@@ -101,10 +101,10 @@ public class BillDetailActivity extends AppCompatActivity {
     }
 
     private void setValue() {
-        tvTrDate.setText("Date : " + getIntent().getExtras().get("Date").toString());
-        tvLender.setText("Lender : " + getIntent().getExtras().get("Lender").toString());
-        tvDebtor.setText("Debtor : " + getIntent().getExtras().get("Debtor").toString());
-        tvAmount.setText("Amount : " + getIntent().getExtras().get("Amount").toString());
+        tvTrDate.setText(getResources().getString(R.string.date) + getIntent().getExtras().get("Date").toString());
+        tvLender.setText(getResources().getString(R.string.lender) + getIntent().getExtras().get("Lender").toString());
+        tvDebtor.setText(getResources().getString(R.string.debtor) + getIntent().getExtras().get("Debtor").toString());
+        tvAmount.setText(getResources().getString(R.string.amount) + " : " + getIntent().getExtras().get("Amount").toString());
     }
 
     private void setListener() {
@@ -124,7 +124,7 @@ public class BillDetailActivity extends AppCompatActivity {
 
         btnChangeStatus.setOnClickListener(e -> {
             if (proofImageUri == null) {
-                Toast.makeText(this, "Send your proof!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.send_proof), Toast.LENGTH_SHORT).show();
             }
             else {
                 billViewModel.changeBillStatus(getIntent().getExtras().get("Id").toString(), proofImageUri.toString());
@@ -165,8 +165,8 @@ public class BillDetailActivity extends AppCompatActivity {
     private void requestStoragePermission() {
 
         new AlertDialog.Builder(this)
-                .setTitle("Permission needed")
-                .setMessage("You need to grant external storage permission to change profile picture")
+                .setTitle(getResources().getString(R.string.permission_needed))
+                .setMessage(getResources().getString(R.string.grant_external))
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -174,7 +174,7 @@ public class BillDetailActivity extends AppCompatActivity {
                                 new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
                     }
                 })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -193,7 +193,7 @@ public class BillDetailActivity extends AppCompatActivity {
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent);
         } else {
-            Toast.makeText(this, "No app available to open the image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.no_app), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -205,7 +205,7 @@ public class BillDetailActivity extends AppCompatActivity {
             btnChooseFile.setVisibility(View.GONE);
             btnCancel.setVisibility(View.GONE);
             btnAccept.setVisibility(View.GONE);
-            tvImageName.setText("Click here to open proof");
+            tvImageName.setText(getResources().getString(R.string.click_here_proof));
             tvImageName.setTextColor(Color.WHITE);
             tvImageName.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
             proofImageUri = Uri.parse(getIntent().getExtras().get("Proof").toString());
@@ -219,7 +219,7 @@ public class BillDetailActivity extends AppCompatActivity {
             btnCancel.setVisibility(View.VISIBLE);
             btnAccept.setVisibility(View.VISIBLE);
             if (!getIntent().getExtras().get("Proof").toString().equals("")) {
-                tvImageName.setText("Click here to open proof");
+                tvImageName.setText(getResources().getString(R.string.click_here_proof));
                 tvImageName.setTextColor(Color.WHITE);
                 tvImageName.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
                 proofImageUri = Uri.parse(getIntent().getExtras().get("Proof").toString());
@@ -227,7 +227,7 @@ public class BillDetailActivity extends AppCompatActivity {
             else {
                 tvImageName.setTextColor(Color.WHITE);
                 tvImageName.setBackgroundColor(Color.RED);
-                tvImageName.setText("Not Sent by Debtor");
+                tvImageName.setText(getResources().getString(R.string.not_sent));
             }
         }
         else {

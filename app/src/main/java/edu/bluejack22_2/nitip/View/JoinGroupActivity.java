@@ -41,14 +41,14 @@ public class JoinGroupActivity extends AppCompatActivity {
     private void setListener() {
         btnJoinGroup.setOnClickListener(e -> {
             String groupCode = etGroupCode.getText().toString();
-            groupViewModel.JoinGroup(groupCode, new GroupViewModel.GroupCallback() {
+            groupViewModel.JoinGroup(this, groupCode, new GroupViewModel.GroupCallback() {
                 @Override
                 public void onHandleGroup(Response response) {
                     if (response.getError() != null) {
                         Toast.makeText(JoinGroupActivity.this, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(JoinGroupActivity.this, "You joined " + response.getResponse().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(JoinGroupActivity.this, getResources().getString(R.string.joined) + response.getResponse().toString(), Toast.LENGTH_SHORT).show();
                         ActivityChanger.changeActivity(JoinGroupActivity.this, HomeActivity.class);
                     }
                 }

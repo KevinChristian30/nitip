@@ -61,12 +61,12 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
         final int index = holder.getAdapterPosition();
         Bill bill = data.get(position);
 
-        holder.tvBillID.setText("Bill ID: " + bill.getId());
-        holder.tvLenderEmail.setText("Lender: " + bill.getLender_email());
-        holder.tvDebtorEmail.setText("Debtor: " + bill.getDebtor_email());
-        holder.tvAmount.setText("Amount: " + String.valueOf(bill.getAmount()));
-        holder.tvStatus.setText("Status: " + bill.getStatus());
-        holder.tvDate.setText("Date: " + bill.getDate());
+        holder.tvBillID.setText(context.getResources().getString(R.string.bill_id) + bill.getId());
+        holder.tvLenderEmail.setText(context.getResources().getString(R.string.lender) + bill.getLender_email());
+        holder.tvDebtorEmail.setText(context.getResources().getString(R.string.debtor) + bill.getDebtor_email());
+        holder.tvAmount.setText(context.getResources().getString(R.string.amount2) + String.valueOf(bill.getAmount()));
+        holder.tvStatus.setText(context.getResources().getString(R.string.status) + bill.getStatus());
+        holder.tvDate.setText(context.getResources().getString(R.string.date2) + bill.getDate());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -65,7 +65,7 @@ public class NitipDetailActivity extends AppCompatActivity {
         titipViewModel.getTitipById(titipID).observe(this, titip -> {
             tvTitipTitle.setText(titip.getTitip_name());
             tvEntrusteeEmail.setText(titip.getEntruster_email());
-            tvClosesAt.setText("Closes At " + titip.getClose_time().substring(titip.getClose_time().length() - 5));
+            tvClosesAt.setText(getResources().getString(R.string.closes_at) + titip.getClose_time().substring(titip.getClose_time().length() - 5));
             currentTitip = new Titip(titip.getTitip_name(), titip.getClose_time(),
                 titip.getGroup_code(), titip.getGroup_name(), titip.getTitip_detail());
             currentTitip.setId(titipID);
@@ -130,7 +130,7 @@ public class NitipDetailActivity extends AppCompatActivity {
                 Date closeTime = df.parse(currentTitip.getClose_time());
                 if (closeTime.after(currentTime)) {
                     if (hasTitipDetail) {
-                        Toast.makeText(this, "You already have a Titip", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getResources().getString(R.string.you_already_titip), Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -139,7 +139,7 @@ public class NitipDetailActivity extends AppCompatActivity {
                     next.putExtra("TitipID", getIntent().getExtras().getString("TitipID"));
                     startActivity(next);
                 } else {
-                    Toast.makeText(this, "Nitip Closed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.nitip_closed), Toast.LENGTH_SHORT).show();
                 }
             } catch (ParseException p) {
                 throw new RuntimeException(p);

@@ -51,7 +51,7 @@ public class NitipRecyclerViewAdapter extends RecyclerView.Adapter<NitipRecycler
         holder.getTvTitipName().setText(currentTitip.getTitip_name());
         holder.getTvCreatorName().setText(currentTitip.getEntruster_email());
 
-        String validUntil = "Open Until " + currentTitip.getClose_time().substring(currentTitip.getClose_time().length() - 5);
+        String validUntil = context.getResources().getString(R.string.open_until) + currentTitip.getClose_time().substring(currentTitip.getClose_time().length() - 5);
         holder.getTvCloseTime().setText(validUntil);
 
         holder.getClNitipCard().setOnClickListener(e -> {

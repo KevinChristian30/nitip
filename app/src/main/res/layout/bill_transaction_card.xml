@@ -21,7 +21,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Amount"
+        android:hint="@string/amount"
         app:boxBackgroundColor="@color/colorOnPrimary"
         app:boxStrokeColor="@color/colorPrimary"
         app:hintTextColor="@color/colorSecondaryVariant"

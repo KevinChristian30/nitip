@@ -55,6 +55,10 @@ public class EditTitipDetailActivity extends AppCompatActivity {
             email = intent.getStringExtra("email");
             newDetail = etTitipDetail.getText().toString();
 
+            if (newDetail.trim().isEmpty()) {
+                Toast.makeText(this, getResources().getString(R.string.fill_detail), Toast.LENGTH_SHORT);
+            }
+
             titipViewModel.updateTitipDetail(titipID, email, newDetail, this);
             
             finish();
@@ -68,7 +72,7 @@ public class EditTitipDetailActivity extends AppCompatActivity {
             email = intent.getStringExtra("email");
             titipViewModel.removeTitipDetail(titipID, email);
 
-            Toast.makeText(this, "Titip Deleted", Toast.LENGTH_SHORT);
+            Toast.makeText(this, getResources().getString(R.string.titip_deleted), Toast.LENGTH_SHORT);
 
             finish();
         });

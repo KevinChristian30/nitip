@@ -73,7 +73,6 @@ public class GroupDetailActivity extends AppCompatActivity {
 
         btnGoToNitipPage.setOnClickListener(e -> {
             Intent intent = new Intent(this, CreateNewTitipActivity.class);
-
             Bundle extras = getIntent().getExtras();
             intent.putExtra("GroupCode", extras.getString("GroupCode"));
             intent.putExtra("GroupName", extras.getString("GroupName"));
@@ -120,7 +119,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         titipViewModel.getLastTitip(groupName).observe(this, response -> {
             if (response.getResponse() != null) {
 //                System.out.println(response.getResponse().toString());
-                tvLastTitip.setText("Nitip On Going: " + response.getResponse().toString());
+                tvLastTitip.setText(getResources().getString(R.string.ongoing_nitip2) + response.getResponse().toString());
             }
         });
     }

@@ -21,6 +21,7 @@ import edu.bluejack22_2.nitip.Facade.ActivityChanger;
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Model.User;
+import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.Repository.UserRepository;
 import edu.bluejack22_2.nitip.View.HomeActivity;
 
@@ -66,11 +67,11 @@ public class LoginViewModel {
         void onLoginResponse(Response response);
     }
 
-    public void loginWithEmailandPassword(String email, String password, LoginWithEmailAndPasswordCallback callback) {
+    public void loginWithEmailandPassword(Context context, String email, String password, LoginWithEmailAndPasswordCallback callback) {
         Response response = new Response(null);
 
         if (email.trim().isEmpty() || password.trim().isEmpty()) {
-            response.setError(new Error("All field must be filled"));
+            response.setError(new Error(context.getResources().getString(R.string.field_must_filled)));
             callback.onLoginResponse(response);
             return;
         }
@@ -84,7 +85,7 @@ public class LoginViewModel {
                         // Do something with the user object, such as redirect to a new activity
                     } else {
                         // If sign in fails, display a message to the user.
-                        response.setError(new Error("Invalid Credential"));
+                        response.setError(new Error(context.getResources().getString(R.string.invalid_credential)));
                     }
                     callback.onLoginResponse(response);
                 });

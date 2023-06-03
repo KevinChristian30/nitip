@@ -60,6 +60,7 @@
         android:background="@color/colorAero"
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
+        android:elevation="1dp"
         >
 
         <TextView
@@ -80,7 +81,7 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:id="@+id/btnGoToTitipPage"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

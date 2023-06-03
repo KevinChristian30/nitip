@@ -1,7 +1,10 @@
 package edu.bluejack22_2.nitip.ViewModel;
 
+import android.content.Context;
+
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
+import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.Repository.UserRepository;
 
 public class ChangePasswordViewModel {
@@ -14,11 +17,11 @@ public class ChangePasswordViewModel {
         void CheckOTP(Response response);
     }
 
-    public void checkOTP(String otp, CheckOTPCallback callback) {
+    public void checkOTP(Context context, String otp, CheckOTPCallback callback) {
         Response response = new Response(null);
 
         if (otp.trim().isEmpty()) {
-            response.setError(new Error("OTP must be filled"));
+            response.setError(new Error(context.getResources().getString(R.string.otp_must_filled)));
             callback.CheckOTP(response);
             return;
         }
@@ -32,17 +35,17 @@ public class ChangePasswordViewModel {
 
     }
 
-    public Response ChangePassword(String password, String confPassword) {
+    public Response ChangePassword(Context context, String password, String confPassword) {
         Response response = new Response(null);
 
         if (password.trim().isEmpty() || confPassword.trim().isEmpty()) {
-            response.setError(new Error("All field must be filled"));
+            response.setError(new Error(context.getResources().getString(R.string.field_must_filled)));
         }
         else if (password.trim().length() < 7) {
-            response.setError(new Error("Password must be more than 6 characters"));
+            response.setError(new Error(context.getResources().getString(R.string.password_6_char)));
         }
         else if (!password.equals(confPassword)) {
-            response.setError(new Error("Password and Confirm Password not match"));
+            response.setError(new Error(context.getResources().getString(R.string.password_conf_not_match)));
         }
 
         userRepository.ChangePassword(password);

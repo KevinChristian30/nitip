@@ -67,14 +67,14 @@ public class LoginActivity extends AppCompatActivity {
                     Intent data = result.getData();
                     Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                     try {
-                        Toast.makeText(this, "Welcome, " + task.getResult().getDisplayName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getResources().getString(R.string.welcome) + task.getResult().getDisplayName(), Toast.LENGTH_SHORT).show();
                         GoogleSignInAccount acc = task.getResult(ApiException.class);
                         loginVM.firebaseAuthWithGoogle(this, acc, this);
                     } catch (ApiException e) {
-                        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
                 }
     });
 
@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             btnLogin.setOnClickListener(e -> {
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
-                loginVM.loginWithEmailandPassword(email, password, new LoginViewModel.LoginWithEmailAndPasswordCallback() {
+                loginVM.loginWithEmailandPassword(this, email, password, new LoginViewModel.LoginWithEmailAndPasswordCallback() {
                     @Override
                     public void onLoginResponse(Response response) {
                         if (response.getError() != null) {

@@ -137,7 +137,7 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     loginViewModel.googleLogout();
-                    Toast.makeText(view.getContext(), "Signed Out", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), getResources().getString(R.string.signed_out), Toast.LENGTH_SHORT).show();
                     requireActivity().finish();
                 }
             });
@@ -191,8 +191,8 @@ public class ProfileFragment extends Fragment {
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyId")
                     .setSmallIcon(R.drawable.add_titip_detail_activity)  // Set the icon
-                    .setContentTitle("Profile Update")  // Set the title
-                    .setContentText("Your profile updated!")  // Set the text
+                    .setContentTitle(getResources().getString(R.string.profile_updated))  // Set the title
+                    .setContentText(getResources().getString(R.string.profile_updated_desc))  // Set the text
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
@@ -209,8 +209,8 @@ public class ProfileFragment extends Fragment {
     private void requestStoragePermission() {
 
         new AlertDialog.Builder(view.getContext())
-                .setTitle("Permission needed")
-                .setMessage("You need to grant external storage permission to change profile picture")
+                .setTitle(getResources().getString(R.string.permission_needed))
+                .setMessage(getResources().getString(R.string.grant_external))
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -218,7 +218,7 @@ public class ProfileFragment extends Fragment {
                                 new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
                     }
                 })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

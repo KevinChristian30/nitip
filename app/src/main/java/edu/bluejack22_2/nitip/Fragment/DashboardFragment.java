@@ -105,7 +105,7 @@ public class DashboardFragment extends Fragment {
 
     private void setValues(View view) {
         userViewModel.getUser(firebaseAuth.getCurrentUser().getEmail()).observe(getViewLifecycleOwner(), user -> {
-            tvTitle.setText("Hello, " + user.getUsername());
+            tvTitle.setText(getResources().getString(R.string.hello) + user.getUsername());
         });
 
         billViewModel.getBillsByEmailAndStatus(firebaseAuth.getCurrentUser().getEmail(),
@@ -127,9 +127,9 @@ public class DashboardFragment extends Fragment {
 
     private void setSpinner() {
         String[] items = new String[3];
-        items[0] = "All";
-        items[1] = "Debted";
-        items[2] = "Lended";
+        items[0] = getResources().getString(R.string.all);
+        items[1] = getResources().getString(R.string.debted);
+        items[2] = getResources().getString(R.string.lended);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinTransactionType.setAdapter(adapter);
