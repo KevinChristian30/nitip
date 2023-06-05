@@ -118,6 +118,7 @@
     <string name="username_5_char">Username must be more than 5 characters</string>
     <string name="password_alphanumeric">Password must be alphanumeric</string>
     <string name="email_exist">Email is exist</string>
+    <string name="fill_bill">Fill the bill!</string>
 
     <string-array name="transaction_type_spinner_items">
         <item>Debt</item>

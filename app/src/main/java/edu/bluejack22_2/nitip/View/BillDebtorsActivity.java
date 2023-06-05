@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -77,6 +78,11 @@ public class BillDebtorsActivity extends AppCompatActivity {
                 View view = rvTitip.getChildAt(i);
                 TextView tvDebtorEmail = view.findViewById(R.id.tvDebtorEmail);
                 EditText etAmount = view.findViewById(R.id.etAmount);
+
+                if (etAmount.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(this, getResources().getString(R.string.fill_bill), Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 Bill bill = new Bill(tvDebtorEmail.getText().toString(),
                     firebaseAuth.getCurrentUser().getEmail(),

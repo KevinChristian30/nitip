@@ -119,6 +119,7 @@
     <string name="username_5_char">Nama user harus lebih dari 5 karakter</string>
     <string name="password_alphanumeric">Kata sandi harus gabungan angka dan huruf</string>
     <string name="email_exist">Email sudah digunakan</string>
+    <string name="fill_bill">Isi bill!</string>
 
 
 </resources>

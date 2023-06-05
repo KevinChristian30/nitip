@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -134,6 +135,36 @@ public class TitipRepository {
         return response;
     }
 
+//    public void addNewTitipDetail(String titipID, TitipDetail titipDetail) {
+//        DocumentReference documentRef = firebaseFirestore.collection("titip").document(titipID);
+//
+//        documentRef.get().addOnSuccessListener(documentSnapshot -> {
+//            List<Map<String, Object>> array = (List<Map<String, Object>>) documentSnapshot.get("titip_detail");
+//
+//            if (array != null) {
+//                Map<String, Object> newTitipDetailUser = new HashMap<>();
+//                newTitipDetailUser.put("username", titipDetail.getUser().getUsername());
+//                newTitipDetailUser.put("email", titipDetail.getUser().getEmail());
+//                newTitipDetailUser.put("profile", titipDetail.getUser().getProfile());
+//
+//                Map<String, Object> newTitipDetail = new HashMap<>();
+//                newTitipDetail.put("user", newTitipDetailUser);
+//                newTitipDetail.put("detail", titipDetail.getDetail());
+//
+//                array.add(newTitipDetail);
+//
+//                documentRef.update("titip_detail", array).addOnCompleteListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void unused) {
+//                        titip.getTitip_detail().add(titipDetail);
+//                        titipMutableLiveData.setValue(titip);
+//                    }
+//                });
+//            }
+//        });
+//    }
+
+
     public void addNewTitipDetail(String titipID, TitipDetail titipDetail) {
         DocumentReference documentRef = firebaseFirestore.collection("titip").document(titipID);
 
@@ -152,10 +183,18 @@ public class TitipRepository {
 
                 array.add(newTitipDetail);
 
-                documentRef.update("titip_detail", array);
+                documentRef.update("titip_detail", array).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        // Assuming the Titip object is stored in a member variable
+//                        titip.getTitip_detail().add(titipDetail);
+//                        titipMutableLiveData.setValue(titip);
+                    }
+                });
             }
         });
     }
+
 
     public LiveData<Response> getLastTitip(String groupCode) {
         CompletableFuture<Response> futureResponse = new CompletableFuture<>();
