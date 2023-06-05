@@ -139,8 +139,8 @@ public class DashboardFragment extends Fragment {
         HashMap<String, String> statistics = BillService.getUserBillStatistics(bills);
 
         tvTransactionCount.setText(statistics.get("TransactionCount"));
-        tvTotalDebt.setText("Rp " + statistics.get("TotalDebt"));
-        tvTotalReceivable.setText("Rp " + statistics.get("TotalReceivable"));
+        tvTotalDebt.setText("Rp. " + statistics.get("TotalDebt"));
+        tvTotalReceivable.setText("Rp. " + statistics.get("TotalReceivable"));
     }
 
     private void setSpinnerListener() {

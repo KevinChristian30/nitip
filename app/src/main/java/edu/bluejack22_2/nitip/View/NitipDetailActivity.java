@@ -39,6 +39,27 @@ public class NitipDetailActivity extends AppCompatActivity {
     public static NitipDetailAdapter adapter;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("asdasdasd");
+        String titipID = getIntent().getExtras().getString("TitipID");
+
+        titipViewModel.getTitipById(titipID).observe(this, titip -> {
+            tvTitipTitle.setText(titip.getTitip_name());
+            tvEntrusteeEmail.setText(titip.getEntruster_email());
+            tvClosesAt.setText(getResources().getString(R.string.closes_at) + titip.getClose_time().substring(titip.getClose_time().length() - 5));
+            currentTitip = new Titip(titip.getTitip_name(), titip.getClose_time(),
+                    titip.getGroup_code(), titip.getGroup_name(), titip.getTitip_detail());
+            currentTitip.setId(titipID);
+            currentTitip.setEntruster_email(titip.getEntruster_email());
+
+            setRecyclerView();
+            setListener();
+            setInteraction();
+        });
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nitip_detail);

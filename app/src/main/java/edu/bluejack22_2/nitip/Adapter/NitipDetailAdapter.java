@@ -67,6 +67,7 @@ public class NitipDetailAdapter extends RecyclerView.Adapter<NitipDetailAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         holder.tvTitipDetail.setText(data.get(position).getDetail());
         holder.tvEmail.setText(data.get(position).getUser().getEmail());
 
