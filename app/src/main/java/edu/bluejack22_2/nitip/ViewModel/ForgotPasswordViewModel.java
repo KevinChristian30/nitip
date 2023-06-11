@@ -1,5 +1,7 @@
 package edu.bluejack22_2.nitip.ViewModel;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -9,6 +11,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
+import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.Repository.AuthRepository;
 import edu.bluejack22_2.nitip.Service.EmailService;
 import edu.bluejack22_2.nitip.Service.RegisterService;
@@ -25,14 +28,14 @@ public class ForgotPasswordViewModel {
         void onSendOtpResponse(Response response);
     }
 
-    public void SendResetPasswordRequest(String email, SendResetPasswordRequestCallBack callBack) {
+    public void SendResetPasswordRequest(Context context, String email, SendResetPasswordRequestCallBack callBack) {
         Response response = new Response(null);
 
         if (email.trim().isEmpty()) {
-            response.setError(new Error("Email must be filled"));
+            response.setError(new Error(context.getResources().getString(R.string.email_must_filled)));
         }
         else if (!RegisterService.isValidEmail(email)) {
-            response.setError(new Error("Invalid email"));
+            response.setError(new Error(context.getResources().getString(R.string.invalid_email)));
         }
 
         if (response.getError() != null)
@@ -46,10 +49,10 @@ public class ForgotPasswordViewModel {
                     if (querySnapshot != null && !querySnapshot.isEmpty()) {
                         authRepository.SendResetPasswordRequest(email);
                     } else {
-                        response.setError(new Error("Email does not exist"));
+                        response.setError(new Error(context.getResources().getString(R.string.email_doesnt_exist)));
                     }
                 } else {
-                    response.setError(new Error("Something went wrong"));
+                    response.setError(new Error(context.getResources().getString(R.string.something_went_wrong)));
                 }
                 callBack.onSendOtpResponse(response);
             }

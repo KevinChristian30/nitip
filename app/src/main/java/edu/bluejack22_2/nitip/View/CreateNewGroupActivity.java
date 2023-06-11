@@ -44,7 +44,7 @@ public class CreateNewGroupActivity extends AppCompatActivity {
             String groupName = etGroupName.getText().toString();
             String groupCode = etGroupCode.getText().toString();
 
-            groupViewModel.CreateGroup(groupName, groupCode, new GroupViewModel.GroupCallback() {
+            groupViewModel.CreateGroup(this, groupName, groupCode, new GroupViewModel.GroupCallback() {
                 @Override
                 public void onHandleGroup(Response response) {
                     if (response.getError() != null) {

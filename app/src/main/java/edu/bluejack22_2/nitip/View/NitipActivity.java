@@ -1,7 +1,6 @@
 package edu.bluejack22_2.nitip.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,10 +8,8 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import edu.bluejack22_2.nitip.Adapter.NitipRecyclerViewAdapter;
-import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.Model.Titip;
 import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.ViewModel.TitipViewModel;
@@ -43,7 +40,6 @@ public class NitipActivity extends AppCompatActivity {
     }
 
     private void setList() {
-
         titipViewModel.getTitipLiveData().observe(this, titip -> {
             data = (ArrayList<Titip>) titip;
             setRecyclerView();

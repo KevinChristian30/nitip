@@ -12,6 +12,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Model.User;
+import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.Repository.UserRepository;
 import edu.bluejack22_2.nitip.Service.EmailService;
 import edu.bluejack22_2.nitip.Service.RegisterService;
@@ -31,22 +32,22 @@ public class RegisterViewModel extends ViewModel {
         Response response = new Response(null);
 
         if (RegisterService.isFieldEmpty(user, confirm)) {
-            response.setError(new Error("All Fields Must be Filled"));
+            response.setError(new Error(activity.getResources().getString(R.string.field_must_filled)));
         }
         else if (user.getUsername().length() < 6) {
-            response.setError(new Error("Username must be more than 5 characters"));
+            response.setError(new Error(activity.getResources().getString(R.string.username_5_char)));
         }
         else if (!RegisterService.isValidEmail(user.getEmail())) {
-            response.setError(new Error("Invalid Email"));
+            response.setError(new Error(activity.getResources().getString(R.string.invalid_email)));
         }
         else if (user.getPassword().trim().length() < 7) {
-            response.setError(new Error("Password must be more than 6 characters"));
+            response.setError(new Error(activity.getResources().getString(R.string.password_6_char)));
         }
         else if (!RegisterService.isAlphanumeric(user.getPassword())) {
-            response.setError(new Error("Password must be alphanumeric"));
+            response.setError(new Error(activity.getResources().getString(R.string.password_alphanumeric)));
         }
         else if (!confirm.equals(user.getPassword())) {
-            response.setError(new Error("Password and Confirm Password not match"));
+            response.setError(new Error(activity.getResources().getString(R.string.password_conf_not_match)));
         }
 
 
@@ -61,18 +62,18 @@ public class RegisterViewModel extends ViewModel {
                 if (task.isSuccessful()) {
                     QuerySnapshot querySnapshot = task.getResult();
                     if (querySnapshot != null && !querySnapshot.isEmpty()) {
-                        response.setError(new Error("Email is exist"));
+                        response.setError(new Error(activity.getResources().getString(R.string.email_exist)));
 
                     } else {
                         try {
                             userRepository.registerUser(activity, user);
 
                         } catch (Exception e) {
-                            response.setError(new Error("Something Went Wrong"));
+                            response.setError(new Error(activity.getResources().getString(R.string.something_went_wrong)));
                         }
                     }
                 } else {
-                    response.setError(new Error("Something went wrong"));
+                    response.setError(new Error(activity.getResources().getString(R.string.something_went_wrong)));
                 }
                 callBack.onRegister(response);
             }

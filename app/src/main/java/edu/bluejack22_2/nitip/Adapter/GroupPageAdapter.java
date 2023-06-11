@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Collections;
 import java.util.List;
 
-import edu.bluejack22_2.nitip.ClickListener.GroupClickListener;
+import edu.bluejack22_2.nitip.ClickListener.HolderClickListener;
 import edu.bluejack22_2.nitip.Holder.GroupViewHolder;
 import edu.bluejack22_2.nitip.Model.GroupRow;
 import edu.bluejack22_2.nitip.R;
@@ -19,9 +19,9 @@ import edu.bluejack22_2.nitip.R;
 public class GroupPageAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     List<GroupRow> list = Collections.emptyList();
     Context context;
-    GroupClickListener listener;
+    HolderClickListener listener;
 
-    public GroupPageAdapter(List<GroupRow> list, Context context, GroupClickListener listener) {
+    public GroupPageAdapter(List<GroupRow> list, Context context, HolderClickListener listener) {
         this.list = list;
         this.context = context;
         this.listener = listener;

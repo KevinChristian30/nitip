@@ -1,5 +1,7 @@
 package edu.bluejack22_2.nitip.ViewModel;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
@@ -15,6 +17,7 @@ import java.util.List;
 import edu.bluejack22_2.nitip.Facade.Error;
 import edu.bluejack22_2.nitip.Facade.Response;
 import edu.bluejack22_2.nitip.Model.GroupRow;
+import edu.bluejack22_2.nitip.R;
 import edu.bluejack22_2.nitip.Repository.GroupRepository;
 
 public class GroupViewModel {
@@ -32,17 +35,17 @@ public class GroupViewModel {
         void onHandleGroup(Response response);
     }
 
-    public void CreateGroup(String groupName, String groupCode, GroupCallback callback) {
+    public void CreateGroup(Context context, String groupName, String groupCode, GroupCallback callback) {
         Response response = new Response(null);
 
         if (groupName.trim().isEmpty() || groupCode.trim().isEmpty()) {
-            response.setError(new Error("All field must be filled"));
+            response.setError(new Error(context.getResources().getString(R.string.field_must_filled)));
         }
         else if (groupName.trim().length() < 6) {
-            response.setError(new Error("Group name length must be more than 5 characters"));
+            response.setError(new Error(context.getResources().getString(R.string.group_name_length)));
         }
         else if (groupCode.trim().length() < 6) {
-            response.setError(new Error("Group code length must be more than 5 characters"));
+            response.setError(new Error(context.getResources().getString(R.string.group_code_length)));
         }
 
         if (response.getError() != null) {
@@ -54,7 +57,7 @@ public class GroupViewModel {
             @Override
             public void onGroupCodeChecked(boolean isUnique) {
                 if (!isUnique) {
-                    response.setError(new Error("Group code is exists"));
+                    response.setError(new Error(context.getResources().getString(R.string.group_code_exist)));
                 }
                 else {
                     groupRepository.CreateGroup(groupName, groupCode);
@@ -66,12 +69,12 @@ public class GroupViewModel {
 
     }
 
-    public void JoinGroup(String groupCode, GroupCallback callback) {
+    public void JoinGroup(Context context, String groupCode, GroupCallback callback) {
 
         Response response = new Response(null);
 
         if (groupCode.trim().isEmpty()) {
-            response.setError(new Error("Group code must be filled"));
+            response.setError(new Error(context.getResources().getString(R.string.group_code_must_filled)));
         }
         if (response.getError() != null) {
             callback.onHandleGroup(response);
@@ -85,7 +88,6 @@ public class GroupViewModel {
 
                     response.setResponse(groupDoc.get("group_name").toString());
                 } else {
-                    System.out.println("test");
                     response.setError(new Error(task.getException().getMessage()));
                 }
 

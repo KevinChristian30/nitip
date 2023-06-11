@@ -3,14 +3,13 @@ package edu.bluejack22_2.nitip.Model;
 import java.util.ArrayList;
 
 public class Titip {
-  
+
+    private String id;
     private String titip_name;
     private String close_time;
     private String entruster_email;
     private String group_code;
-
     private String group_name;
-
     private ArrayList<TitipDetail> titip_detail;
 
     public Titip(String titipName, String closeTime, String groupCode, String groupName, ArrayList<TitipDetail> titipDetails) {
@@ -22,6 +21,14 @@ public class Titip {
     }
 
     public Titip() {}
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitip_name() {
         return titip_name;
@@ -70,4 +77,5 @@ public class Titip {
     public void setTitip_detail(ArrayList<TitipDetail> titip_detail) {
         this.titip_detail = titip_detail;
     }
+
 }

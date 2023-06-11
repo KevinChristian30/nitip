@@ -40,13 +40,18 @@ public class ChangePasswordActivity extends AppCompatActivity {
             String password = etPassword.getText().toString();
             String confPassword = etConfirmPassword.getText().toString();
 
-            Response response = changePasswordViewModel.ChangePassword(password, confPassword);
+            if (password.trim().length() == 0 || confPassword.trim().length() == 0) {
+                Toast.makeText(this, getResources().getString(R.string.password_conf_validation), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Response response = changePasswordViewModel.ChangePassword(this, password, confPassword);
 
             if (response.getError() != null) {
                 Toast.makeText(this, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
             }
             else {
-                Toast.makeText(this, "Password updated! Remember your password :D", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.remember_password), Toast.LENGTH_SHORT).show();
                 ActivityChanger.changeActivity(this, HomeActivity.class);
             }
         });

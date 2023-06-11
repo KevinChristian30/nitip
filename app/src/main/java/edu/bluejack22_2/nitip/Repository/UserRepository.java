@@ -94,12 +94,12 @@ public class UserRepository {
 
                 // Save the data to Firestore
                 dbFs.collection("users").add(data)
-                        .addOnSuccessListener(documentReference -> {
+                    .addOnSuccessListener(documentReference -> {
 
-                        })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(activity, "Failed to register user", Toast.LENGTH_SHORT).show();
-                        });
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(activity, "Failed to register user", Toast.LENGTH_SHORT).show();
+                    });
             });
         }).addOnFailureListener(e -> {
             Toast.makeText(activity, "Failed to upload profile picture", Toast.LENGTH_SHORT).show();

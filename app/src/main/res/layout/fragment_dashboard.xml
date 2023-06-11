@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragment.DashboardFragment">
+    tools:context=".Fragment.DashboardFragment"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -48,15 +49,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Transaction\nCount"
+                android:text="@string/transaction_count"
                 android:textSize="22sp"
                 android:textColor="@color/colorOnPrimary"
                 />
 
             <TextView
+                android:id="@+id/tvTransactionCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="15"
+                android:text="0"
                 android:textSize="30sp"
                 android:textColor="@color/colorOnPrimary"
                 android:textStyle="bold"
@@ -86,15 +88,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Debt"
+                    android:text="@string/debt"
                     android:textSize="15sp"
                     android:textColor="@color/colorOnPrimary"
                     />
 
                 <TextView
+                    android:id="@+id/tvTotalDebt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp. 100,000"
+                    android:text="Rp. 0"
                     android:textSize="20sp"
                     android:textColor="@color/colorOnPrimary"
                     android:textStyle="bold"
@@ -116,15 +119,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Receivables"
+                    android:text="@string/receivable"
                     android:textSize="15sp"
                     android:textColor="@color/colorOnPrimary"
                     />
 
                 <TextView
+                    android:id="@+id/tvTotalReceivable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp. 50,000"
+                    android:text="Rp. 0"
                     android:textSize="20sp"
                     android:textColor="@color/colorOnPrimary"
                     android:textStyle="bold"
@@ -146,5 +150,10 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBills"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

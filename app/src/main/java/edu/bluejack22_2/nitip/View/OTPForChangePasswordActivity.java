@@ -56,7 +56,7 @@ public class OTPForChangePasswordActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(e -> {
             String otp = etOTPCode.getText().toString();
 
-            changePasswordViewModel.checkOTP(otp, new ChangePasswordViewModel.CheckOTPCallback() {
+            changePasswordViewModel.checkOTP(this, otp, new ChangePasswordViewModel.CheckOTPCallback() {
                 @Override
                 public void CheckOTP(Response response) {
                     if (response.getError() != null) {

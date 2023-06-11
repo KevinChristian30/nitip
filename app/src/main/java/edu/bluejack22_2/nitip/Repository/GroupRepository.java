@@ -23,7 +23,9 @@ import java.util.Map;
 
 import edu.bluejack22_2.nitip.Model.Group;
 import edu.bluejack22_2.nitip.Model.GroupRow;
+import edu.bluejack22_2.nitip.Model.Message;
 import edu.bluejack22_2.nitip.Model.User;
+import edu.bluejack22_2.nitip.ViewModel.GroupChatViewModel;
 import edu.bluejack22_2.nitip.ViewModel.UserViewModel;
 
 public class GroupRepository {
@@ -138,12 +140,32 @@ public class GroupRepository {
                         Group group = document.toObject(Group.class);
                         for (User user : group.getGroup_member()) {
                             if (user.getEmail().equals(fAuth.getCurrentUser().getEmail())) {
-                                groupList.add(new GroupRow(group.getGroup_name(), group.getGroup_code(), "test", "test"));
+                                GroupChatViewModel groupChatViewModel = new GroupChatViewModel();
+                                groupChatViewModel.getMessageLiveData(group.getGroup_code()).observe(lifecycleOwner, mesData -> {
+                                    GroupRow groupRow = null;
+                                    for (GroupRow existingGroupRow : groupList) {
+                                        if (existingGroupRow.getGroupCode().equals(group.getGroup_code())) {
+                                            groupRow = existingGroupRow;
+                                            break;
+                                        }
+                                    }
+                                    if (groupRow == null) {
+                                        groupRow = new GroupRow(group.getGroup_name(), group.getGroup_code(), "", "");
+                                        groupList.add(groupRow);
+                                    }
+                                    if (mesData.size() > 0) {
+                                        groupRow.setLastMessage(mesData.get(mesData.size() - 1).getMessage());
+                                        groupRow.setLastTime(mesData.get(mesData.size() - 1).getTimestamp());
+                                    }
+                                    System.out.println("test");
+                                    data.setValue(groupList);
+                                });
+
                             }
                         }
 
                     }
-                    data.setValue(groupList);
+
                 }
             }
         });

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_corner"
+    android:backgroundTint="@color/colorAero"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="7dp"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvBillID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bill ID: zxbsjafhfoashjask"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/colorOnPrimary"
+        />
+
+    <TextView
+        android:id="@+id/tvLenderEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lender's Email: kdotchrist30@gmail.com"
+        android:textColor="@color/colorOnPrimary"
+        android:textSize="13sp"
+        />
+
+    <TextView
+        android:id="@+id/tvDebtorEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Debtor's Email: ricogunawan@gmail.com"
+        android:textColor="@color/colorOnPrimary"
+        android:textSize="13sp"
+        />
+
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Amount: Rp. 100000"
+        android:textColor="@color/colorOnPrimary"
+        android:textSize="13sp"
+        />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date: xxx"
+        android:textColor="@color/colorOnPrimary"
+        android:textSize="13sp"
+        />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Status: Pending Payment"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorOnPrimary"
+        android:textStyle="bold"
+        />
+
+</LinearLayout>
