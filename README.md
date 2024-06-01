@@ -12,8 +12,6 @@ git clone https://github.com/KevinChristian30/nitip
 The command above will fetch the repository.
 
 ## Features
-
-What's all the bells and whistles this project can perform?
 * Google authentication.
 * Start a 'Titip'.
 * Create a group, invite members, and chat in the group.
